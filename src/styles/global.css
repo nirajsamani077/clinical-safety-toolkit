@@ -575,3 +575,11 @@ sup a { text-decoration: none; font-weight: 700; font-size: 0.8em; padding: 0 0.
 .jump a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem 0.4rem 0.4rem; border-radius: 99px; background: color-mix(in srgb, var(--c) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); color: var(--fg); font-weight: 700; text-decoration: none; }
 .jump a:hover { background: color-mix(in srgb, var(--c) 18%, var(--surface)); }
 .jump b { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-size: 0.85rem; }
+.theme-btn { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; font: 700 1rem var(--font-body); color: #fff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%; padding: 0; cursor: pointer; }
+.theme-btn .t-lab { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.theme-btn:hover { background: rgba(255, 255, 255, 0.22); }
+.theme-btn .t-sun { display: none; } .theme-btn.is-dark .t-sun { display: inline; } .theme-btn.is-dark .t-moon { display: none; }
+@media (max-width: 760px) { .theme-btn { order: 2; } }
+@media print { .theme-btn { display: none; } }
+@media (min-width: 1180px) { .mast .wrap { gap: 0.6rem; flex-wrap: nowrap; } .mast nav { flex-wrap: nowrap; } .mast nav a { padding: 0.4rem 0.55rem; white-space: nowrap; } .brand { flex: none; } }
+@media (min-width: 761px) and (max-width: 1179px) { .mast nav { order: 3; width: 100%; } .s-open { margin-left: auto; } }

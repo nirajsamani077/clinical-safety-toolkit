@@ -20,6 +20,10 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap" />
     <script is:inline>
+      // Light or dark: a saved choice wins, otherwise follow the device.
+      try { var th = localStorage.getItem('cst-theme'); if (th === 'dark' || th === 'light') document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+    </script>
+    <script is:inline>
       // Open every page at the top unless a link points to a section.
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       function toTop() { if (!location.hash) window.scrollTo(0, 0); }
@@ -50,12 +54,23 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
           <a href="/templates" aria-current={zone === 'tpl' ? 'true' : undefined}>Templates</a>
         </nav>
         <Search />
+        <button type="button" class="theme-btn" data-theme-btn aria-label="Switch to dark mode"><span class="t-moon" aria-hidden="true">☾</span><span class="t-sun" aria-hidden="true">☀</span><span class="t-lab">Dark</span></button>
       </div>
       <div class="track-line"></div>
     </header>
     <main id="main">
       <slot />
     </main>
+    <script is:inline>
+      (function () {
+        var btn = document.querySelector('[data-theme-btn]'); if (!btn) return;
+        var root = document.documentElement;
+        function isDark() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; }
+        function sync() { var d = isDark(); btn.querySelector('.t-lab').textContent = d ? 'Light' : 'Dark'; btn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); btn.classList.toggle('is-dark', d); }
+        btn.addEventListener('click', function () { var next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); try { localStorage.setItem('cst-theme', next); } catch (e) {} sync(); });
+        sync();
+      })();
+    </script>
     <footer class="foot">
       <div class="wrap">
         <div>
