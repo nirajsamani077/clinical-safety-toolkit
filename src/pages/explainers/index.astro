@@ -48,7 +48,7 @@ const owners = { practice: 'Your practice', supplier: 'Supplier', icb: 'ICB', ev
   .ex-home { padding-bottom: 4rem; }
   .ex-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 1.25rem; }
   .ex-filter span { font-weight: 700; margin-right: 0.3rem; color: var(--muted); }
-  .ex-filter button { font: 700 0.9rem var(--font-body); padding: 0.45rem 0.95rem; border-radius: 99px; border: 2px solid #b04e0a; background: transparent; color: #a8480a; cursor: pointer; }
+  .ex-filter button { font: 700 0.9rem var(--font-body); padding: 0.45rem 0.95rem; border-radius: 99px; border: 2px solid #b04e0a; background: transparent; color: light-dark(#a8480a, color-mix(in srgb, #a8480a 42%, #fff)); cursor: pointer; }
   .ex-filter button[aria-pressed='true'] { background: #b04e0a; color: #fff; }
   .ex-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
   .ex-list li { animation: pop 0.45s ease both; animation-delay: calc(var(--i) * 0.05s); }
@@ -61,10 +61,10 @@ const owners = { practice: 'Your practice', supplier: 'Supplier', icb: 'ICB', ev
   .tx strong { font: 800 1.2rem var(--font-display); }
   .tx > span { color: var(--muted); font-size: 0.95rem; }
   .ow { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
-  .ow em { font: 700 0.72rem var(--font-body); font-style: normal; padding: 0.15rem 0.55rem; border-radius: 99px; background: var(--soft-teal); color: #057092; }
-  .ow .o-supplier { background: color-mix(in srgb, #920570 12%, var(--surface)); color: #920570; }
-  .ow .o-icb { background: color-mix(in srgb, #0b4a6e 14%, var(--surface)); color: #0b4a6e; }
-  .ow .o-everyone { background: color-mix(in srgb, #b04e0a 14%, var(--surface)); color: #a8480a; }
+  .ow em { font: 700 0.72rem var(--font-body); font-style: normal; padding: 0.15rem 0.55rem; border-radius: 99px; background: var(--soft-teal); color: light-dark(#057092, color-mix(in srgb, #057092 42%, #fff)); }
+  .ow .o-supplier { background: color-mix(in srgb, #920570 12%, var(--surface)); color: light-dark(#920570, color-mix(in srgb, #920570 42%, #fff)); }
+  .ow .o-icb { background: color-mix(in srgb, #0b4a6e 14%, var(--surface)); color: light-dark(#0b4a6e, color-mix(in srgb, #0b4a6e 42%, #fff)); }
+  .ow .o-everyone { background: color-mix(in srgb, #b04e0a 14%, var(--surface)); color: light-dark(#a8480a, color-mix(in srgb, #a8480a 42%, #fff)); }
   .ex-more { margin-top: 1.5rem; color: var(--muted); }
   @keyframes pop { from { transform: scale(0.97); } to { transform: none; } }
   @media (max-width: 760px) { .ex-list { grid-template-columns: minmax(0, 1fr); } .ex-list a { grid-template-columns: 4.2rem minmax(0, 1fr); } .mk { font-size: 0.95rem; } }

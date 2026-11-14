@@ -29,15 +29,15 @@ const lab = (i) => { const a = -Math.PI / 2 + ((i + 0.5) * 2 * Math.PI) / 12; re
   .dy-keep { fill: color-mix(in srgb, #057092 22%, var(--surface)); }
   .dy-sub { fill: #b04e0a; }
   .dy path { animation: dy-in 0.4s ease both; animation-delay: calc(var(--i) * 0.05s); transform-origin: 150px 150px; }
-  .dy-m { font: 700 12px var(--font-body); fill: #032c47; }
-  .dy-sub + .dy-m, .dy-m:nth-last-of-type(-n + 3) { fill: #032c47; }
+  .dy-m { font: 700 12px var(--font-body); fill: var(--fg); }
+  .dy-sub + .dy-m, .dy-m:nth-last-of-type(-n + 3) { fill: #fff; }
   .dy-pin { fill: #032c47; stroke: #fff; stroke-width: 3; animation: pulse 2s ease-in-out infinite; transform-origin: 150px 30px; }
-  .dy-c1 { font: 800 26px var(--font-display); fill: #b04e0a; }
+  .dy-c1 { font: 800 26px var(--font-display); fill: light-dark(#b04e0a, color-mix(in srgb, #b04e0a 42%, #fff)); }
   .dy-c2 { font: 700 13px var(--font-body); fill: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
   .dy-key { display: grid; gap: 0.8rem; }
   .dy-key p { margin: 0; display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.7rem; align-items: start; }
   .dy-key b { width: 1.1rem; height: 1.1rem; border-radius: 4px; margin-top: 0.2rem; }
-  .k1 { background: color-mix(in srgb, #057092 30%, var(--surface)); } .k2 { background: #b04e0a; } .k3 { background: #032c47; border-radius: 50% !important; }
+  .k1 { background: color-mix(in srgb, #057092 30%, var(--surface)); } .k2 { background: #b04e0a; } .k3 { background: light-dark(#032c47, #9db4c3); border-radius: 50% !important; }
   @keyframes dy-in { from { transform: scale(0.94); } to { transform: none; } }
   @keyframes pulse { 50% { transform: scale(1.25); } }
   @media (max-width: 640px) { .dy { grid-template-columns: minmax(0, 1fr); } .dy svg { max-width: 260px; margin: 0 auto; } }

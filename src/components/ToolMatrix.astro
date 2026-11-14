@@ -45,7 +45,7 @@ const rows = [
   .tm table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 0.93rem; }
   .tm thead th { text-align: center; padding: 0 0.3rem 0.4rem; vertical-align: bottom; }
   .tm thead th:first-child { text-align: left; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .tm thead th span { display: block; font-family: var(--font-display); font-weight: 800; color: var(--c); font-size: 0.98rem; }
+  .tm thead th span { display: block; font-family: var(--font-display); font-weight: 800; color: var(--c-text); font-size: 0.98rem; }
   .tm thead th small { color: var(--muted); font-weight: 600; font-size: 0.74rem; }
   .tm tbody tr { animation: tm-in 0.4s ease both; animation-delay: calc(var(--r) * 0.04s); }
   .tm tbody th { text-align: left; font-weight: 600; padding: 0.45rem 0.7rem; background: var(--surface); border: 1px solid var(--line); border-right: 0; border-radius: 10px 0 0 10px; line-height: 1.3; }
@@ -54,7 +54,7 @@ const rows = [
   .tm tbody tr:hover th, .tm tbody tr:hover td { background: var(--bg); }
   .tm-chip { display: inline-block; min-width: 3.4rem; padding: 0.18rem 0.55rem; border-radius: 99px; font-size: 0.8rem; font-weight: 800; line-height: 1.3; }
   .tm-chip.y { background: var(--c); color: #fff; }
-  .tm-chip.m { background: color-mix(in srgb, var(--c) 12%, var(--surface)); color: var(--c); border: 1px dashed var(--c); }
+  .tm-chip.m { background: color-mix(in srgb, var(--c) 12%, var(--surface)); color: var(--c-text); border: 1px dashed var(--c); }
   .tm-chip.n { color: var(--muted); background: var(--bg); }
   .tm-chip sup { font-size: 0.65rem; margin-left: 0.1rem; }
   .tm-notes { margin: 0.5rem 0 0; padding-left: 1.2rem; font-size: 0.85rem; color: var(--muted); display: grid; gap: 0.15rem; }

@@ -140,9 +140,9 @@ const last = frames.length;
   .score { stroke-width: 3; }
   .score.warn { fill: #fde9b5; stroke: #c98a00; }
   .score.good { fill: #d4efc0; stroke: #3b7a14; }
-  .score-n { font: 800 48px var(--font-display); fill: #032c47; }
-  .score-t { font: 700 22px var(--font-display); fill: #032c47; }
-  .score-s { font: 400 19px var(--font-body); fill: #032c47; }
+  .score-n { font: 800 48px var(--font-display); fill: light-dark(#032c47, color-mix(in srgb, #032c47 42%, #fff)); }
+  .score-t { font: 700 22px var(--font-display); fill: light-dark(#032c47, color-mix(in srgb, #032c47 42%, #fff)); }
+  .score-s { font: 400 19px var(--font-body); fill: light-dark(#032c47, color-mix(in srgb, #032c47 42%, #fff)); }
 
   /* Which layers show in each frame */
   :where(.tr svg g[class^='l-']) { opacity: 0; transition: opacity 0.45s ease; }

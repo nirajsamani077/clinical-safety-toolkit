@@ -25,12 +25,12 @@ const no = ['NHS England has approved it for your practice', 'Your clinical safe
   .tk-body { background: var(--surface); border-radius: 0 18px 18px 0; display: grid; grid-template-columns: 1fr 1fr; }
   .tk-body > div { padding: 1.1rem 1.2rem; }
   .tk-body p { margin: 0 0 0.5rem; font: 800 1.1rem var(--font-display); }
-  .tk-yes p { color: #3b7414; } .tk-no p { color: #c0392b; }
+  .tk-yes p { color: light-dark(#3b7414, color-mix(in srgb, #3b7414 42%, #fff)); } .tk-no p { color: light-dark(#c0392b, color-mix(in srgb, #c0392b 42%, #fff)); }
   .tk-no { border-left: 1px solid var(--line); }
   .tk-body ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; }
   .tk-body li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.4rem; font-size: 0.95rem; }
-  .tk-yes li::before { content: '✓'; color: #3b7414; font-weight: 800; }
-  .tk-no li::before { content: '✕'; color: #c0392b; font-weight: 800; }
+  .tk-yes li::before { content: '✓'; color: light-dark(#3b7414, color-mix(in srgb, #3b7414 42%, #fff)); font-weight: 800; }
+  .tk-no li::before { content: '✕'; color: light-dark(#c0392b, color-mix(in srgb, #c0392b 42%, #fff)); font-weight: 800; }
   @keyframes stamp { from { transform: scale(1.8); opacity: 0; } to { transform: none; opacity: 1; } }
   @media (max-width: 700px) {
     .tk { grid-template-columns: minmax(0, 1fr); }

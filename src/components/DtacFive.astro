@@ -48,14 +48,14 @@ const pts = areas.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5
   .dt svg { width: 100%; height: auto; }
   .dt-poly { fill: color-mix(in srgb, #b04e0a 10%, transparent); stroke: #b04e0a; stroke-width: 3; stroke-linejoin: round; }
   .dt-spoke { stroke: #e9c6a8; stroke-width: 1.5; stroke-dasharray: 4 4; }
-  .dt-mid { font: 800 22px var(--font-display); fill: #b04e0a; }
+  .dt-mid { font: 800 22px var(--font-display); fill: light-dark(#b04e0a, color-mix(in srgb, #b04e0a 42%, #fff)); }
   .dt-dot { fill: #032c47; cursor: pointer; transition: fill 0.2s ease, r 0.2s ease; }
   .dt-dot.on { fill: #b04e0a; r: 22; }
   .dt-n { font: 800 16px var(--font-display); fill: #fff; pointer-events: none; }
   .dt-btns { display: grid; gap: 0.3rem; margin-bottom: 0.8rem; }
   .dt-btns button { display: flex; gap: 0.6rem; align-items: center; text-align: left; font: 700 0.95rem var(--font-body); padding: 0.45rem 0.6rem; border: 0; border-radius: 10px; background: none; color: var(--fg); cursor: pointer; }
   .dt-btns button span { width: 1.6rem; height: 1.6rem; flex: none; border-radius: 50%; display: grid; place-items: center; background: #032c47; color: #fff; font-size: 0.8rem; }
-  .dt-btns button[aria-selected='true'] { background: color-mix(in srgb, #b04e0a 12%, var(--surface)); color: #a8480a; }
+  .dt-btns button[aria-selected='true'] { background: color-mix(in srgb, #b04e0a 12%, var(--surface)); color: light-dark(#a8480a, color-mix(in srgb, #a8480a 42%, #fff)); }
   .dt-btns button[aria-selected='true'] span { background: #b04e0a; }
   .dt-panel { border-left: 5px solid #b04e0a; padding: 0.3rem 0 0.3rem 1rem; animation: fadein 0.3s ease; }
   .dt-panel p { margin: 0 0 0.4rem; }

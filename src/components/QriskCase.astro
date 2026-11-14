@@ -21,11 +21,11 @@
 <style>
   .qr { margin: 1.25rem 0 1.75rem; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.25rem; align-items: center; padding: clamp(1rem, 3vw, 1.5rem); border-radius: 22px; background: color-mix(in srgb, #920570 7%, var(--surface)); border: 1px solid color-mix(in srgb, #920570 25%, transparent); }
   .qr-txt p { margin: 0 0 0.6rem; }
-  .qr-k { font: 700 0.78rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; color: #920570; }
+  .qr-k { font: 700 0.78rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; color: light-dark(#920570, color-mix(in srgb, #920570 42%, #fff)); }
   .qr-h { font: 800 1.2rem/1.25 var(--font-display); }
   .qr-viz { background: var(--surface); border-radius: 16px; padding: 1rem; border: 1px solid var(--line); }
   .qr-scale { position: relative; display: grid; gap: 0.9rem; padding-top: 1.8rem; }
-  .qr-th { position: absolute; top: 0; bottom: -0.3rem; left: calc(4.5rem + (100% - 4.5rem) * 0.5); border-left: 2px dashed #c0392b; padding-left: 0.35rem; font-size: 0.75rem; color: #a3271b; white-space: nowrap; }
+  .qr-th { position: absolute; top: 0; bottom: -0.3rem; left: calc(4.5rem + (100% - 4.5rem) * 0.5); border-left: 2px dashed #c0392b; padding-left: 0.35rem; font-size: 0.75rem; color: light-dark(#a3271b, color-mix(in srgb, #a3271b 42%, #fff)); white-space: nowrap; }
   .qr-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: center; }
   .qr-row em { font-style: normal; font-size: 0.82rem; font-weight: 700; color: var(--muted); }
   .qr-bar { display: block; height: 30px; width: calc(var(--v) * 5%); border-radius: 0 8px 8px 0; position: relative; animation: qr-grow 1s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }

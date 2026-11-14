@@ -133,7 +133,7 @@ const score = (l, s) => (l in Lpos && s in Spos ? risk.grid[Lpos[l]][Spos[s]] : 
       :root { --navy: #032c47; --teal: #057092; --mag: #920570; --line: #cfdbe3; --muted: #4b6577; --fd: 'Bricolage Grotesque', 'Segoe UI', sans-serif; --fb: 'Atkinson Hyperlegible Next', Verdana, sans-serif; }
       * { box-sizing: border-box; }
       html { background: #e9eff3; }
-      body { margin: 0; font: 16px/1.55 var(--fb); color: #12293a; }
+      body { margin: 0; font: 16px/1.55 var(--fb); color: light-dark(#12293a, color-mix(in srgb, #12293a 42%, #fff)); }
       .bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; background: var(--navy); color: #fff; }
       .embed .bar .back, .embed .bar .acts { display: none; }
       .back { color: #cfe2ec; font-weight: 700; text-decoration: none; }
@@ -176,7 +176,7 @@ const score = (l, s) => (l in Lpos && s in Spos ? risk.grid[Lpos[l]][Spos[s]] : 
       .sheet-t tr.g td { background: #f2f7fa; color: var(--muted); font-style: italic; font-size: 0.78rem; }
       .opts { display: block; font-style: normal; color: var(--teal); font-weight: 700; margin-top: 0.15rem; }
       .pill { display: inline-block; min-width: 1.8rem; text-align: center; border-radius: 6px; padding: 0.1rem 0.4rem; }
-      .ex-only { color: #0b4a6e; }
+      .ex-only { color: light-dark(#0b4a6e, color-mix(in srgb, #0b4a6e 42%, #fff)); }
       body[data-mode='blank'] .ex-only, body[data-mode='blank'] .ex-row { display: none; }
       body[data-mode='ex'] .blank-row { display: none; }
       .df { margin-top: 2rem; padding-top: 0.8rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); }
