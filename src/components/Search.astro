@@ -9,7 +9,7 @@
 <dialog class="s-dlg" data-s-dlg aria-label="Search the toolkit">
   <form method="dialog" class="s-top" onsubmit="return false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
-    <input type="search" data-s-q placeholder="Search, e.g. hazard log, DPIA, Copilot" autocomplete="off" aria-label="Search terms" />
+    <input type="search" data-s-q placeholder="Search topics, e.g. hazard log, DPIA, Copilot" autocomplete="off" aria-label="Search terms" />
     <button type="button" class="s-x" data-s-close aria-label="Close search">Esc</button>
   </form>
   <p class="s-msg" data-s-msg aria-live="polite">Type at least two letters.</p>
@@ -22,7 +22,12 @@
     function load() {
       if (idx) return Promise.resolve(idx);
       return fetch(link.href).then(function (r) { return r.json(); }).then(function (d) {
-        idx = d.map(function (e) { e.l = (e.p + ' ' + e.h + ' ' + e.t + ' ' + (e.a || '')).toLowerCase(); e.hl = (e.p + ' ' + e.h).toLowerCase(); return e; });
+        idx = d.map(function (e) {
+          // Match on titles, headings, keywords and the opening line only, not every word in the body.
+          e.d = (e.t || '').split(/(?<=[.!?])\s/)[0].slice(0, 180);
+          e.ti = (e.p + ' ' + (e.h || '')).toLowerCase(); e.kw = (e.a || '').toLowerCase(); e.dl = e.d.toLowerCase();
+          return e;
+        });
         return idx;
       });
     }
@@ -40,21 +45,23 @@
       if (v.length < 2) { res.innerHTML = ''; msg.textContent = 'Type at least two letters.'; return; }
       load().then(function (d) {
         var terms = v.split(/\s+/).filter(Boolean);
+        var res_ = terms.map(function (w) { return new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); });
         var hits = d.map(function (e) {
           var s = 0;
-          for (var i = 0; i < terms.length; i++) {
-            var w = terms[i];
-            if (e.l.indexOf(w) < 0) return null;
-            if (e.hl.indexOf(w) >= 0) s += 10;
-            s += Math.min(5, e.l.split(w).length - 1);
+          for (var i = 0; i < res_.length; i++) {
+            var r = res_[i], hit = 0;
+            if (r.test(e.ti)) hit = 10; else if (r.test(e.kw)) hit = 7; else if (r.test(e.dl)) hit = 2;
+            if (!hit) return null;
+            s += hit;
           }
-          if (e.l.indexOf(v) >= 0) s += 8;
+          if (e.ti.indexOf(v) >= 0) s += 8;
+          if (e.k) s += 1;
           return { e: e, s: s };
         }).filter(Boolean).sort(function (a, b) { return b.s - a.s; }).slice(0, 12);
         msg.textContent = hits.length ? hits.length + (hits.length === 12 ? '+' : '') + ' results' : 'Nothing found. Try a different word, or the glossary.';
         res.innerHTML = hits.map(function (h) {
           var e = h.e;
-          return '<li><a href="' + root + e.u + '"><span class="s-p">' + esc(e.p) + (e.h ? ' › ' + esc(e.h) : '') + '</span><span class="s-t">' + snippet(e.t, terms) + '</span></a></li>';
+          return '<li><a href="' + root + e.u + '"><span class="s-p">' + esc(e.p) + (e.h ? ' › ' + esc(e.h) : '') + '</span><span class="s-t">' + snippet(e.d, terms) + '</span></a></li>';
         }).join('');
       }).catch(function () { msg.textContent = 'Search isn’t available here. Try the glossary or the menu.'; });
     }
