@@ -56,33 +56,34 @@ const items = [
   {items.slice(0, max ?? items.length).map((it, i) => (
     <li class="card">
       <div class="face front">
-        <p class="meta"><span class="year">{it.year}</span> {it.where}</p>
+        <div class="top"><p class="meta"><span class="year">{it.year}</span> {it.where}</p><button type="button" class="flip" aria-expanded="false" aria-controls={`ic-back-${i}`}>Show the lesson ↻</button></div>
         <h3>{it.t}</h3>
         <p>{it.what}</p>
-        <button type="button" class="btn btn-plain flip" aria-expanded="false" aria-controls={`ic-back-${i}`}>Show the lesson</button>
       </div>
       <div class="face back" id={`ic-back-${i}`}>
-        <p class="meta"><span class="year">{it.year}</span> The lesson</p>
+        <div class="top"><p class="meta"><span class="year">{it.year}</span> The lesson</p><button type="button" class="flip" aria-expanded="true">↺ Back</button></div>
         <h3>{it.t}</h3>
         <p><strong>Why it happened:</strong> {it.why}</p>
         <p><strong>The lesson:</strong> {it.lesson}</p>
         <div class="log"><span>In your hazard log</span><dl>{it.log.split(/\.\s+(?=(?:Cause|Effect|Hazard|Harm|Controls?):)/).map((part) => { const m = part.match(/^(Cause|Effect|Hazard|Harm|Controls?):\s*(.*)$/); return m ? <div><dt>{m[1]}</dt><dd>{m[2].replace(/\.$/, '')}</dd></div> : <div><dd>{part}</dd></div>; })}</dl></div>
         <p class="src">Source: {it.src.map((s, j) => <>{j > 0 && '; '}<a href={s[1]} target="_blank" rel="noopener">{s[0]}</a></>)}</p>
-        <button type="button" class="btn btn-plain flip" aria-expanded="true">Back to what happened</button>
       </div>
     </li>
   ))}
 </ul>
 <style>
   .ic { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
-  .card { display: grid; perspective: 1400px; }
+  .card { position: relative; perspective: 1400px; }
   .face {
-    grid-area: 1 / 1; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
     padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; backface-visibility: hidden;
     transition: transform 0.6s cubic-bezier(.2,.7,.2,1);
   }
   .face p { margin: 0; }
-  .back { transform: rotateY(180deg); background: var(--soft-teal); border-color: var(--accent); }
+  .back { position: absolute; inset: 0 0 auto 0; transform: rotateY(180deg); background: var(--soft-teal); border-color: var(--accent); }
+  .card.turned .front { position: absolute; inset: 0 0 auto 0; }
+  .card.turned .back { position: relative; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
   .card.turned .front { transform: rotateY(-180deg); }
   .card.turned .back { transform: rotateY(0); }
   .meta { font-size: 0.85rem; color: var(--muted); }
@@ -95,14 +96,17 @@ const items = [
   .log dt { font-weight: 800; font-style: italic; }
   .log dd { margin: 0; }
   .src { font-size: 0.85rem; }
-  .flip { margin-top: auto; align-self: flex-start; font-size: 0.9rem; padding: 0.5rem 0.9rem; }
+  .flip { flex: none; font: 700 0.8rem var(--font-body); padding: 0.3rem 0.7rem; border-radius: 99px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer; }
+  .flip:hover { background: var(--accent); color: #fff; }
+  .face { gap: 0.5rem; }
+  .back p, .log { font-size: 0.92rem; }
   @media (prefers-reduced-motion: reduce) {
     .face { backface-visibility: visible; transform: none !important; }
     .card .back { visibility: hidden; }
     .card.turned .back { visibility: visible; }
     .card.turned .front { visibility: hidden; }
   }
-  @media print { .face { transform: none !important; backface-visibility: visible; } .card { display: block; } .back { margin-top: 0.5rem; } }
+  @media print { .face { transform: none !important; backface-visibility: visible; position: relative !important; } .back { margin-top: 0.5rem; } .flip { display: none; } }
 </style>
 <script is:inline>
   (function () {

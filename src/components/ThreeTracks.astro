@@ -1,32 +1,41 @@
 ---
+import Icon from './Icon.astro';
 const tracks = [
-  { k: 'cs', n: 'Clinical safety', q: 'How could this tool harm a patient, and what are we doing about it?', docs: 'Clinical risk management system (CRMS) and plan (CRMP), hazard log, clinical safety case report (CSCR)', lead: 'CSO and practice manager', where: 'Go to clinical safety', href: '/clinical-safety' },
-  { k: 'ig', n: 'Information governance', q: 'Are we handling patient data lawfully and securely?', docs: 'Data protection impact assessment (DPIA), data processing agreement (DPA), privacy notice', lead: 'DPO and practice manager', where: 'Go to information governance', href: '/information-governance' },
-  { k: 'ai', n: 'AI and digital use policy', q: 'What are staff allowed to use, and how?', docs: 'Practice AI policy', lead: 'Partners and practice manager', where: 'Go to AI policy', href: '/ai-policy' },
+  { k: 'cs', c: '#057092', i: 'shield', n: 'Clinical safety', q: 'How could this tool harm a patient, and what are we doing about it?', docs: 'Clinical risk management system (CRMS) and plan (CRMP), hazard log, clinical safety case report (CSCR)', lead: 'CSO and practice manager', where: 'Go to clinical safety', href: '/clinical-safety' },
+  { k: 'ig', c: '#920570', i: 'lock', n: 'Information governance', q: 'Are we handling patient data lawfully and securely?', docs: 'Data protection impact assessment (DPIA), data processing agreement (DPA), privacy notice', lead: 'DPO and practice manager', where: 'Go to information governance', href: '/information-governance' },
+  { k: 'ai', c: '#3b7a14', i: 'users', n: 'AI and digital use policy', q: 'What are staff allowed to use, and how?', docs: 'Practice AI policy and tool register', lead: 'Partners and practice manager', where: 'Go to AI policy', href: '/ai-policy' },
 ];
 ---
 <div class="tt" role="list">
-  {tracks.map((t) => (
-    <div class={`track ${t.k}`} role="listitem">
-      <h3>{t.n}</h3>
-      <p class="q">{t.q}</p>
-      <dl>
-        <div><dt>Main documents</dt><dd>{t.docs}</dd></div>
-        <div><dt>Usually led by</dt><dd>{t.lead}</dd></div>
-      </dl>
-      <a href={t.href}>{t.where}</a>
-    </div>
+  {tracks.map((t, n) => (
+    <div role="listitem" class="tt-li"><a class="track" href={t.href} style={`--c:${t.c}; --n:${n}`}>
+      <div class="tt-head"><span class="tt-ico"><Icon name={t.i} size={22} /></span><h3>{t.n}</h3></div>
+      <div class="tt-body">
+        <p class="q">{t.q}</p>
+        <dl>
+          <div><dt>Main documents</dt><dd>{t.docs}</dd></div>
+          <div><dt>Usually led by</dt><dd>{t.lead}</dd></div>
+        </dl>
+        <span class="tt-go">{t.where} →</span>
+      </div>
+    </a></div>
   ))}
 </div>
-<p class="tt-foot">The three tracks run in parallel and often complement each other, but they are separate pieces of work.</p>
 <style>
-  .tt { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 0.9rem; margin-top: 1.25rem; }
-  .track { border-radius: var(--radius); padding: 1.1rem 1.15rem; border-top: 8px solid; background: var(--surface); border-inline: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.6rem; }
-  .cs { border-top-color: #057092; } .ig { border-top-color: #920570; } .ai { border-top-color: #92d050; }
-  .q { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.3; margin: 0; }
-  dl { margin: 0; display: grid; gap: 0.4rem; font-size: 0.93rem; }
-  dt { font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+  .tt { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0.9rem; margin-top: 1.25rem; }
+  .tt-li { display: flex; }
+  .track { flex: 1; display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; text-decoration: none; color: var(--fg); background: color-mix(in srgb, var(--c) 7%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 30%, var(--line)); animation: tt-in 0.5s ease both; animation-delay: calc(var(--n) * 0.12s); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .track:hover, .track:focus-visible { transform: translateY(-4px); box-shadow: 0 14px 28px -16px var(--c); }
+  .tt-head { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1rem; background: var(--c); color: #fff; }
+  .tt-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(255, 255, 255, 0.18); }
+  .tt-head h3 { margin: 0; font-size: 1.1rem; color: #fff; }
+  .tt-body { display: flex; flex-direction: column; gap: 0.6rem; padding: 0.9rem 1rem 1rem; flex: 1; }
+  .q { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.3; margin: 0; }
+  dl { margin: 0; display: grid; gap: 0.4rem; font-size: 0.9rem; }
+  dt { font-size: 0.74rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
   dd { margin: 0; }
-  .track a { margin-top: auto; font-weight: 700; }
+  .tt-go { margin-top: auto; font-weight: 800; color: var(--c); }
   .tt-foot { font-size: 0.95rem; color: var(--muted); }
+  @keyframes tt-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; transition: none; } }
 </style>

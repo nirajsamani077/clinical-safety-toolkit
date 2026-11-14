@@ -7,13 +7,20 @@ checked: 3 November 2026
 ---
 import ThreeTracks from '../components/ThreeTracks.astro';
 import FiveStages from '../components/FiveStages.astro';
+import ToolMatrix from '../components/ToolMatrix.astro';
 import Refs from '../components/Refs.astro';
+
+<nav class="jump" aria-label="On this page">
+  <a href="#three-areas-of-work" style="--c:#057092"><b>1</b>Three areas of work</a>
+  <a href="#the-five-stages" style="--c:#920570"><b>2</b>The five stages</a>
+  <a href="#which-tools-need-what" style="--c:#3b7a14"><b>3</b>Which tools need what</a>
+</nav>
 
 ## Three areas of work
 
 <ThreeTracks />
 
-They overlap: a text sent to the wrong number belongs in both the hazard log (clinical safety) and the DPIA (information governance).
+They run in parallel and often overlap: a text sent to the wrong number belongs in both the hazard log (clinical safety) and the DPIA (information governance).
 
 ## The five stages
 
@@ -25,19 +32,7 @@ Choose a stage to see its steps.
 
 A rough guide. Your CSO and DPO make the final call.
 
-| Tool | Clinical safety assessment (DCB0160) | Data protection impact assessment (DPIA) | Covered by your AI policy |
-| --- | --- | --- | --- |
-| AI scribe (ambient voice technology) | Yes | Yes | Yes |
-| AI receptionist or phone agent that answers calls, books or directs patients | Yes | Yes | Yes |
-| Online consultation or triage tool, including AI triage that sorts requests or suggests urgency | Yes. If it uses AI to triage, hold an extra hazard workshop on the AI's decisions and [check if it's a medical device](/explainers/medical-devices) | Yes | If it uses AI: add it to your AI policy and register |
-| Document processing that reads, codes or files incoming letters | Yes | Yes | If it uses AI |
-| Tools that use rules (robotic process automation, or RPA) to file or code pathology results automatically | Yes | Review the existing DPIA | If it uses AI |
-| Recall tools that find patients due a review and invite them | Yes | Yes | If it uses AI |
-| New AI feature in software you already use, such as letter summaries or suggested codes | Yes, reassess | Review the existing DPIA | Yes |
-| Patient messaging, such as texts, emails or reminders, including booking links | Yes | Yes | No |
-| Telephone system with call queues or call-backs | Usually | Usually, especially with call recording | If it uses AI |
-| General AI assistants used for admin, such as a chatbot or Copilot | Only if used in patient care | If any personal data goes in (it shouldn't, unless the tool is NHS-provided and approved locally) | Yes |
-| Staff rota, HR or finance software | No | Possibly, for staff data | No |
+<ToolMatrix />
 
 **Rule of thumb:** if a tool could affect a clinical decision, a record or access to care, it needs a clinical safety assessment.<sup><a href="#ref-1">1</a></sup> If it handles patient data, it almost certainly needs a DPIA.<sup><a href="#ref-2">2</a></sup>
 

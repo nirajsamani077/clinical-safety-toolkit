@@ -1,0 +1,69 @@
+---
+// Which tools need what: a compact matrix. y = yes, m = depends (short word shown), n = no.
+const cols = [
+  { t: 'Clinical safety', s: 'DCB0160', c: '#057092' },
+  { t: 'DPIA', s: 'Data protection', c: '#920570' },
+  { t: 'AI policy', s: 'On the register', c: '#2f6410' },
+];
+const rows = [
+  ['AI scribe', ['y'], ['y'], ['y']],
+  ['AI receptionist or phone agent', ['y'], ['y'], ['y']],
+  ['Online consultation or triage', ['y', 'Yes', 1], ['y'], ['m', 'If AI']],
+  ['Document processing (reads, codes or files letters)', ['y'], ['y'], ['m', 'If AI']],
+  ['Automatic results filing (RPA)', ['y'], ['m', 'Review'], ['m', 'If AI']],
+  ['Recall tools that find and invite patients', ['y'], ['y'], ['m', 'If AI']],
+  ['New AI feature in software you already use', ['m', 'Reassess'], ['m', 'Review'], ['y']],
+  ['Patient messaging (texts, emails, booking links)', ['y'], ['y'], ['n']],
+  ['Phone system with queues or call-backs', ['m', 'Usually'], ['m', 'Usually', 2], ['m', 'If AI']],
+  ['AI assistants for admin (chatbots, Copilot)', ['m', 'If clinical'], ['m', 'If personal data', 3], ['y']],
+  ['Rota, HR or finance software', ['n'], ['m', 'Staff data'], ['n']],
+];
+---
+<div class="tm">
+  <table>
+    <caption class="sr-only">Which tools need a clinical safety assessment, a DPIA and a place in your AI policy</caption>
+    <thead><tr><th scope="col">Tool</th>{cols.map((c) => <th scope="col" style={`--c:${c.c}`}><span>{c.t}</span><small>{c.s}</small></th>)}</tr></thead>
+    <tbody>
+      {rows.map(([name, ...cells], r) => (
+        <tr style={`--r:${r}`}>
+          <th scope="row">{name}</th>
+          {cells.map(([k, w, fn], i) => (
+            <td style={`--c:${cols[i].c}`}><span class={`tm-chip ${k}`}>{k === 'y' ? (w || 'Yes') : k === 'n' ? 'No' : w}{fn && <sup>{fn}</sup>}</span></td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <ol class="tm-notes">
+    <li>If it uses AI to triage, hold an extra hazard workshop on the AI's decisions and <a href="/explainers/medical-devices">check if it's a medical device</a>.</li>
+    <li>Especially if calls are recorded.</li>
+    <li>Personal data shouldn't go in unless the tool is NHS-provided and approved locally.</li>
+  </ol>
+</div>
+<style>
+  .tm { margin: 1.25rem 0; }
+  .tm table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 0.93rem; }
+  .tm thead th { text-align: center; padding: 0 0.3rem 0.4rem; vertical-align: bottom; }
+  .tm thead th:first-child { text-align: left; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tm thead th span { display: block; font-family: var(--font-display); font-weight: 800; color: var(--c); font-size: 0.98rem; }
+  .tm thead th small { color: var(--muted); font-weight: 600; font-size: 0.74rem; }
+  .tm tbody tr { animation: tm-in 0.4s ease both; animation-delay: calc(var(--r) * 0.04s); }
+  .tm tbody th { text-align: left; font-weight: 600; padding: 0.45rem 0.7rem; background: var(--surface); border: 1px solid var(--line); border-right: 0; border-radius: 10px 0 0 10px; line-height: 1.3; }
+  .tm td { text-align: center; padding: 0.35rem 0.3rem; background: var(--surface); border-block: 1px solid var(--line); width: 7.5rem; }
+  .tm td:last-child { border-right: 1px solid var(--line); border-radius: 0 10px 10px 0; }
+  .tm tbody tr:hover th, .tm tbody tr:hover td { background: var(--bg); }
+  .tm-chip { display: inline-block; min-width: 3.4rem; padding: 0.18rem 0.55rem; border-radius: 99px; font-size: 0.8rem; font-weight: 800; line-height: 1.3; }
+  .tm-chip.y { background: var(--c); color: #fff; }
+  .tm-chip.m { background: color-mix(in srgb, var(--c) 12%, var(--surface)); color: var(--c); border: 1px dashed var(--c); }
+  .tm-chip.n { color: var(--muted); background: var(--bg); }
+  .tm-chip sup { font-size: 0.65rem; margin-left: 0.1rem; }
+  .tm-notes { margin: 0.5rem 0 0; padding-left: 1.2rem; font-size: 0.85rem; color: var(--muted); display: grid; gap: 0.15rem; }
+  @keyframes tm-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .tm tbody tr { animation: none; } }
+  @media (max-width: 640px) {
+    .tm td { width: auto; padding: 0.3rem 0.15rem; }
+    .tm thead th small { display: none; }
+    .tm tbody th { font-size: 0.85rem; padding: 0.4rem 0.5rem; }
+    .tm-chip { min-width: 0; padding: 0.15rem 0.4rem; font-size: 0.72rem; }
+  }
+</style>

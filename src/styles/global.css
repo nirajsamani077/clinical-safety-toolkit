@@ -570,3 +570,8 @@ sup a { text-decoration: none; font-weight: 700; font-size: 0.8em; padding: 0 0.
 .principles strong { font: 800 1.02rem var(--font-display); }
 .principles span { font-size: 0.93rem; color: var(--muted); }
 .ra small.rtag { justify-self: start; background: #920570; color: #fff; border-radius: 99px; padding: 0.12rem 0.6rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.jump { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1.5rem; }
+.jump a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem 0.4rem 0.4rem; border-radius: 99px; background: color-mix(in srgb, var(--c) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); color: var(--fg); font-weight: 700; text-decoration: none; }
+.jump a:hover { background: color-mix(in srgb, var(--c) 18%, var(--surface)); }
+.jump b { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-size: 0.85rem; }
