@@ -75,12 +75,13 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
     </script>
     <footer class="foot">
       <div class="wrap">
-        <div>
-          <a class="foot-logo" href="https://staffordshiretraininghub.com/resources/ai-and-digital-health/" target="_blank" rel="noopener"><img src="/sth-logo.png" alt="Staffordshire Training Hub" width="88" height="88" /></a>
-          <h2>{site.name}</h2>
-          <p>Produced by {site.author}, for practice managers, partners and teams in general practice.</p>
-          <p>This toolkit explains the process and offers templates. It is not legal or clinical advice, and your Clinical Safety Officer signs off your practice's own safety work. <a href="/disclaimer">Full disclaimer</a>.</p>
-          <p>Last updated {site.lastUpdated}.</p>
+        <div class="foot-main">
+          <a class="foot-logo" href="https://staffordshiretraininghub.com/resources/ai-and-digital-health/" target="_blank" rel="noopener"><img src="/sth-logo.png" alt="Staffordshire Training Hub" width="80" height="80" /></a>
+          <div>
+            <h2>{site.name}</h2>
+            <p>By {site.author}. Not clinical or legal advice, and not to be relied on alone. <a href="/disclaimer">Disclaimer</a>.</p>
+            <p>Last updated {site.lastUpdated}.</p>
+          </div>
         </div>
         <div>
           <h2>Clinical safety</h2>
