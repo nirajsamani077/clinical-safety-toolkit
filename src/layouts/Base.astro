@@ -15,6 +15,8 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
     <meta name="claude:viewport-fit-sides" content="cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" />
@@ -74,6 +76,7 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
     <footer class="foot">
       <div class="wrap">
         <div>
+          <a class="foot-logo" href="https://staffordshiretraininghub.com/resources/ai-and-digital-health/" target="_blank" rel="noopener"><img src="/sth-logo.png" alt="Staffordshire Training Hub" width="88" height="88" /></a>
           <h2>{site.name}</h2>
           <p>Produced by {site.author}, for practice managers, partners and teams in general practice.</p>
           <p>This toolkit explains the process and offers templates. It is not legal or clinical advice, and your Clinical Safety Officer signs off your practice's own safety work. <a href="/disclaimer">Full disclaimer</a>.</p>

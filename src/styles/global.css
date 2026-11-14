@@ -583,3 +583,4 @@ sup a { text-decoration: none; font-weight: 700; font-size: 0.8em; padding: 0 0.
 @media print { .theme-btn { display: none; } }
 @media (min-width: 1180px) { .mast .wrap { gap: 0.6rem; flex-wrap: nowrap; } .mast nav { flex-wrap: nowrap; } .mast nav a { padding: 0.4rem 0.55rem; white-space: nowrap; } .brand { flex: none; } }
 @media (min-width: 761px) and (max-width: 1179px) { .mast nav { order: 3; width: 100%; } .s-open { margin-left: auto; } }
+.foot-logo { display: inline-block; margin-bottom: 0.6rem; } .foot-logo img { display: block; width: 88px; height: 88px; }
