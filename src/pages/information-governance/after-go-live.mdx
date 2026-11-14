@@ -1,0 +1,64 @@
+---
+layout: ../../layouts/Page.astro
+title: After go-live
+zone: ig
+lede: Once a tool is in use, you need to spot and report data breaches, keep records for the right length of time, and keep the DPIA up to date.
+checked: 3 November 2026
+---
+import YouAreHere from '../../components/YouAreHere.astro';
+import BreachClock from '../../components/BreachClock.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+<YouAreHere what="The data protection detail" on={[3, 4]} />
+
+## Data breaches
+
+Patients' information lost, changed, or seen by someone who shouldn't see it. For example:
+
+<div class="tiles tight">
+  <div class="tile c-red"><span class="ib"><Icon name="doc" /></span><strong>Filed to the wrong patient</strong><span>A request or note in the wrong record.</span></div>
+  <div class="tile c-red"><span class="ib"><Icon name="chat" /></span><strong>Sent to the wrong person</strong><span>A message to the wrong number or email.</span></div>
+  <div class="tile c-red"><span class="ib"><Icon name="phone" /></span><strong>Pasted into personal AI</strong><span>Patient details put into a free chatbot.</span></div>
+</div>
+
+### The first 72 hours
+
+<BreachClock />
+
+Report through the incident tool in the DSPT, which notifies the ICO.<sup><a href="#ref-1">1</a></sup> If the tool caused or nearly caused harm, tell your CSO too.
+
+## Keeping records
+
+Copy what matters into the medical record, agree with the supplier how long the tool keeps its copy, and follow NHS England's Records Management Code of Practice.<sup><a href="#ref-2">2</a></sup>
+
+## When to review the DPIA
+
+<ul class="chips warm">
+  <li><Icon name="refresh" /><span><strong>A new use:</strong> a new way of working, or new patients</span></li>
+  <li><Icon name="link" /><span><strong>Supplier changes:</strong> where data goes, or a new subcontractor</span></li>
+  <li><Icon name="alert" /><span><strong>A breach</strong> that shows a risk you hadn't spotted</span></li>
+  <li><Icon name="calendar" /><span><strong>A year on,</strong> even if nothing else has changed</span></li>
+</ul>
+
+## Every year
+
+<div class="optcards">
+  <div class="optcard" style="--c:#0b4a6e"><span class="ib"><Icon name="shield" /></span><strong>The DSPT</strong><p>Every practice completes it. Add new tools to your list of information assets and data flows.<sup><a href="#ref-3">3</a></sup></p><small>Due by 30 June. <a href="/explainers/dspt">DSPT explainer</a></small></div>
+  <div class="optcard" style="--c:#3b7a14"><span class="ib"><Icon name="book" /></span><strong>Staff training</strong><p>Every member of staff refreshes data security awareness training.</p><small><a href="/information-governance/help#training">What counts</a></small></div>
+</div>
+
+## Ending a contract
+
+<ol class="path four">
+  <li style="--c:#057092"><strong>Get your data back</strong><span>In a format you can use</span></li>
+  <li style="--c:#920570"><strong>Confirm deletion</strong><span>In writing from the supplier</span></li>
+  <li style="--c:#0b4a6e"><strong>Remove access</strong><span>Staff logins and links to your clinical system</span></li>
+  <li style="--c:#3b7a14"><strong>Update your records</strong><span>Privacy notice and information asset register</span></li>
+</ol>
+
+<Refs items={[
+  ['DSPT help: incident reporting', 'https://dsptoolkit.nhs.uk/Help/29', 'NHS England'],
+  ['Records Management Code of Practice', 'https://transform.england.nhs.uk/information-governance/guidance/records-management-code/', 'NHS England'],
+  ['Data Security and Protection Toolkit', 'https://www.dsptoolkit.nhs.uk/', 'NHS England'],
+]} />

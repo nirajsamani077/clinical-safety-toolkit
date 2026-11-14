@@ -1,0 +1,84 @@
+---
+layout: ../../layouts/Page.astro
+title: The DPIA
+zone: ig
+lede: A data protection impact assessment (DPIA) is how you think through the data risks of a new tool before you use it, and write down what you're doing about them.
+checked: 3 November 2026
+---
+import YouAreHere from '../../components/YouAreHere.astro';
+import DpiaRule from '../../components/DpiaRule.astro';
+import DataFlow from '../../components/DataFlow.astro';
+import Icon from '../../components/Icon.astro';
+import TemplateViewer from '../../components/TemplateViewer.astro';
+import Refs from '../../components/Refs.astro';
+
+<YouAreHere what="The data protection detail" on={[0, 1, 2]} />
+
+## Do we need one?
+
+<DpiaRule />
+
+## The steps
+
+The ICO's eight steps, in four phases.<sup><a href="#ref-1">1</a></sup>
+
+<div class="phases">
+  <div class="phase" style="--c:#920570">
+    <p>Plan</p>
+    <ol>
+      <li><strong>Decide if you need one</strong>Use the examples above, and record the decision either way.</li>
+      <li><strong>Describe the data</strong>What information, from whom, where it goes, who sees it, how long it's kept. A simple boxes-and-arrows diagram helps. <a href="/information-governance/suppliers#follow-the-data">Follow the data</a>.</li>
+    </ol>
+  </div>
+  <div class="phase" style="--c:#6d0a55">
+    <p>Ask</p>
+    <ol start="3">
+      <li><strong>Ask the people affected</strong>For a patient-facing tool, your patient participation group (PPG) is a good start.</li>
+      <li><strong>Ask others who know</strong>Your DPO, Caldicott Guardian, the supplier and your IT provider.</li>
+    </ol>
+  </div>
+  <div class="phase" style="--c:#0b4a6e">
+    <p>Assess</p>
+    <ol start="5">
+      <li><strong>Is it necessary?</strong>Does the tool need everything it collects? Could you do the same with less?</li>
+      <li><strong>List the risks</strong>Access, storage, accuracy, security and surprises.</li>
+      <li><strong>Decide what to do</strong>Contract terms, settings, training, retention rules.</li>
+    </ol>
+  </div>
+  <div class="phase" style="--c:#3b7a14">
+    <p>Sign off</p>
+    <ol start="8">
+      <li><strong>Sign off and keep it live</strong>Record the DPO's advice, who accepted the remaining risk, and the review date.</li>
+    </ol>
+  </div>
+</div>
+
+The practice manager usually writes it, the DPO advises, the Caldicott Guardian is consulted, and the SIRO or a partner accepts the remaining risk.
+
+## A template to start from
+
+Plain English, following the ICO's steps, with a filled-in Oakfield version.
+
+<TemplateViewer section="ig" />
+
+If your supplier, ICB or PCN already has a DPIA for the tool, build on it. For AI scribes, NHS England has a [template DPIA](https://digital.nhs.uk/data-and-information/information-governance/templates/ai-enabled-ambient-scribing-products-template-dpia).<sup><a href="#ref-2">2</a></sup>
+
+## Oakfield's DPIA
+
+Oakfield started by mapping how data moves through its new online consultation tool, Kestrel Consult, step by step, with a column for each system or person involved. Every time data moves from one column to another, it can reach the wrong record, the wrong person or another company, so that's where to look for risks. Ask the supplier for their data flow diagram to start from: it should be in their own DPIA.<sup><a href="#ref-1">1</a></sup>
+
+<DataFlow />
+
+Four of the data risks Oakfield found. The full list is in the Oakfield version of the template above.
+
+<ul class="ra">
+  <li id="risk-1"><div class="r"><small class="rtag">Risk 1</small>The tool and EMIS don't stay in step. Opening a request doesn't open the same patient in EMIS, so staff may add notes or send a message to another patient they had open before by accident.</div><span class="to">→</span><div class="a"><small>What Oakfield did</small>Staff check name, date of birth and NHS number match in both systems before adding anything or sending. They close each record when they finish. Anything added to the wrong record is corrected and reported as a data breach.</div></li>
+  <li id="risk-2"><div class="r"><small class="rtag">Risk 2</small>A reply to a patient request reaches someone other than the patient, for example a parent's phone number on a teenager's request.</div><span class="to">→</span><div class="a"><small>What Oakfield did</small>Staff check who the reply will go to before sending. Sensitive replies ask the patient to phone the practice.</div></li>
+  <li id="risk-3"><div class="r"><small class="rtag">Risk 3</small>The supplier reuses requests to train or improve its product</div><span class="to">→</span><div class="a"><small>What Oakfield did</small>The contract rules this out unless the data is anonymised, and the DPIA records it.</div></li>
+  <li id="risk-4"><div class="r"><small class="rtag">Risk 4</small>The link between Kestrel Consult and EMIS is run by another company, Heron Link, so a third organisation handles patient details</div><span class="to">→</span><div class="a"><small>What Oakfield did</small><span>Checked the supplier's agreement names Heron Link as a subcontractor on the same terms, that it stores data in the UK and has completed the <a href="/explainers/dspt">DSPT</a>. The DPIA records it.</span></div></li>
+</ul>
+
+<Refs items={[
+  ['Data protection impact assessments', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/data-protection-impact-assessments-dpias/', 'Information Commissioner’s Office'],
+  ['AI enabled ambient scribing products template DPIA', 'https://digital.nhs.uk/data-and-information/information-governance/templates/ai-enabled-ambient-scribing-products-template-dpia', 'NHS England'],
+]} />

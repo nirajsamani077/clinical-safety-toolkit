@@ -1,0 +1,102 @@
+---
+layout: ../../layouts/Page.astro
+title: Understand
+zone: ig
+lede: Information governance is how a practice looks after patients' information. When you bring in a digital tool, it's about making sure the tool handles that information lawfully, securely and openly.
+checked: 3 November 2026
+---
+import Oakfield from '../../components/Oakfield.astro';
+import HouseKeys from '../../components/HouseKeys.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+## The two-minute version
+
+<ol class="keylist">
+  <li><strong>Your practice is responsible</strong><span>As the <strong>data controller</strong>, the practice decides how patients' information is used, and stays responsible even when a supplier (the <strong>data processor</strong>) does the work.</span></li>
+  <li><strong>You need a Data Protection Officer (DPO)</strong><span>Practices providing NHS services must have a <strong>DPO</strong>. They can be shared or external.<sup><a href="#ref-1">1</a></sup></span></li>
+  <li><strong>Think it through first</strong><span>A <strong>data protection impact assessment (DPIA)</strong> checks the risks before a new tool handles patient information.<sup><a href="#ref-2">2</a></sup></span></li>
+  <li><strong>Get it in writing</strong><span>A <strong>data processing agreement (DPA)</strong> sets out what the supplier may do with the data.</span></li>
+  <li><strong>Tell patients</strong><span>Your <strong>privacy notice</strong> must say how their information is used, and change when that changes.<sup><a href="#ref-3">3</a></sup></span></li>
+</ol>
+
+## The house keys analogy
+
+Data protection is like giving a cleaner a key to your home: you decide who comes in, agree what they'll do, and get the key back when they leave. Click through the steps.
+
+<Oakfield short ig />
+
+<HouseKeys />
+
+## Consent: two different things
+
+"Consent" means different things in two sets of rules, and they answer different questions.
+
+<div class="split">
+  <div class="c-mag" style="--c:#920570">
+    <h3><Icon name="scale" /> Data protection law</h3>
+    <dl>
+      <div><dt>The question</dt><dd>Is the practice allowed to use this information at all?</dd></div>
+      <div><dt>For direct care</dt><dd><strong>Not consent.</strong> NHS care is a public task, and health information may be used to provide health care.<sup><a href="#ref-3">3</a></sup></dd></div>
+      <div><dt>Example</dt><dd>A patient doesn't sign anything for their GP to write up a consultation in their record.</dd></div>
+    </dl>
+  </div>
+  <div style="--c:#057092">
+    <h3><Icon name="lock" /> The duty of confidentiality</h3>
+    <dl>
+      <div><dt>The question</dt><dd>Is it right to share it with this person?</dd></div>
+      <div><dt>For direct care</dt><dd><strong>Implied consent.</strong> Patients expect the people caring for them to see it, unless they object.<sup><a href="#ref-3">3</a></sup></dd></div>
+      <div><dt>Example</dt><dd>A referral letter to the hospital is fine. Telling the patient's employer is not, unless the patient agrees.</dd></div>
+    </dl>
+  </div>
+</div>
+
+<div class="split-note">
+<strong>So, for an AI scribe:</strong> asking the patient first is about being open and respecting their wishes, not GDPR consent. If they say no, don't use it.<sup><a href="#ref-3">3</a></sup>
+</div>
+
+## The rules that apply
+
+<ol class="pyr">
+  <li style="--w:52%; --c:#5b6f7c; --i:4"><Icon name="shield" /><strong>The Data Security and Protection Toolkit (DSPT)</strong><span>A yearly self-assessment against NHS data security standards.<sup><a href="#ref-6">6</a></sup></span></li>
+  <li style="--w:64%; --c:#3b7a14; --i:3"><Icon name="users" /><strong>The national data opt-out</strong><span>Lets patients opt out of research and planning uses, not their own care.<sup><a href="#ref-5">5</a></sup></span></li>
+  <li style="--w:76%; --c:#0b4a6e; --i:2"><Icon name="book" /><strong>The Caldicott Principles</strong><span>Eight principles for using confidential information well. Every practice should have a Caldicott Guardian.<sup><a href="#ref-4">4</a></sup></span></li>
+  <li style="--w:88%; --c:#057092; --i:1"><Icon name="lock" /><strong>The duty of confidentiality</strong><span>Information given in confidence shouldn't be shared without a good reason.</span></li>
+  <li style="--w:100%; --c:#920570; --i:0"><Icon name="scale" /><strong>UK GDPR and the Data Protection Act 2018</strong><span>The law on using personal information. Health information is "special category" data, with extra protection.</span></li>
+</ol>
+<p class="pyr-cap">The law is at the base and underlies everything; the yearly check is at the top.</p>
+
+## UK GDPR in seven principles
+
+Everything in data protection law comes back to seven principles. They're covered in yearly staff data security training.<sup><a href="#ref-7">7</a></sup>
+
+<ol class="principles">
+  <li style="--c:#920570"><strong>Lawful, fair and open</strong><span>Have a lawful basis, and tell patients what you do with their information.</span></li>
+  <li style="--c:#057092"><strong>Only for the stated purpose</strong><span>Information collected for care isn't quietly used for something else.</span></li>
+  <li style="--c:#0b4a6e"><strong>No more than needed</strong><span>Collect and share only what the task needs.</span></li>
+  <li style="--c:#3b7a14"><strong>Accurate</strong><span>Keep it correct and up to date, and fix errors.</span></li>
+  <li style="--c:#8a5f00"><strong>Kept no longer than needed</strong><span>Follow the NHS records retention schedule.</span></li>
+  <li style="--c:#c0392b"><strong>Secure</strong><span>Protected from loss, theft and the wrong eyes.</span></li>
+  <li style="--c:#5b6f7c"><strong>Accountable</strong><span>Be able to show you comply: DPIAs, contracts, training records.</span></li>
+</ol>
+
+## Who does what
+
+<ul class="roles">
+  <li style="--c:#032c47"><span class="av"><Icon name="users" /></span><strong>The practice (partners)</strong><span>The data controller, accountable for how information is used.</span></li>
+  <li style="--c:#920570"><span class="av"><Icon name="shield" /></span><strong>Data Protection Officer</strong><span>Advises on the law and DPIAs. Every practice needs one, but it can be outsourced.<sup><a href="#ref-1">1</a></sup></span></li>
+  <li style="--c:#057092"><span class="av"><Icon name="heart" /></span><strong>Caldicott Guardian</strong><span>Makes sure confidential information is used correctly. Consulted on the DPIA. Every practice needs one.</span></li>
+  <li style="--c:#8a5f00"><span class="av"><Icon name="key" /></span><strong>Senior Information Risk Owner (SIRO)</strong><span>Accepts the remaining risk in a DPIA. Often a partner.</span></li>
+</ul>
+
+Some problems are both clinical safety and data protection, like an AI scribe note filed to the wrong patient. Record them in both places. See [how the areas fit together](/adopting-a-tool).
+
+<Refs items={[
+  ['Appointing a data protection officer (DPO)', 'https://www.bma.org.uk/advice-and-support/ethics/confidentiality-and-health-records/appointing-a-data-protection-officer-dpo', 'BMA'],
+  ['Data protection impact assessments', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/data-protection-impact-assessments-dpias/', 'Information Commissioner’s Office'],
+  ['Consent and confidential patient information', 'https://transform.england.nhs.uk/information-governance/guidance/consent-and-confidential-patient-information', 'NHS England'],
+  ['The Caldicott Principles', 'https://www.gov.uk/government/publications/the-caldicott-principles', 'National Data Guardian'],
+  ['Understanding the national data opt-out', 'https://digital.nhs.uk/services/national-data-opt-out/understanding-the-national-data-opt-out', 'NHS England'],
+  ['Data Security and Protection Toolkit', 'https://www.dsptoolkit.nhs.uk/', 'NHS England'],
+  ['A guide to the data protection principles', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/', 'Information Commissioner’s Office'],
+]} />

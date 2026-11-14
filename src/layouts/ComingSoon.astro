@@ -1,0 +1,32 @@
+---
+import Base from './Base.astro';
+const { title, zone, lede, items = [], links = [] } = Astro.props;
+---
+<Base title={title} zone={zone}>
+  <div class="wrap page-head">
+    <div class="crumb"><a href="/">Home</a> / {title}</div>
+    <div class="zone-chip soon-chip">Coming soon</div>
+    <h1>{title}</h1>
+    <p class="lede">{lede}</p>
+  </div>
+  <div class="wrap soon-body">
+    <section class="panel">
+      <h2>What this section will cover</h2>
+      <ul>{items.map((i) => <li>{i}</li>)}</ul>
+    </section>
+    {links.length > 0 && (
+      <section class="panel">
+        <h2>Official guidance for now</h2>
+        <ul>{links.map(([t, u]) => <li><a href={u}>{t}</a></li>)}</ul>
+      </section>
+    )}
+    <p class="back"><a href="/clinical-safety/understand">Go to the clinical safety section</a>, which is available now.</p>
+  </div>
+</Base>
+<style>
+  .soon-chip { color: var(--magenta); }
+  .soon-body { display: grid; gap: 1rem; max-width: 760px; padding-bottom: 4rem; margin-left: 0; }
+  .soon-body h2 { font-size: var(--step-1); margin-bottom: 0.6rem; }
+  .soon-body ul { margin: 0; padding-left: 1.2rem; }
+  .soon-body li + li { margin-top: 0.3rem; }
+</style>

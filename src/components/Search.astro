@@ -1,0 +1,89 @@
+---
+// Site search. The index (search-index.json) is built after the site and loaded the first time someone searches.
+---
+<link rel="prefetch" href="/search-index.json" data-search-index />
+<button type="button" class="s-open" data-s-open aria-label="Search the toolkit">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+  <span>Search</span>
+</button>
+<dialog class="s-dlg" data-s-dlg aria-label="Search the toolkit">
+  <form method="dialog" class="s-top" onsubmit="return false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+    <input type="search" data-s-q placeholder="Search, e.g. hazard log, DPIA, Copilot" autocomplete="off" aria-label="Search terms" />
+    <button type="button" class="s-x" data-s-close aria-label="Close search">Esc</button>
+  </form>
+  <p class="s-msg" data-s-msg aria-live="polite">Type at least two letters.</p>
+  <ol class="s-res" data-s-res></ol>
+</dialog>
+<script is:inline>
+  (function () {
+    var dlg = document.querySelector('[data-s-dlg]'), q = dlg.querySelector('[data-s-q]'), res = dlg.querySelector('[data-s-res]'), msg = dlg.querySelector('[data-s-msg]');
+    var link = document.querySelector('[data-search-index]'), idx = null, root = link.href.replace(/search-index\.json$/, '');
+    function load() {
+      if (idx) return Promise.resolve(idx);
+      return fetch(link.href).then(function (r) { return r.json(); }).then(function (d) {
+        idx = d.map(function (e) { e.l = (e.p + ' ' + e.h + ' ' + e.t + ' ' + (e.a || '')).toLowerCase(); e.hl = (e.p + ' ' + e.h).toLowerCase(); return e; });
+        return idx;
+      });
+    }
+    function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function snippet(t, terms) {
+      var lt = t.toLowerCase(), at = -1;
+      terms.forEach(function (w) { var i = lt.indexOf(w); if (i >= 0 && (at < 0 || i < at)) at = i; });
+      var start = Math.max(0, at - 60), s = (start ? '…' : '') + t.slice(start, start + 180) + (t.length > start + 180 ? '…' : '');
+      s = esc(s);
+      terms.forEach(function (w) { s = s.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>'); });
+      return s;
+    }
+    function run() {
+      var v = q.value.trim().toLowerCase();
+      if (v.length < 2) { res.innerHTML = ''; msg.textContent = 'Type at least two letters.'; return; }
+      load().then(function (d) {
+        var terms = v.split(/\s+/).filter(Boolean);
+        var hits = d.map(function (e) {
+          var s = 0;
+          for (var i = 0; i < terms.length; i++) {
+            var w = terms[i];
+            if (e.l.indexOf(w) < 0) return null;
+            if (e.hl.indexOf(w) >= 0) s += 10;
+            s += Math.min(5, e.l.split(w).length - 1);
+          }
+          if (e.l.indexOf(v) >= 0) s += 8;
+          return { e: e, s: s };
+        }).filter(Boolean).sort(function (a, b) { return b.s - a.s; }).slice(0, 12);
+        msg.textContent = hits.length ? hits.length + (hits.length === 12 ? '+' : '') + ' results' : 'Nothing found. Try a different word, or the glossary.';
+        res.innerHTML = hits.map(function (h) {
+          var e = h.e;
+          return '<li><a href="' + root + e.u + '"><span class="s-p">' + esc(e.p) + (e.h ? ' › ' + esc(e.h) : '') + '</span><span class="s-t">' + snippet(e.t, terms) + '</span></a></li>';
+        }).join('');
+      }).catch(function () { msg.textContent = 'Search isn’t available here. Try the glossary or the menu.'; });
+    }
+    var timer;
+    q.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 120); });
+    document.querySelector('[data-s-open]').addEventListener('click', function () { dlg.showModal(); q.focus(); load().catch(function () {}); });
+    dlg.querySelector('[data-s-close]').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && !dlg.open && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); dlg.showModal(); q.focus(); }
+    });
+  })();
+</script>
+<style is:global>
+  .s-open { display: inline-flex; align-items: center; gap: 0.4rem; font: 700 0.9rem var(--font-body); color: #fff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 99px; padding: 0.4rem 0.85rem; cursor: pointer; }
+  .s-open:hover { background: rgba(255, 255, 255, 0.2); }
+  .s-open svg, .s-top svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+  .s-dlg { width: min(680px, calc(100vw - 2rem)); max-height: min(80vh, 720px); margin: 8vh auto auto; padding: 0; border: 0; border-radius: 18px; background: var(--surface); color: var(--fg); box-shadow: 0 30px 80px rgba(3, 44, 71, 0.35); }
+  .s-dlg::backdrop { background: rgba(3, 44, 71, 0.55); backdrop-filter: blur(3px); }
+  .s-top { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); color: var(--muted); position: sticky; top: 0; background: var(--surface); }
+  .s-top input { flex: 1; min-width: 0; font: 400 1.1rem var(--font-body); border: 0; background: none; color: var(--fg); outline: none; }
+  .s-x { font: 700 0.75rem var(--font-body); border: 1px solid var(--line); border-radius: 6px; padding: 0.2rem 0.45rem; background: var(--bg); color: var(--muted); cursor: pointer; }
+  .s-msg { margin: 0; padding: 0.6rem 1rem 0.2rem; font-size: 0.85rem; color: var(--muted); }
+  .s-res { list-style: none; margin: 0; padding: 0.3rem 0.6rem 0.8rem; }
+  .s-res a { display: grid; gap: 0.15rem; padding: 0.6rem 0.6rem; border-radius: 10px; text-decoration: none; color: var(--fg); }
+  .s-res a:hover, .s-res a:focus-visible { background: var(--soft-teal); outline: none; }
+  .s-p { font: 700 0.95rem var(--font-display); color: var(--teal); }
+  .s-t { font-size: 0.88rem; color: var(--muted); }
+  .s-k { display: inline-block; margin-right: 0.4rem; padding: 0.05rem 0.45rem; border-radius: 99px; background: var(--teal); color: #fff; font: 700 0.68rem var(--font-body); text-transform: uppercase; letter-spacing: 0.05em; vertical-align: 2px; }
+  .s-res mark { background: #fde9b3; color: inherit; border-radius: 3px; }
+  @media (max-width: 860px) { .s-open span { display: none; } .s-open { padding: 0.45rem; } }
+</style>

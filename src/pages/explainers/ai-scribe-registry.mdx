@@ -1,0 +1,37 @@
+---
+layout: ../../layouts/Page.astro
+title: The AI scribe registry
+zone: lib
+lede: NHS England's list of AI scribe suppliers who say they meet its criteria. A useful starting point, but not an approval.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import RegistryTicket from '../../components/RegistryTicket.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="Being on the registry gets a supplier onto your shortlist. It doesn't do your checks for you." whose="NHS England runs it. Your practice or ICB decides." lead="Practice manager and CSO" when="When you choose an AI scribe" />
+
+## What it is
+
+NHS England's self-certified registry of suppliers of ambient voice technology, often called AI scribes. Suppliers on it have provided evidence against NHS England's criteria, and NHS organisations can view that evidence through the national procurement hub.<sup><a href="#ref-1">1</a></sup> The first list, in January 2026, named 19 suppliers.<sup><a href="#ref-2">2</a></sup>
+
+NHS England is clear about who decides: "All assurance and decision-making sits with your local NHS organisation, not NHS England."<sup><a href="#ref-1">1</a></sup>
+
+## What being listed means
+
+<RegistryTicket />
+
+## Using it well
+
+<ol class="path four">
+  <li style="--c:#057092"><strong>Shortlist</strong><span>Start with listed suppliers, and check whether your ICB has already bought one.</span><em>Practice or ICB</em></li>
+  <li style="--c:#920570"><strong>Read the evidence</strong><span>What each supplier has submitted, including their <a href="/explainers/dcb0129-and-dcb0160">safety documents</a> and <a href="/explainers/dtac">DTAC</a>.</span><em>CSO and DPO</em></li>
+  <li style="--c:#0b4a6e"><strong>Check device status</strong><span>What the product does, and whether it's a <a href="/explainers/medical-devices">medical device</a>.</span><em>CSO</em></li>
+  <li style="--c:#3b7a14"><strong>Do your own assessment</strong><span>Your clinical safety assessment and DPIA, following NHS England's AI scribe guidance.<sup><a href="#ref-3">3</a></sup></span><em>Practice</em></li>
+</ol>
+
+<Refs items={[
+  ['Ambient voice technology self-certified supplier registry', 'https://transform.england.nhs.uk/digitise-connect-transform/digitising-the-frontline/ambient-voice-technology-self-certified-supplier-registry', 'NHS England'],
+  ['NHS England lists 19 suppliers meeting criteria for ambient voice registry', 'https://htn.co.uk/2026/01/19/nhs-england-lists-19-suppliers-meeting-criteria-for-ambient-voice-registry/', 'HTN, January 2026'],
+  ['Guidance on the use of AI-enabled ambient scribing products in health and care settings', 'https://www.england.nhs.uk/long-read/guidance-on-the-use-of-ai-enabled-ambient-scribing-products-in-health-and-care-settings/', 'NHS England'],
+]} />

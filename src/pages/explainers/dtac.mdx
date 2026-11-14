@@ -1,0 +1,38 @@
+---
+layout: ../../layouts/Page.astro
+title: DTAC
+zone: lib
+lede: The Digital Technology Assessment Criteria. A standard questionnaire that suppliers fill in, so NHS buyers can check a product before using it.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import DtacFive from '../../components/DtacFive.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="The Digital Technology Assessment Criteria (DTAC) are the supplier's homework on five areas. Your job is to read it and check the answers stand up." whose="The supplier completes it. You review it." lead="Practice manager, with your CSO and DPO" when="Before you buy or switch on a tool" />
+
+## What it is
+
+NHS England describes DTAC as an assessment framework for health and care providers to use when buying or deploying digital products. The supplier completes the form and you use it as part of your checks.<sup><a href="#ref-1">1</a></sup>
+
+A shorter, updated form was published in March 2026, with about a quarter fewer questions and less overlap with other NHS checks such as the DSPT.<sup><a href="#ref-2">2</a></sup>
+
+## The five areas
+
+Pick an area to see what it covers and what you should do with it.
+
+<DtacFive />
+
+## Worth knowing
+
+<ul class="ticks">
+  <li><strong>It isn't a certificate</strong><span>DTAC sits alongside other approvals and doesn't replace them. NHS England doesn't endorse third-party DTAC certification schemes.<sup><a href="#ref-1">1</a></sup></span></li>
+  <li><strong>It doesn't replace your own work</strong><span>You still need your own clinical safety assessment and DPIA. DTAC answers help you write them.</span></li>
+  <li><strong>Check the date</strong><span>Ask for the current version. A form from years ago may not reflect the product you're buying.</span></li>
+  <li><strong>ICB-bought tools</strong><span>If your ICB has bought the tool, ask whether it already holds the supplier's DTAC.</span></li>
+</ul>
+
+<Refs items={[
+  ['Digital Technology Assessment Criteria (DTAC)', 'https://transform.england.nhs.uk/key-tools-and-info/digital-technology-assessment-criteria-dtac', 'NHS England'],
+  ['Updated NHS England DTAC form and guidance', 'https://innovation.nhs.uk/news/updated-nhs-england-digital-technology-assessment-criteria-dtac-form-and-guidance/', 'NHS Innovation Service, March 2026'],
+]} />

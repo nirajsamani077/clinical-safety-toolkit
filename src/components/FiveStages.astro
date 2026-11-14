@@ -1,0 +1,140 @@
+---
+// The five stages of adopting a digital tool.
+// track="all": every step, tagged by area (overview). track="cs": clinical safety steps only.
+const T = { cs: 'Clinical safety', ig: 'Data protection', ai: 'AI policy', all: 'Everyone' };
+const stages = [
+  { t: 'Prepare', c: '#057092', q: 'What are we taking on?', steps: [
+    ['all', 'Add the tool to your technology register'],
+    ['cs', 'Get the supplier’s clinical safety documents (DCB0129)'],
+    ['ig', 'Start the data protection impact assessment (DPIA) and check the data processing agreement (DPA)'],
+    ['ai', 'If it uses AI, check it fits your practice AI policy and add it as necessary'],
+    ['cs', 'Agree who is acting as your Clinical Safety Officer (CSO)'],
+  ], cs: ['CSO and practice manager', 'The supplier’s clinical safety documents on file; a named CSO'] },
+  { t: 'Assess', c: '#0b4a6e', q: 'What could go wrong?', steps: [
+    ['cs', 'Hold a hazard workshop with the staff who will use the tool'],
+    ['cs', 'Write the hazard log: each cause, effect, hazard and harm, with controls and mitigations'],
+    ['cs', 'Score each hazard before and after controls'],
+    ['ig', 'Work through the data protection risks in the DPIA'],
+  ], cs: ['CSO leads, with the staff who will use it', 'A hazard log'] },
+  { t: 'Approve', c: '#920570', q: 'Is it safe enough to use?', steps: [
+    ['cs', 'The CSO writes and signs a short clinical safety case report (CSCR)'],
+    ['ig', 'The DPIA is signed off, with input from your Caldicott Guardian and data protection officer (DPO)'],
+    ['all', 'The partners review the residual risk, and accept it or decline to go live with the tool'],
+  ], cs: ['CSO and partners', 'A signed safety case report'] },
+  { t: 'Go live', c: '#3b7a14', q: 'How do we start safely?', steps: [
+    ['all', 'Train everyone who will use it, and record who was trained'],
+    ['cs', 'Start small if possible, and check early outcomes closely for incidents and recurring themes'],
+    ['ig', 'Update your privacy notice and tell patients what you are using'],
+    ['ai', 'Add the tool to any induction pack for existing and new staff, including locums'],
+  ], cs: ['Practice manager', 'A training record; early checks under way'] },
+  { t: 'Monitor and review', c: '#032c47', q: 'Is it still safe?', steps: [
+    ['cs', 'Log incidents and near misses, and review the hazard log when incidents happen and periodically'],
+    ['all', 'Reassess when the supplier changes the product, or if you start to use it differently in your workflow'],
+    ['ig', 'Review the DPIA if the data processing changes, and periodically'],
+    ['all', 'Switch the tool off safely when the time comes'],
+  ], cs: ['Everyone reports; the CSO reviews', 'A live hazard log and incident log'] },
+];
+const { track = 'all', link = '' } = Astro.props;
+const slug = (s, i) => `stage-${i + 1}-${s.t.toLowerCase().replace(/ /g, '-')}`;
+const uid = track;
+---
+<div class={`fs fs-${track}`} data-fs>
+  <ol class="fs-track" role="tablist" aria-label="The five stages">
+    {stages.map((s, i) => (
+      <li role="presentation" style={`--c:${s.c}; --i:${i}`}>
+        <button type="button" role="tab" id={`fs-${uid}-tab-${i}`} aria-controls={`fs-${uid}-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} data-fs-tab={i}>
+          <span class="fs-n">{i + 1}</span>
+          <span class="fs-t">{s.t}</span>
+          <span class="fs-q">{s.q}</span>
+        </button>
+      </li>
+    ))}
+  </ol>
+  {stages.map((s, i) => (
+    <section class="fs-panel" role="tabpanel" id={`fs-${uid}-panel-${i}`} aria-labelledby={`fs-${uid}-tab-${i}`} data-fs-panel={i} style={`--c:${s.c}`}>
+      <div class="fs-main">
+        <p class="fs-kicker">Stage {i + 1} of 5</p>
+        <h3>{s.t}</h3>
+        <ul class="fs-steps">
+          {s.steps.filter(([k]) => track === 'all' || k === 'cs' || k === 'all').map(([k, st]) => (
+            <li>{track === 'all' && <span class={`fs-tag t-${k}`}>{T[k]}</span>}<span>{st}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="fs-meta">
+        {track === 'cs' ? (
+          <dl>
+            <div><dt>Who</dt><dd>{s.cs[0]}</dd></div>
+            <div><dt>You end up with</dt><dd>{s.cs[1]}</dd></div>
+          </dl>
+        ) : (
+          <p>The tag shows which section of the toolkit has the detail.</p>
+        )}
+        {link && <a href={`${link}#${slug(s, i)}`}>More on this stage →</a>}
+      </div>
+    </section>
+  ))}
+</div>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-fs]').forEach(function (fs) {
+      var tabs = fs.querySelectorAll('[data-fs-tab]'), panels = fs.querySelectorAll('[data-fs-panel]');
+      function go(n) {
+        tabs.forEach(function (t, i) { t.setAttribute('aria-selected', i === n ? 'true' : 'false'); t.tabIndex = i === n ? 0 : -1; });
+        panels.forEach(function (p, i) { p.hidden = i !== n; });
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { go(i); });
+        t.addEventListener('keydown', function (e) {
+          var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (k) { var n = (i + k + tabs.length) % tabs.length; go(n); tabs[n].focus(); }
+        });
+      });
+      go(0);
+    });
+  })();
+</script>
+
+<style>
+  .fs { margin: 1.25rem 0; }
+  .fs-track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; position: relative; }
+  .fs-track::before { content: ''; position: absolute; left: 6%; right: 6%; top: 34px; height: 6px; border-radius: 99px; background: linear-gradient(90deg, #057092, #0b4a6e, #920570, #3b7a14, #032c47); }
+  .fs-track li { position: relative; }
+  .fs-track button { width: 100%; height: 100%; display: grid; justify-items: center; align-content: start; gap: 0.3rem; text-align: center; background: none; border: 0; padding: 0 0.25rem 0.8rem; cursor: pointer; color: var(--fg); font: inherit; border-radius: 14px; }
+  .fs-n { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 5px solid var(--c); color: var(--c); font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+  .fs-t { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; line-height: 1.15; }
+  .fs-q { font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+  .fs-track button:hover .fs-n { transform: scale(1.06); }
+  .fs-track button[aria-selected='true'] .fs-n { background: var(--c); color: #fff; transform: scale(1.08); }
+
+  .fs-panel { margin-top: 0.5rem; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1.25rem; background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--c); border-radius: 16px; padding: 1.25rem 1.4rem; }
+  .fs-kicker { margin: 0; font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .fs-panel h3 { font-size: var(--step-2); margin: 0.15rem 0 0.6rem; }
+  .fs-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .fs-steps li { display: flex; gap: 0.6rem; align-items: baseline; flex-wrap: wrap; }
+  .fs-cs .fs-steps li::before { content: ''; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+  .fs-tag { flex: none; font-size: 0.72rem; font-weight: 700; padding: 0.12rem 0.5rem; border-radius: 99px; min-width: 7.6rem; text-align: center; }
+  .t-cs { background: var(--soft-teal); color: var(--accent); }
+  .t-ig { background: var(--soft-magenta); color: var(--accent-2); }
+  .t-ai { background: var(--soft-lime); color: var(--good); }
+  .t-all { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+  .fs-all .fs-panel { grid-template-columns: minmax(0, 1fr); }
+  .fs-all .fs-steps li { display: grid; grid-template-columns: 7.6rem minmax(0, 1fr); gap: 0.8rem; align-items: baseline; }
+  .fs-all .fs-meta { background: none; padding: 0; font-size: 0.88rem; color: var(--muted); }
+  @media (max-width: 520px) { .fs-all .fs-steps li { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; } .fs-all .fs-tag { justify-self: start; } }
+  .fs-meta { display: grid; gap: 0.8rem; align-content: start; background: var(--bg); border-radius: 12px; padding: 1rem; }
+  .fs-meta p, .fs-meta dl { margin: 0; }
+  .fs-meta dl { display: grid; gap: 0.8rem; }
+  .fs-meta dt { font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+  .fs-meta dd { margin: 0; font-weight: 700; }
+  .fs-meta a { font-weight: 700; }
+  @media (max-width: 760px) {
+    .fs-track { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+    .fs-track::before { left: 30px; right: auto; top: 10px; bottom: 10px; width: 6px; height: auto; }
+    .fs-track button { grid-template-columns: auto 1fr; justify-items: start; text-align: left; column-gap: 0.9rem; padding: 0.2rem; }
+    .fs-n { width: 56px; height: 56px; font-size: 1.4rem; grid-row: span 2; }
+    .fs-t { align-self: end; }
+    .fs-panel { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

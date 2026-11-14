@@ -1,0 +1,41 @@
+---
+layout: ../../layouts/Page.astro
+title: DSPT
+zone: lib
+lede: The Data Security and Protection Toolkit. A yearly online self-assessment that shows your practice looks after data properly.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import DsptYear from '../../components/DsptYear.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="Every practice with access to NHS patient data and systems completes the Data Security and Protection Toolkit (DSPT) each year. New tools need to show up in it." whose="Your practice" lead="Practice manager, with your DPO and ICB GP IT team" when="Every year, by 30 June" />
+
+## What it is
+
+An online self-assessment against the National Data Guardian's data security standards. Organisations with access to NHS patient data and systems must complete it.<sup><a href="#ref-1">1</a></sup> The 2025-26 toolkit for GP practices had 45 evidence items, with a deadline of 30 June 2026.<sup><a href="#ref-2">2</a></sup>
+
+Large NHS organisations are moving to a version based on the Cyber Assessment Framework. Other organisations stay on the current version until NHS England tells them it's their turn.<sup><a href="#ref-3">3</a></sup>
+
+## The year at a glance
+
+<DsptYear />
+
+## Where a new tool comes in
+
+<ul class="rows">
+  <li><Icon name="server" /><strong>Asset register</strong><span>Add the tool to your list of information assets.</span></li>
+  <li><Icon name="link" /><strong>Data flows</strong><span>Record what data goes to the supplier and where.</span></li>
+  <li><Icon name="doc" /><strong>DPIA</strong><span>Keep the DPIA and data processing agreement as evidence. <a href="/information-governance/dpia">The DPIA</a>.</span></li>
+  <li><Icon name="book" /><strong>Training</strong><span>Staff who use it are trained, and it's recorded.</span></li>
+  <li><Icon name="alert" /><strong>Incidents</strong><span>Data breaches involving the tool are reported through the DSPT. <a href="/information-governance/after-go-live#data-breaches">Data breaches</a>.</span></li>
+</ul>
+
+Many practices get help from their ICB or DPO service, which often provides template evidence. Ask yours before you start.
+
+<Refs items={[
+  ['Data Security and Protection Toolkit', 'https://www.dsptoolkit.nhs.uk/', 'NHS England'],
+  ['Data Security and Protection Toolkit 2025-26 update', 'https://primarycare.northeastlondon.icb.nhs.uk/news/data-security-and-protection-toolkit-2025-26-update/', 'NHS North East London ICB. An example of ICB guidance for practices'],
+  ['CAF-aligned DSPT: evolution of our assurance model', 'https://transform.england.nhs.uk/information-governance/caf-aligned-dspt-evolution-of-our-assurance-model', 'NHS England'],
+]} />

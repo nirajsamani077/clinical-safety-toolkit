@@ -1,0 +1,63 @@
+---
+layout: ../../layouts/Page.astro
+title: Medical devices
+zone: lib
+lede: Some software counts as a medical device. If it does, it has to meet safety rules and be registered with the Medicines and Healthcare products Regulatory Agency (MHRA) before it can be sold.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import ClassLadder from '../../components/ClassLadder.astro';
+import DeviceCheck from '../../components/DeviceCheck.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="Whether software is a medical device depends on what the manufacturer says it is for. Your job is to ask, and to check the answer." whose="The supplier (the manufacturer)" lead="Supplier. Your CSO checks the answer." when="Before you buy, and when new features arrive" />
+
+## What makes software a medical device
+
+It depends on its intended purpose: what the manufacturer says the software is for. Software that helps diagnose, treat or prevent illness is more likely to be a device. Software that stores, displays or transcribes information usually isn't.
+
+If it is a device, it must be registered with the MHRA before it's placed on the market in Great Britain.<sup><a href="#ref-1">1</a></sup> It should carry a UKCA or CE mark.
+
+## The classes
+
+Devices are put into one of four classes by risk. The higher the class, the more checking is needed before the product can be sold.<sup><a href="#ref-2">2</a></sup>
+
+<ClassLadder />
+
+How the examples fit:
+
+- **Risk levels, and who checks each class,** come from the MHRA.<sup><a href="#ref-2">2</a></sup>
+- **The everyday examples** come from the NHS Innovation Service guide to device regulation.<sup><a href="#ref-3">3</a></sup>
+- **The software examples for Class I to IIb** follow the MHRA's guidance on software and apps. Software that allows a direct diagnosis is at least Class IIa, and software that monitors vital functions where a change could be immediately dangerous is Class IIb.<sup><a href="#ref-4">4</a></sup>
+- **Under EU rules,** which many suppliers also follow for their CE mark, software tends to sit in higher classes than in Great Britain. Software informing decisions that could cause serious harm is IIb, and death or irreversible harm is III.<sup><a href="#ref-3">3</a></sup>
+
+<div class="split-note">
+<strong>The UK rules are changing.</strong> The MHRA published draft new regulations in May 2026.<sup><a href="#ref-5">5</a></sup> The classification rules are being rewritten, so a product's class may change. Ask suppliers how they're preparing.
+</div>
+
+## AI scribes: the July 2026 guidance
+
+In July 2026 the MHRA published guidance on when AI scribes count as medical devices.<sup><a href="#ref-6">6</a></sup> Try it below.
+
+<DeviceCheck />
+
+This is a summary of reporting on the guidance.<sup><a href="#ref-7">7</a></sup> For a real product, ask the supplier and check the MHRA guidance itself.
+
+## What to do
+
+<div class="steps-v">
+  <div><b>1</b><p><strong>Ask the supplier</strong> whether the product is a medical device, what its class is, and what its intended purpose is.</p></div>
+  <div><b>2</b><p><strong>If it is a device,</strong> check it's registered on the MHRA's <a href="https://pard.mhra.gov.uk/">public register of devices</a>, and report problems through the <a href="https://yellowcard.mhra.gov.uk/">Yellow Card scheme</a>.</p></div>
+  <div><b>3</b><p><strong>Watch for new features.</strong> A scribe that starts suggesting diagnoses may have changed category. Ask before switching new features on.</p></div>
+  <div><b>4</b><p><strong>Either way,</strong> you still need your own <a href="/clinical-safety/process">clinical safety assessment</a> and <a href="/information-governance/dpia">DPIA</a>. Not being a device doesn't mean low risk.</p></div>
+</div>
+
+<Refs items={[
+  ['Regulating medical devices in the UK', 'https://www.gov.uk/guidance/regulating-medical-devices-in-the-uk', 'MHRA'],
+  ['Medical devices: how to comply with the legal requirements in Great Britain', 'https://www.gov.uk/guidance/medical-devices-how-to-comply-with-the-legal-requirements', 'MHRA. Risk level of each class, and when an approved body is needed'],
+  ['General medical devices and active implantable medical devices', 'https://innovation.nhs.uk/innovation-guides/regulation/general-medical-device-and-active-implantable-medical-devices/', 'NHS Innovation Service. Examples for each class'],
+  ['Medical device stand-alone software including apps', 'https://assets.publishing.service.gov.uk/media/64a7d22d7a4c230013bba33c/Medical_device_stand-alone_software_including_apps__including_IVDMDs_.pdf', 'MHRA guidance (PDF). How software is classified in Great Britain'],
+  ['Draft UK medical device amending regulations: key proposals', 'https://www.biosliceblog.com/2026/05/draft-uk-medical-device-amending-regulations-key-proposals-and-mhra-call-for-evidence/', 'Bristows LLP, May 2026'],
+  ['Ambient voice technology-enabled products', 'https://www.gov.uk/government/publications/ambient-voice-technology-enabled-products', 'MHRA, July 2026'],
+  ['MHRA clarifies regulatory medical devices status of ambient voice technologies', 'https://htn.co.uk/2026/07/29/mhra-clarifies-regulatory-medical-devices-status-of-ambient-voice-technologies/', 'HTN, July 2026'],
+]} />

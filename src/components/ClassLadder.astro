@@ -1,0 +1,41 @@
+---
+// The four medical device classes as a risk ladder, with general and software/AI examples.
+const rows = [
+  { c: 'I', risk: 'Low', col: '#3b7a14', who: 'The manufacturer declares it meets the rules itself, unless it is sterile or measures something', gen: 'Bandages, examination lights, syringes without needles', ai: 'A symptom checker that does not give a diagnosis. In Great Britain, most software is Class I unless something below applies.' },
+  { c: 'IIa', risk: 'Medium', col: '#8a5f00', who: 'An independent UK approved body checks it', gen: 'Standard hearing aids, suture needles, short-term corrective lenses', ai: 'Software that gives a diagnosis, or decisive information for one, such as a tool that suggests the likely diagnosis to the clinician.' },
+  { c: 'IIb', risk: 'Higher medium', col: '#b04e0a', who: 'An independent UK approved body checks it', gen: 'Ventilators, apnoea monitors, surgical lasers', ai: 'Software that monitors vital functions where a change could be immediately dangerous, such as heart rhythm or breathing.' },
+  { c: 'III', risk: 'High', col: '#c0392b', who: 'An independent UK approved body checks it', gen: 'Pacemakers, hip replacements, breast implants', ai: 'Rare for software. Under EU rules, software whose output could lead to death or permanent harm if wrong.' },
+];
+---
+<div class="cl" role="table" aria-label="Medical device classes, from lowest to highest risk">
+  <div class="cl-h" role="row">
+    <span role="columnheader">Class</span><span role="columnheader">Who checks it</span><span role="columnheader">Everyday examples</span><span role="columnheader">Software and AI examples</span>
+  </div>
+  {rows.map((r, i) => (
+    <div class="cl-r" role="row" style={`--c:${r.col}; --i:${i}`}>
+      <span class="cl-c" role="rowheader"><b>{r.c}</b><em>{r.risk} risk</em></span>
+      <span role="cell" data-l="Who checks it">{r.who}</span>
+      <span role="cell" data-l="Everyday examples">{r.gen}</span>
+      <span role="cell" class="cl-ai" data-l="Software and AI">{r.ai}</span>
+    </div>
+  ))}
+</div>
+<style>
+  .cl { margin: 1.5rem 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .cl-h, .cl-r { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr); }
+  .cl-h { background: #032c47; color: #fff; font: 700 0.75rem var(--font-body); text-transform: uppercase; letter-spacing: 0.06em; }
+  .cl-h span { padding: 0.75rem 1rem; }
+  .cl-r { border-top: 1px solid var(--line); animation: cl-in 0.45s ease both; animation-delay: calc(var(--i) * 0.1s); }
+  .cl-r > span { padding: 0.85rem 1rem; font-size: 0.93rem; }
+  .cl-c { background: var(--c); color: #fff; display: grid; align-content: center; gap: 0.1rem; position: relative; }
+  .cl-c b { font: 800 2rem/1 var(--font-display); }
+  .cl-c em { font: 700 0.72rem var(--font-body); font-style: normal; text-transform: uppercase; letter-spacing: 0.05em; }
+  .cl-ai { background: color-mix(in srgb, var(--c) 9%, var(--surface)); font-weight: 600; }
+  @keyframes cl-in { from { transform: translateX(-8px); } to { transform: none; } }
+  @media (max-width: 760px) {
+    .cl-h { display: none; }
+    .cl-r { grid-template-columns: minmax(0, 1fr); }
+    .cl-c { grid-template-columns: auto 1fr; align-items: baseline; gap: 0.7rem; }
+    .cl-r > span[data-l]::before { content: attr(data-l); display: block; font: 700 0.7rem var(--font-body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.15rem; }
+  }
+</style>

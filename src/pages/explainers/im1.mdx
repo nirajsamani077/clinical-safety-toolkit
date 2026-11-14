@@ -1,0 +1,39 @@
+---
+layout: ../../layouts/Page.astro
+title: IM1 and GP system links
+zone: lib
+lede: How other software connects to your clinical system, and why a tool that writes into the record needs a closer look.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import Im1Map from '../../components/Im1Map.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="IM1 is the NHS standard that lets other tools connect to the main GP clinical systems (electronic health records, EHRs): EMIS Web, SystmOne and Vision. Connecting is checked nationally. How you use it is up to you." whose="The supplier, with national assurance" lead="Supplier. Your CSO looks at local risks." when="Before you switch on a linked tool" />
+
+## What it is
+
+IM1 (short for Interface Mechanism 1) is a set of standard connections into the main GP clinical systems. A tool that is "paired" through IM1 can read patient information, extract data in bulk, or enter data into the record.<sup><a href="#ref-1">1</a></sup>
+
+Before a pairing goes live, the supplier has to show evidence that the connection works as it should, and this is assured nationally.<sup><a href="#ref-1">1</a></sup>
+
+## Three ways a tool can connect
+
+<Im1Map />
+
+## What national assurance doesn't cover
+
+IM1 assurance is about the connection. It doesn't look at your practice's workflows, your staff, or how a tool's output is checked before it's saved. That's what your [clinical safety assessment](/clinical-safety/process) is for.
+
+## What to ask
+
+<ul class="askq">
+  <li>Does your product read from our clinical system, write to it, or both?</li>
+  <li>What exactly does it write, and does a person check it first?</li>
+  <li>What happens if the connection drops part-way through?</li>
+  <li>Which of these risks are in your hazard log?</li>
+</ul>
+
+<Refs items={[
+  ['IM1 pairing integration', 'https://digital.nhs.uk/services/gp-it-futures-systems/im1-pairing-integration', 'NHS England'],
+]} />

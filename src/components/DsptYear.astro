@@ -1,0 +1,44 @@
+---
+// The DSPT year as a wheel. Submission is due by 30 June each year.
+const m = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const R = 120, r = 78, cx = 150, cy = 150;
+const seg = (i) => {
+  const a0 = -Math.PI / 2 + (i * 2 * Math.PI) / 12 + 0.02, a1 = -Math.PI / 2 + ((i + 1) * 2 * Math.PI) / 12 - 0.02;
+  const p = (rad, a) => `${(cx + rad * Math.cos(a)).toFixed(1)} ${(cy + rad * Math.sin(a)).toFixed(1)}`;
+  return `M${p(R, a0)} A${R} ${R} 0 0 1 ${p(R, a1)} L${p(r, a1)} A${r} ${r} 0 0 0 ${p(r, a0)}Z`;
+};
+const lab = (i) => { const a = -Math.PI / 2 + ((i + 0.5) * 2 * Math.PI) / 12; return [cx + 99 * Math.cos(a), cy + 99 * Math.sin(a) + 4]; };
+---
+<figure class="dy">
+  <svg viewBox="0 0 300 300" role="img" aria-label="A year wheel from July to June. July to March: keep evidence up to date. April to June: review and submit. Deadline 30 June.">
+    {m.map((t, i) => <path d={seg(i)} class={i >= 9 ? 'dy-sub' : 'dy-keep'} style={`--i:${i}`} />)}
+    {m.map((t, i) => { const [x, y] = lab(i); return <text x={x} y={y} text-anchor="middle" class="dy-m">{t}</text>; })}
+    <circle cx="150" cy="30" r="9" class="dy-pin" />
+    <text x="150" y="140" text-anchor="middle" class="dy-c1">30 June</text>
+    <text x="150" y="162" text-anchor="middle" class="dy-c2">deadline</text>
+  </svg>
+  <div class="dy-key">
+    <p><b class="k1"></b><span><strong>July to March:</strong> keep it up to date as things change. A new tool means updating your information asset register and data flow map.</span></p>
+    <p><b class="k2"></b><span><strong>April to June:</strong> review every answer, gather the evidence, and submit.</span></p>
+    <p><b class="k3"></b><span><strong>By 30 June:</strong> publish the assessment. The aim is "Standards Met".</span></p>
+  </div>
+</figure>
+<style>
+  .dy { margin: 1.5rem 0; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 1.5rem; align-items: center; }
+  .dy svg { width: 100%; height: auto; }
+  .dy-keep { fill: color-mix(in srgb, #057092 22%, var(--surface)); }
+  .dy-sub { fill: #b04e0a; }
+  .dy path { animation: dy-in 0.4s ease both; animation-delay: calc(var(--i) * 0.05s); transform-origin: 150px 150px; }
+  .dy-m { font: 700 12px var(--font-body); fill: #032c47; }
+  .dy-sub + .dy-m, .dy-m:nth-last-of-type(-n + 3) { fill: #032c47; }
+  .dy-pin { fill: #032c47; stroke: #fff; stroke-width: 3; animation: pulse 2s ease-in-out infinite; transform-origin: 150px 30px; }
+  .dy-c1 { font: 800 26px var(--font-display); fill: #b04e0a; }
+  .dy-c2 { font: 700 13px var(--font-body); fill: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .dy-key { display: grid; gap: 0.8rem; }
+  .dy-key p { margin: 0; display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.7rem; align-items: start; }
+  .dy-key b { width: 1.1rem; height: 1.1rem; border-radius: 4px; margin-top: 0.2rem; }
+  .k1 { background: color-mix(in srgb, #057092 30%, var(--surface)); } .k2 { background: #b04e0a; } .k3 { background: #032c47; border-radius: 50% !important; }
+  @keyframes dy-in { from { transform: scale(0.94); } to { transform: none; } }
+  @keyframes pulse { 50% { transform: scale(1.25); } }
+  @media (max-width: 640px) { .dy { grid-template-columns: minmax(0, 1fr); } .dy svg { max-width: 260px; margin: 0 auto; } }
+</style>

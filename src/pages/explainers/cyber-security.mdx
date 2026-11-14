@@ -1,0 +1,41 @@
+---
+layout: ../../layouts/Page.astro
+title: Cyber security
+zone: lib
+lede: Keeping practice systems and patient data safe from attack. Most attacks start with something ordinary, like an email or a password.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import CyberDoors from '../../components/CyberDoors.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="Cyber security in general practice is shared. Your ICB runs the IT, suppliers secure their products, and your practice keeps everyday habits safe." whose="Shared: your practice, the ICB and suppliers" lead="Your named data and cyber security lead" when="All the time. Checked yearly through the DSPT." />
+
+## Who does what
+
+Your ICB provides core GP IT, including security updates and anti-virus. Practices must name someone responsible for IT, including data and cyber security, and must have a Data Protection Officer.<sup><a href="#ref-1">1</a></sup> Suppliers are responsible for the security of their own products, and you check that when you buy.
+
+## Five ways in
+
+Most attacks come through a handful of doors. Open each one to see the lock, and who holds the key.
+
+<CyberDoors />
+
+## Cyber Essentials
+
+A government-backed certificate that shows an organisation has five basic protections in place: firewalls, secure settings, security updates, controlled user access, and malware protection.<sup><a href="#ref-2">2</a></sup>
+
+<div class="split">
+  <div style="--c:#e07a1f"><h3>Cyber Essentials</h3><p>A self-assessment, independently checked.</p></div>
+  <div style="--c:#b04e0a"><h3>Cyber Essentials Plus</h3><p>The same five protections, plus hands-on technical testing to show they work. The one to ask suppliers for.<sup><a href="#ref-2">2</a></sup></p></div>
+</div>
+
+## If something goes wrong
+
+Tell your ICB GP IT service straight away, and report it through the DSPT. For urgent help, the NHS data security centre has a 24-hour line: 0300 303 5222.<sup><a href="#ref-3">3</a></sup> See [data breaches](/information-governance/after-go-live#data-breaches) for the rest of the steps.
+
+<Refs items={[
+  ['NHS England updates GP IT operating model requirements', 'https://htn.co.uk/2026/05/27/nhs-england-updates-gp-it-operating-model-requirements/', 'HTN, May 2026'],
+  ['Cyber Essentials overview', 'https://www.ncsc.gov.uk/cyberessentials/overview', 'National Cyber Security Centre'],
+  ['DSPT help: incident reporting', 'https://dsptoolkit.nhs.uk/Help/29', 'NHS England'],
+]} />

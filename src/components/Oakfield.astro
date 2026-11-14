@@ -1,0 +1,28 @@
+---
+// Introduces Oakfield Surgery, the made-up practice used in every example.
+const { short = false, ig = false } = Astro.props;
+---
+<div class="oak">
+  <div class="oak-badge" aria-hidden="true">
+    <svg viewBox="0 0 48 48"><path d="M24 6 L6 20 V42 H42 V20 Z" fill="#057092" /><rect x="20" y="28" width="8" height="14" fill="#fff" /><rect x="11" y="24" width="6" height="6" fill="#fff" /><rect x="31" y="24" width="6" height="6" fill="#fff" /></svg>
+  </div>
+  <div>
+    <p class="oak-k">Our example practice</p>
+    <p class="oak-t">Oakfield Surgery</p>
+    <p>A fictional practice we use throughout the toolkit: a practice of 9,000 patients with five GPs, two nurses, a practice manager and a care navigation (reception) team. Like every practice, Oakfield must keep an <strong>online consultation tool</strong> open throughout core hours, a <a href="https://www.england.nhs.uk/long-read/online-consultations-frequently-asked-questions/">contract requirement since October 2025</a>. Oakfield is switching to a new tool, <strong>Kestrel Consult</strong>, and needs to show {ig ? 'it complies with data protection law' : 'it\'s clinically safe in the way they run it'}. In simple terms, patients send requests for appointments through the practice website, a care navigator sorts them, and the duty doctor reviews anything needing specific clinical input.</p>
+    <p class="oak-n">Kestrel Consult and the other product names in Oakfield's examples are made up.</p>
+    {!short && <p>One of the GP partners has done Clinical Safety Officer training and will act as CSO. The practice manager will run the process.</p>}
+    {short && !ig && <p><a href="/clinical-safety/worked-examples">Follow Oakfield through the whole process →</a></p>}
+    {short && ig && <p><a href="/information-governance/dpia#oakfields-dpia">See the data risks in Oakfield’s DPIA →</a></p>}
+  </div>
+</div>
+<style>
+  .oak { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-left: 8px solid #057092; border-radius: 16px; padding: 1.1rem 1.2rem; margin: 1.25rem 0; }
+  .oak-badge svg { width: 48px; height: 48px; }
+  .oak p { margin: 0 0 0.5rem; }
+  .oak p:last-child { margin-bottom: 0; }
+  .oak-k { font-size: 0.78rem !important; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.1rem !important; }
+  .oak-n { font-size: 0.85rem; color: var(--muted); }
+  .oak-t { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; }
+  @media (max-width: 520px) { .oak { grid-template-columns: minmax(0, 1fr); } }
+</style>

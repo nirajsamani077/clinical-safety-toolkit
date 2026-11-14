@@ -1,0 +1,50 @@
+---
+// "Do we need a DPIA?" as a rule of thumb plus examples either side. Replaces the seven-question checker.
+const yes = [
+  ['An online consultation or triage tool', 'Patients send health information through it'],
+  ['A patient messaging tool', 'Texts, letters and questionnaires sent from the record'],
+  ['A recall or proactive care tool', 'Searches the whole list to find and invite patients'],
+  ['An AI care navigator or receptionist', 'Talks to patients and handles their details'],
+  ['An AI scribe', 'Records and transcribes consultations'],
+  ['A new phone system that records or transcribes calls', 'Calls hold health information too'],
+  ['A document processing tool', 'Reads incoming letters, then summarises and codes them into the record'],
+  ['A tool that files or codes results automatically', 'Writes into the record without a person doing each step'],
+  ['Switching supplier for a tool you already use', 'New supplier, new contract, data may move'],
+];
+const maybe = [
+  ['A tool that uses no personal information', 'For example, a clinical reference app'],
+  ['A small update to a tool whose DPIA already covers it', 'Check the change doesn’t alter the data, then note it on the DPIA'],
+  ['Your clinical system, such as EMIS or SystmOne', 'It still needs a DPIA, but the ICB usually buys it and provides one. Adapt it to your practice'],
+  ['A tool your ICB or PCN has already assessed, used the same way', 'Adopt their DPIA and add anything local, instead of starting again'],
+];
+---
+<div class="dr">
+  <p class="dr-rule"><strong>Rule of thumb:</strong> if a new tool will handle patient information, assume you need a DPIA and speak to your DPO.<sup><a href="#ref-1">1</a></sup></p>
+  <div class="dr-cols">
+    <div class="dr-col yes">
+      <h3>You need a new one</h3>
+      <ul>{yes.map(([a, b]) => <li><span class="dr-i" aria-hidden="true">✓</span><strong>{a}</strong><span>{b}</span></li>)}</ul>
+    </div>
+    <div class="dr-col maybe">
+      <h3>You may not need a new one</h3>
+      <ul>{maybe.map(([a, b]) => <li><span class="dr-i" aria-hidden="true">–</span><strong>{a}</strong><span>{b}</span></li>)}</ul>
+    </div>
+  </div>
+  <p class="dr-note">Either way, write down the decision and why.</p>
+</div>
+<style>
+  .dr { margin: 1.5rem 0; padding: clamp(1rem, 3vw, 1.5rem); border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+  .dr-rule { margin: 0 0 1.1rem; padding: 0.8rem 1rem; border-radius: 12px; background: #032c47; color: #fff; font-size: 1.02rem; }
+  .dr-rule a { color: #9fdcf0; }
+  .dr-cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.25rem; }
+  .dr-col h3 { margin: 0 0 0.6rem; font: 800 1.05rem var(--font-display); }
+  .dr-col.yes h3 { color: #920570; } .dr-col.maybe h3 { color: #3b7a14; }
+  .dr-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+  .dr-col li { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); gap: 0 0.6rem; }
+  .dr-i { grid-row: span 2; width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+  .yes .dr-i { background: #920570; } .maybe .dr-i { background: #3b7a14; }
+  .dr-col strong { font-size: 0.97rem; }
+  .dr-col li > span:last-child { font-size: 0.88rem; color: var(--muted); }
+  .dr-note { margin: 1rem 0 0; font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 760px) { .dr-cols { grid-template-columns: minmax(0, 1fr); } }
+</style>

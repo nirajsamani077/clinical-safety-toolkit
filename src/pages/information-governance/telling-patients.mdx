@@ -1,0 +1,60 @@
+---
+layout: ../../layouts/Page.astro
+title: Telling patients
+zone: ig
+lede: Patients have a right to know how their information is used. When you bring in a new tool, update what you tell them before it goes live.
+checked: 3 November 2026
+---
+import Icon from '../../components/Icon.astro';
+import NoticeExample from '../../components/NoticeExample.astro';
+import Refs from '../../components/Refs.astro';
+
+## Your privacy notice
+
+Update it before a new tool goes live, in plain language.<sup><a href="#ref-1">1</a></sup> The law sets out what it must cover, including why you use the information, who you share it with, how long you keep it and how patients can use their rights.<sup><a href="#ref-4">4</a></sup> Here's how Oakfield's section on its online consultation tool could read.
+
+<NoticeExample />
+
+## Other ways to tell people
+
+Alongside the privacy notice:
+
+
+<ul class="chips warm">
+  <li><Icon name="globe" /><span><strong>Your website:</strong> a plain-English page about the tool</span></li>
+  <li><Icon name="poster" /><span><strong>Posters</strong> in the waiting room and at reception</span></li>
+  <li><Icon name="phone" /><span><strong>On the tool itself:</strong> a short message on the form or app</span></li>
+  <li><Icon name="chat" /><span><strong>At the point of use,</strong> for tools in the consultation such as AI scribes</span></li>
+</ul>
+
+For consultation tools such as AI scribes, tell the patient at the start, respect a no, and record their answer. If a patient objects to any tool, offer another way, and involve your DPO if it's a formal objection.<sup><a href="#ref-1">1</a></sup>
+
+## The national data opt-out
+
+Patients can choose to stop their confidential information being used for research and planning. They set it themselves, through the NHS App or the NHS website, and it's held against their NHS number.<sup><a href="#ref-2">2</a></sup>
+
+<div class="split">
+  <div style="--c:#3b7a14"><h3><Icon name="check" /> Doesn't apply</h3><p>When information is used for the patient's own care, which covers most practice tools. It also doesn't apply to anonymised data, or when the patient has agreed to a specific project.<sup><a href="#ref-2">2</a></sup></p></div>
+  <div style="--c:#8a5f00"><h3><Icon name="alert" /> May apply</h3><p>If a tool or supplier wants to use identifiable data for anything beyond care, such as research or planning. The records of patients who have opted out must then be removed first.<sup><a href="#ref-2">2</a></sup> Ask your DPO.</p></div>
+</div>
+
+For a new tool, ask the supplier whether any identifiable data is used for anything other than care. If not, the opt-out doesn't affect it.
+
+## Tools that make decisions
+
+Some tools decide things without a person, for example a triage tool that books, redirects or declines a request automatically. Data protection law has extra rules for decisions made entirely by a computer that have a significant effect on someone. Since February 2026, a decision like this that uses health data is only allowed in narrow cases, such as with the patient's explicit consent.<sup><a href="#ref-5">5</a></sup>
+
+<ul class="ticks">
+  <li><strong>Keep a person involved</strong><span>Someone who reviews the decision and can change it. Then it isn't a fully automated decision.</span></li>
+  <li><strong>Tell patients</strong><span>Say in your privacy notice if a tool makes decisions automatically.<sup><a href="#ref-4">4</a></sup></span></li>
+  <li><strong>Let them ask for a person</strong><span>A patient should be able to challenge the decision and have someone look at it again.</span></li>
+  <li><strong>Check first</strong><span>Ask your DPO before switching on a fully automated feature. The ICO consulted on updated guidance in 2026.<sup><a href="#ref-3">3</a></sup></span></li>
+</ul>
+
+<Refs items={[
+  ['Consent and confidential patient information', 'https://transform.england.nhs.uk/information-governance/guidance/consent-and-confidential-patient-information', 'NHS England'],
+  ['Understanding the national data opt-out', 'https://digital.nhs.uk/services/national-data-opt-out/understanding-the-national-data-opt-out', 'NHS England'],
+  ['ICO consultation on draft guidance about automated decision-making, including profiling', 'https://ico.org.uk/about-the-ico/ico-and-stakeholder-consultations/2026/03/ico-consultation-on-the-draft-guidance-about-automated-decision-making-including-profiling/', 'Information Commissioner’s Office, March 2026'],
+  ['Right to be informed', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-be-informed/', 'Information Commissioner’s Office'],
+  ['Data (Use and Access) Act 2025, section 80: automated decision-making', 'https://www.legislation.gov.uk/ukpga/2025/18/section/80', 'legislation.gov.uk'],
+]} />

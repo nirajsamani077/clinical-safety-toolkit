@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import FiveStages from '../components/FiveStages.astro';
+import { zones } from '../data/site.js';
+
+const routes = [
+  { k: 'cs', t: "We're adopting a new tool", d: 'The whole journey in five stages, across clinical safety, data protection and AI policy.', href: '/adopting-a-tool', cta: 'See the journey' },
+  { k: 'ig', t: 'What does that word mean?', d: 'Causes, effects, hazards and harms, explained with a garden trampoline.', href: '/clinical-safety/understand', cta: 'Understand the basics' },
+  { k: 'tpl', t: 'I need a template', d: 'Hazard log, clinical safety case report, DPIA and more, to read, print or download.', href: '/templates', cta: 'See the templates' },
+  { k: 'ai', t: "Something's gone wrong", d: 'Who to tell, what to record, and how it feeds back into your hazard log.', href: '/clinical-safety/after-go-live', cta: 'What to do' },
+];
+const zoneInfo = {
+  adopt: 'The whole journey in five stages, and which tools need what.',
+  cs: 'Hazard logs, safety cases and the five-stage process, with a worked example and templates.',
+  ig: 'DPIAs, privacy notices, data processing agreements and your DPO.',
+  ai: 'An example AI policy, a tool register and a CQC readiness checklist.',
+  lib: 'Short explainers on DTAC, DSPT, cyber security, medical devices, IM1 and other key topics.',
+};
+---
+<Base title="" description="A plain-English clinical safety toolkit for practice managers and partners in general practice.">
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <p class="eyebrow">For GP teams, practice managers and partners</p>
+        <h1>Clinical safety, <span>without the jargon.</span></h1>
+        <p class="lead">Every digital tool you use in patient care needs a safety check. This toolkit shows what the NHS standards ask of your practice, in plain English, with analogies, examples and templates.</p>
+        <div class="ctas">
+          <a class="btn btn-primary start-here" href="/adopting-a-tool"><span>Bringing in a new tool?</span> Start here →</a>
+          <a class="btn btn-ghost" href="/clinical-safety/understand">Start with the basics</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <p class="hc-label">Before you use a new digital tool</p>
+        <ol class="hc-steps">
+          <li><b style="--c:#057092">1</b><span><strong>Clinical safety</strong>Could it harm a patient, and what are we doing about it?</span></li>
+          <li><b style="--c:#920570">2</b><span><strong>Data protection</strong>Are we handling patient data lawfully and securely?</span></li>
+          <li><b style="--c:#3b7a14">3</b><span><strong>AI policy</strong>What are staff allowed to use, and how?</span></li>
+        </ol>
+        <a class="hc-link" href="/adopting-a-tool">How the three fit together →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <h2 class="sec">Where do you want to start?</h2>
+    <div class="routes">
+      {routes.map((r) => (
+        <a class={`route ${r.k}`} href={r.href}>
+          <h3>{r.t}</h3>
+          <p>{r.d}</p>
+          <span class="go">{r.cta} →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap block">
+      <div class="band-head">
+        <h2 class="sec">Five stages</h2>
+        <p>From "we're thinking about how to roll this out" to "is it still safe for staff and patients?". Choose a stage to see the steps.</p>
+      </div>
+      <FiveStages track="all" />
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <h2 class="sec">The toolkit</h2>
+    <div class="zones">
+      {Object.entries(zones).map(([k, z]) => (
+        <a class={`zone z-${k}`} href={z.href}>
+          <span class="z-status">{z.live ? 'Available now' : 'Coming soon'}</span>
+          <h3>{z.name}</h3>
+          <p>{zoneInfo[k]}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: var(--mast-bg); color: #fff; overflow: hidden; position: relative; }
+  .hero::after { content: ''; position: absolute; right: -120px; top: -160px; width: 520px; height: 520px; border-radius: 50%; border: 70px solid rgba(146, 5, 112, 0.35); pointer-events: none; }
+  .hero-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; padding-block: clamp(2.5rem, 7vw, 5rem); position: relative; z-index: 1; }
+  .eyebrow { font-weight: 700; color: var(--lime); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.85rem; margin: 0 0 1rem; }
+  .hero h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); line-height: 1.02; }
+  .hero h1 span { display: block; background: linear-gradient(90deg, #5fc4e4, #e070c4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: var(--step-1); color: #cfe2ec; max-width: 54ch; margin: 1.2rem 0 1.6rem; }
+  .ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .hero-card { background: #fff; color: #0d2638; border-radius: 20px; padding: 1.4rem; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+  .hc-label { font-size: 0.8rem; font-weight: 700; color: #057092; margin: 0; }
+  .hc-steps { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+  .hc-steps li { display: flex; gap: 0.75rem; align-items: center; }
+  .hc-steps b { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-family: var(--font-display); font-weight: 800; }
+  .hc-steps span { display: grid; font-size: 0.85rem; color: #4b6577; line-height: 1.25; }
+  .hc-steps strong { font-family: var(--font-display); font-size: 1rem; color: #0d2638; }
+  .hc-link { display: inline-block; margin-top: 1rem; font-weight: 700; color: #05607e; }
+
+  .block { padding-block: clamp(2.5rem, 6vw, 4rem); }
+  .sec { font-size: var(--step-3); margin-bottom: 1.25rem; }
+  .routes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 1000px) { .routes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .route { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.4rem; border-radius: 18px; text-decoration: none; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-top: 8px solid; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .route:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(3, 44, 71, 0.12); }
+  .route.cs { border-top-color: #057092; } .route.ig { border-top-color: #920570; } .route.ai { border-top-color: #92d050; } .route.tpl { border-top-color: #b04e0a; }
+  .start-here { font-size: 1.08rem; padding: 0.85rem 1.3rem; box-shadow: 0 0 0 0 rgba(146, 208, 80, 0.6); animation: nudge 2.4s ease-out 1s 2; }
+  .start-here span { font-weight: 400; margin-right: 0.25rem; }
+  @keyframes nudge { 0% { box-shadow: 0 0 0 0 rgba(146, 208, 80, 0.6); } 100% { box-shadow: 0 0 0 16px rgba(146, 208, 80, 0); } }
+  .route h3 { font-size: 1.35rem; }
+  .route p { margin: 0; color: var(--muted); }
+  .go { margin-top: auto; padding-top: 0.6rem; font-weight: 700; color: var(--link); }
+
+  .band { background: var(--soft-teal); }
+  .band-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 2rem; align-items: end; margin-bottom: 1rem; }
+  .band-head p { margin: 0 0 1.25rem; color: var(--muted); }
+
+  .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .feature { padding: 1.4rem; border-radius: 18px; background: var(--navy); color: #fff; text-decoration: none; display: flex; flex-direction: column; gap: 0.5rem; transition: transform 0.15s ease; }
+  .feature:nth-child(2) { background: #057092; } .feature:nth-child(3) { background: #920570; }
+  .feature:hover { transform: translateY(-3px); }
+  .feature h3 { font-size: 1.3rem; }
+  .feature p { margin: 0; color: rgba(255, 255, 255, 0.85); }
+  .f-k { align-self: flex-start; background: #92d050; color: #032c47; font-weight: 700; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 99px; }
+
+  .zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1rem; }
+  .zone { padding: 1.2rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--fg); display: flex; flex-direction: column; gap: 0.4rem; border-left: 8px solid; }
+  .z-adopt { border-left-color: #5b6f7c; } .z-cs { border-left-color: #057092; } .z-ig { border-left-color: #920570; } .z-ai { border-left-color: #92d050; } .z-lib { border-left-color: #b04e0a; }
+  .zone h3 { font-size: 1.15rem; }
+  .zone p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .z-status { font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .z-cs .z-status, .z-adopt .z-status { color: var(--good); }
+
+  @media (max-width: 900px) {
+    .hero-in, .band-head { grid-template-columns: minmax(0, 1fr); }
+    .hero-card { max-width: 420px; }
+    .routes, .features { grid-template-columns: minmax(0, 1fr); }
+    .zones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 520px) { .zones { grid-template-columns: minmax(0, 1fr); } }
+</style>

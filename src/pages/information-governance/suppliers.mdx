@@ -1,0 +1,69 @@
+---
+layout: ../../layouts/Page.astro
+title: Suppliers
+zone: ig
+lede: When a supplier handles patient information for you, you need to know where it goes and agree in writing what they can do with it.
+checked: 3 November 2026
+---
+import DataJourney from '../../components/DataJourney.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+## Follow the data
+
+Take one request and follow it from the patient to the record. At each stop, ask the question underneath.
+
+<DataJourney />
+
+For a worked example, see [Oakfield's data flow](/information-governance/dpia#oakfields-dpia) on the DPIA page.
+
+## Three ways to protect data
+
+At each step in a data flow, ask how the data is protected, and whether the supplier needs to know who the patient is.
+
+<div class="optcards">
+  <div class="optcard" style="--c:#0b4a6e"><span class="ib"><Icon name="lock" /></span><strong>Encryption</strong><p>Scrambles data so only someone with the key can read it. Ask for it both while data moves between systems and where it's stored.<sup><a href="#ref-2">2</a></sup></p><small>Still personal data</small></div>
+  <div class="optcard" style="--c:#920570"><span class="ib"><Icon name="key" /></span><strong>Pseudonymisation</strong><p>Swaps names and NHS numbers for a code. Whoever holds the key can link it back to the patient, for example an AI scribe working on a transcript.<sup><a href="#ref-3">3</a></sup></p><small>Still personal data</small></div>
+  <div class="optcard" style="--c:#3b7a14"><span class="ib"><Icon name="eye" /></span><strong>Anonymisation</strong><p>Removes anything that could identify the patient, so it can't be linked back. This is the only form a supplier should use to improve its product.<sup><a href="#ref-3">3</a></sup></p><small>No longer personal data</small></div>
+</div>
+
+## The data processing agreement (DPA)
+
+The law requires a written contract.<sup><a href="#ref-1">1</a></sup> In plain English, the supplier promises to:
+
+<ul class="ticks">
+  <li><strong>Follow your instructions</strong><span>Only use the data the way you've agreed.</span></li>
+  <li><strong>Keep it secure</strong><span>Appropriate technical and organisational security.</span></li>
+  <li><strong>Ask before subcontracting</strong><span>Only use other companies with your permission, on the same terms.</span></li>
+  <li><strong>Tell you about breaches</strong><span>Promptly, so you can meet your own deadlines.</span></li>
+  <li><strong>Delete or return it</strong><span>When the contract ends.</span></li>
+</ul>
+
+Ask your DPO to read the supplier's standard agreement before you sign.
+
+## Questions to ask before you sign
+
+<ul class="checklist">
+  <li>Where is the data stored and processed? Is any of it outside the UK?</li>
+  <li>Do you use our data to train or improve your product, including AI models?</li>
+  <li>Have you completed the Data Security and Protection Toolkit, and do you hold <a href="/explainers/cyber-security">Cyber Essentials Plus</a>?</li>
+  <li>Can you provide a draft DPIA and your data processing agreement?</li>
+</ul>
+
+## Warning signs
+
+<div class="tiles tight">
+  <div class="tile flag"><span class="ib"><Icon name="alert" /></span><strong>No agreement offered</strong><span>Or one that lets the supplier use data "for any purpose".</span></div>
+  <div class="tile flag"><span class="ib"><Icon name="refresh" /></span><strong>"To improve our services"</strong><span>Data reuse with no detail about what that means.</span></div>
+  <div class="tile flag"><span class="ib"><Icon name="phone" /></span><strong>Free or consumer versions</strong><span>A personal or free version being used for patient work.</span></div>
+</div>
+
+## When the ICB or NHS England buys the tool
+
+Usually the practice is still the data controller for its own patients. Ask for the central agreement and DPIA, check they cover how you use the tool, and add your own where needed.
+
+<Refs items={[
+  ['Contracts and liabilities between controllers and processors', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/', 'Information Commissioner’s Office'],
+  ['Encryption', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/encryption/', 'Information Commissioner’s Office'],
+  ['Anonymisation', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/anonymisation/', 'Information Commissioner’s Office'],
+]} />

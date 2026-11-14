@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import TemplateViewer from '../components/TemplateViewer.astro';
+---
+<Base title="Templates" zone="tpl">
+  <div class="wrap page-head">
+    <div class="crumb"><a href="/">Home</a> / Templates</div>
+    <h1>Templates</h1>
+    <p class="lede">Every document in the toolkit in one place. Read it here, open it in its own tab, print it, or download it as Word or Excel. Each has a blank version and one filled in for Oakfield Surgery.</p>
+  </div>
+  <div class="wrap tpl-hub">
+    <TemplateViewer />
+    <p class="tpl-more">The AI policy is explained on the <a href="/ai-policy/your-policy">Your policy</a> page. For how the documents fit together, see <a href="/clinical-safety/templates">clinical safety templates</a>.</p>
+  </div>
+</Base>
+<style>
+  .tpl-hub { padding-bottom: 4rem; }
+  .tpl-more { color: var(--muted); max-width: 70ch; }
+</style>

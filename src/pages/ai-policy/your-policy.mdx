@@ -1,0 +1,71 @@
+---
+layout: ../../layouts/Page.astro
+title: Your policy
+zone: ai
+lede: A worked example policy to adapt, what goes in your AI tool register, and a one-page card for staff.
+checked: 6 November 2026
+---
+import YouAreHere from '../../components/YouAreHere.astro';
+import TemplateViewer from '../../components/TemplateViewer.astro';
+import Refs from '../../components/Refs.astro';
+
+<YouAreHere what="The AI policy detail" on={[0]} />
+
+## The example policy
+
+Oakfield's AI policy, written to be used rather than filed. It names who is responsible, lists each tool with what it can and can't be used for, and sets out what happens when something goes wrong. Switch between the blank version and Oakfield's, or download it as Word. It's based on CQC's mythbuster<sup><a href="#ref-1">1</a></sup> and NHS England's AI guidance,<sup><a href="#ref-2">2</a></sup> and you're free to copy it and change the names, tools and dates.
+
+<TemplateViewer section="ai" />
+
+<p class="source">This is an example, not a legal document. Check it against your ICB's guidance and your own processes. Incident reporting routes: Learn from Patient Safety Events<sup><a href="#ref-3">3</a></sup> and the MHRA Yellow Card scheme.<sup><a href="#ref-4">4</a></sup> Copilot use follows NHS England's guidance.<sup><a href="#ref-5">5</a></sup> For other published examples, see One Care's AI policy template for practices<sup><a href="#ref-6">6</a></sup> and Doncaster and Bassetlaw Teaching Hospitals' AI policy.<sup><a href="#ref-7">7</a></sup></p>
+
+## The AI tool register
+
+Section 3 of the policy is a summary of it. The full register is a spreadsheet with a row for each tool: what it is, its status, what it's approved for and who can use it, the CSO and DPO sign-off dates, and the next review. It's the first thing to show an inspector. Start from the [technology register template](/templates/technology-register), which covers all your digital tools, AI included.
+
+Products named here are examples only. They are not recommendations, and your register will look different.
+
+## A card for staff
+
+Print this for the staff room and the locum pack. It's the policy in one glance.
+
+<div class="dd">
+  <div class="dd-h"><strong>Using AI at work</strong><span>Ask the digital lead if you're not sure</span></div>
+  <div class="dd-b">
+    <div class="do">
+      <p>Do</p>
+      <ul>
+        <li>Use only tools on the practice AI register</li>
+        <li>Check everything AI writes before you act on it or save it</li>
+        <li>Tell patients when AI is being used in their care</li>
+        <li>Report anything odd, including near misses</li>
+        <li>Ask before trying a new AI feature</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <p>Don't</p>
+      <ul>
+        <li>Put patient details into a free or personal AI account</li>
+        <li>Bring your own AI app to use in clinic</li>
+        <li>Let AI make a clinical decision for you</li>
+        <li>Assume a new feature in an update is approved</li>
+        <li>Sign off a note you haven't read</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dd-f">You are responsible for anything you sign, however it was written.</div>
+</div>
+
+## Making it stick
+
+Add it to induction for new staff, locums and trainees, make AI a standing item at practice meetings, and review the policy and register once a year alongside your [DSPT](/information-governance/after-go-live#every-year).
+
+<Refs items={[
+  ['GP mythbuster 109: Artificial intelligence in GP services', 'https://www.cqc.org.uk/guidance-providers/gps/gp-mythbusters/gp-mythbuster-109-artificial-intelligence-gp-services', 'Care Quality Commission'],
+  ['Information governance guidance: Artificial intelligence', 'https://transform.england.nhs.uk/information-governance/guidance/artificial-intelligence/', 'NHS England'],
+  ['Learn from Patient Safety Events: primary care', 'https://www.england.nhs.uk/patient-safety/learn-from-patient-safety-events-service/primary-care-information/', 'NHS England'],
+  ['Yellow Card scheme', 'https://yellowcard.mhra.gov.uk/', 'MHRA. Report problems with medical devices, including software and AI'],
+  ['Information governance guidance: Microsoft 365 Copilot', 'https://transform.england.nhs.uk/information-governance/guidance/microsoft-365-copilot/', 'NHS England. Copilot can support clinical administration with a DPIA, but must not be used for clinical decisions'],
+  ['Ambient voice technology toolkit, appendix A: AI policy', 'https://onecare.org.uk/wp-content/uploads/2025/08/AVT-toolkit.pdf', 'One Care, 2025. A draft policy for practices to adapt'],
+  ['Artificial Intelligence (AI) Policy, CORP/ICT 32', 'https://www.dbth.nhs.uk/wp-content/uploads/2026/05/CORP-ICT-32-v2-Artificial-Intelligence-AI-Policy.pdf', 'Doncaster and Bassetlaw Teaching Hospitals NHS Foundation Trust, 2026'],
+]} />

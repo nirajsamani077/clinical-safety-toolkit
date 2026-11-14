@@ -1,0 +1,182 @@
+---
+// The trampoline story, one idea per frame. The reader clicks through; nothing moves on its own.
+const frames = [
+  { k: 'The system', d: 'The thing you’re putting in place. On its own it can’t harm anyone, but in the wrong circumstances it could.', g: 'The trampoline in the garden.', p: 'The online consultation form.' },
+  { k: 'Causes', d: 'What could make the hazard happen. There is usually more than one, often about the technology itself or how people use it.', g: 'Three children bouncing at once. Someone trying a flip.', p: 'The form doesn’t highlight red-flag symptoms. Some patients think the form is fine for urgent problems.' },
+  { k: 'Effect', d: 'What goes wrong first, before anyone is actually harmed.', g: 'The bounces become unpredictable.', p: 'A request with red-flag symptoms that needs urgent action sits in the routine queue.' },
+  { k: 'Hazard', d: 'The situation where a person could come to harm. It always involves a person, usually the patient.', g: 'A child loses control while bouncing and could fall off or collide with another child.', p: 'A patient with red-flag symptoms is not directed to an urgent assessment in time.' },
+  { k: 'Harm', d: 'What happens to the person or patient. One hazard can lead to harms of different likelihood and severity.', g: 'An upset child, a bruise, a broken arm, or at worst a head injury or death.', p: 'Patient worry, repeated calls to the practice, delayed treatment, or at worst serious harm or death.' },
+  { k: 'Risk', d: 'How likely the harm is, combined with how serious it would be. Scored from 1 to 5 using a <a href="#scoring-a-risk">risk matrix</a>, which tells you whether the risk is acceptable.', g: 'Quite likely, and could be fairly serious. Score: 3. Not acceptable yet.', p: 'Possible, and could be very serious. Score: 3. Not acceptable yet.' },
+  { k: 'Controls that prevent', d: 'These act on the causes, so the hazard is less likely to happen in the first place. They reduce likelihood.', g: 'One child at a time, no flips, and a safety net round the edge.', p: 'A banner at the start of the form tells patients to call 999 or 111 for red-flag symptoms. Red-flag answers stop the form from going any further and direct the patient to 999 or 111.' },
+  { k: 'Mitigations that limit harm', d: 'These act after the hazard, so if it still happens the harm is less severe. They reduce severity.', g: 'An adult watching who knows first aid. Soft ground and padding.', p: 'A practice protocol that a clinician reviews every symptom request within two hours. A further safety-netting message when the form is sent.' },
+  { k: 'Residual risk', d: 'The risk that is left once controls and mitigations are in place. You write it down and decide whether you can accept it.', g: 'Much less likely now. Score: 2. Acceptable, so the children can play.', p: 'Very unlikely now. Score: 2. Acceptable, so Oakfield can go ahead.' },
+];
+const last = frames.length;
+---
+<figure class="tr" data-tr data-f={last}>
+  <ol class="tr-dots no-print" aria-label="Choose a stage">
+    {frames.map((f, i) => (
+      <li><button type="button" data-go={i + 1} aria-pressed={i === last - 1 ? 'true' : 'false'}><span>{i + 1}</span>{f.k}</button></li>
+    ))}
+  </ol>
+
+  <div class="tr-stage">
+    <svg viewBox="0 0 640 300" role="img" aria-label="A garden trampoline, built up one idea at a time">
+      <rect class="sky" x="0" y="0" width="640" height="300" rx="16" />
+      <rect class="lawn" x="0" y="250" width="640" height="50" />
+      <g class="l-soft"><ellipse class="soft" cx="320" cy="262" rx="200" ry="16" /></g>
+      <g class="l-net">
+        <line x1="185" y1="205" x2="185" y2="80" /><line x1="455" y1="205" x2="455" y2="80" />
+        <line x1="245" y1="222" x2="245" y2="92" /><line x1="395" y1="222" x2="395" y2="92" />
+        <ellipse cx="320" cy="86" rx="135" ry="16" fill="none" />
+        <path class="mesh" d="M205 90 V212 M225 91 V218 M265 94 V223 M285 95 V225 M305 95 V226 M325 95 V226 M345 95 V225 M365 94 V224 M415 91 V218 M435 89 V212" />
+      </g>
+      <g class="l-base">
+        <line x1="190" y1="205" x2="190" y2="258" /><line x1="450" y1="205" x2="450" y2="258" />
+        <line x1="260" y1="224" x2="260" y2="258" /><line x1="380" y1="224" x2="380" y2="258" />
+        <ellipse class="mat" cx="320" cy="200" rx="150" ry="28" />
+      </g>
+      <g class="l-glow"><ellipse class="glow" cx="320" cy="200" rx="170" ry="40" /></g>
+
+      <g class="l-three">
+        <g class="kid"><circle cx="265" cy="130" r="9" /><polyline points="251,126 265,142 279,126" /><line x1="265" y1="139" x2="265" y2="164" /><polyline points="256,182 265,164 274,182" /></g>
+        <g class="kid"><circle cx="320" cy="122" r="9" /><polyline points="306,118 320,134 334,118" /><line x1="320" y1="131" x2="320" y2="156" /><polyline points="311,174 320,156 329,174" /></g>
+        <g class="kid leaver"><circle cx="375" cy="130" r="9" /><polyline points="361,126 375,142 389,126" /><line x1="375" y1="139" x2="375" y2="164" /><polyline points="366,182 375,164 384,182" /></g>
+      </g>
+      <g class="l-one">
+        <g class="kid"><circle cx="320" cy="122" r="9" /><polyline points="306,118 320,134 334,118" /><line x1="320" y1="131" x2="320" y2="156" /><polyline points="311,174 320,156 329,174" /></g>
+      </g>
+      <g class="l-fly">
+        <path class="arc" d="M385 150 Q 470 60 520 190" />
+        <g class="kid" transform="rotate(35 510 150)"><circle cx="510" cy="132" r="9" /><polyline points="496,128 510,144 524,128" /><line x1="510" y1="141" x2="510" y2="166" /><polyline points="501,184 510,166 519,184" /></g>
+      </g>
+      <g class="l-hurt">
+        <g class="kid"><circle cx="540" cy="238" r="9" /><line x1="531" y1="240" x2="505" y2="242" /><polyline points="523,240 517,226 511,220" /><polyline points="505,242 487,234 505,242 487,248" /></g>
+        <circle class="alert" cx="556" cy="208" r="15" /><text class="alert-t" x="556" y="215" text-anchor="middle">!</text>
+      </g>
+      <g class="l-adult">
+        <g class="adult"><circle cx="545" cy="160" r="11" /><line x1="545" y1="171" x2="545" y2="214" /><polyline points="528,198 545,182 562,198" /><polyline points="533,252 545,214 557,252" /></g>
+      </g>
+
+      <g class="l-tag-hazard"><rect class="tag" x="24" y="24" width="230" height="38" rx="19" /><text class="tag-t" x="139" y="49" text-anchor="middle">The system: a trampoline</text></g>
+      <g class="l-tags-cause">
+        <rect class="tag c" x="24" y="24" width="200" height="34" rx="17" /><text class="tag-t" x="124" y="47" text-anchor="middle">Three at once</text>
+        <rect class="tag c" x="24" y="66" width="200" height="34" rx="17" /><text class="tag-t" x="124" y="89" text-anchor="middle">Trying flips</text>
+      </g>
+      <g class="l-tag-effect"><rect class="tag e" x="24" y="24" width="250" height="38" rx="19" /><text class="tag-t" x="149" y="49" text-anchor="middle">Bounces go wild</text></g>
+      <g class="l-tag-hz"><rect class="tag h" x="24" y="24" width="250" height="38" rx="19" /><text class="tag-t" x="149" y="49" text-anchor="middle">Hazard: a child loses control</text></g>
+      <g class="l-score3"><rect class="score warn" x="24" y="24" width="220" height="80" rx="16" /><text class="score-n" x="66" y="80" text-anchor="middle">3</text><text class="score-t" x="102" y="56">Risk score</text><text class="score-s" x="102" y="84">not yet OK</text></g>
+      <g class="l-score2"><rect class="score good" x="24" y="24" width="220" height="80" rx="16" /><text class="score-n" x="66" y="80" text-anchor="middle">2</text><text class="score-t" x="102" y="56">Risk score</text><text class="score-s" x="102" y="84">acceptable</text></g>
+    </svg>
+
+    <div class="tr-text" aria-live="polite">
+      {frames.map((f, i) => (
+        <div class="cap" data-cap={i + 1} hidden={i !== last - 1}>
+          <p class="cap-n">{i + 1} of {last}</p>
+          <p class="cap-k">{f.k}</p>
+          <p class="cap-d" set:html={f.d}></p>
+          <div class="pair">
+            <p><span>In the garden</span>{f.g}</p>
+            <p><span>At Oakfield Surgery</span>{f.p}</p>
+          </div>
+        </div>
+      ))}
+      <div class="tr-nav no-print">
+        <button type="button" class="btn btn-plain" data-prev>Back</button>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<script is:inline define:vars={{ last }}>
+  (function () {
+    document.querySelectorAll('[data-tr]').forEach(function (fig) {
+      var n = 1;
+      function show(k) {
+        n = Math.max(1, Math.min(last, k));
+        fig.setAttribute('data-f', String(n));
+        fig.querySelectorAll('[data-cap]').forEach(function (c) { c.hidden = +c.getAttribute('data-cap') !== n; });
+        fig.querySelectorAll('[data-go]').forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-go') === n ? 'true' : 'false'); });
+        fig.querySelector('[data-prev]').disabled = n === 1;
+        fig.querySelector('[data-next]').textContent = n === last ? 'Start again' : 'Next';
+      }
+      fig.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-go')); }); });
+      fig.querySelector('[data-prev]').addEventListener('click', function () { show(n - 1); });
+      fig.querySelector('[data-next]').addEventListener('click', function () { show(n === last ? 1 : n + 1); });
+      show(1);
+    });
+  })();
+</script>
+
+<style>
+  .tr { margin: 1.5rem 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(1rem, 3vw, 1.5rem); display: grid; gap: 1rem; }
+  .tr-dots { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tr-dots button { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 99px; padding: 0.3rem 0.75rem 0.3rem 0.3rem; font: 700 0.85rem var(--font-body); cursor: pointer; }
+  .tr-dots button span { width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); font-size: 0.78rem; }
+  .tr-dots button[aria-pressed='true'] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .tr-dots button[aria-pressed='true'] span { background: #92d050; color: #032c47; border-color: #92d050; }
+  .tr-stage { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+  svg { display: block; width: 100%; height: auto; }
+  .sky { fill: var(--soft-teal); }
+  .lawn { fill: color-mix(in srgb, #92d050 35%, var(--surface)); }
+  .soft { fill: color-mix(in srgb, #92d050 70%, var(--surface)); stroke: #3b7a14; stroke-width: 2; stroke-dasharray: 6 5; }
+  .l-base line { stroke: var(--muted); stroke-width: 5; stroke-linecap: round; }
+  .mat { fill: #032c47; stroke: #057092; stroke-width: 6; }
+  .glow { fill: none; stroke: #c98a00; stroke-width: 4; stroke-dasharray: 10 8; }
+  .kid circle, .adult circle { fill: var(--surface); stroke: var(--fg); stroke-width: 4; }
+  .kid line, .kid polyline, .adult line, .adult polyline, .arc { fill: none; stroke: var(--fg); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .arc { stroke: #c98a00; stroke-width: 3; stroke-dasharray: 8 7; }
+  .adult circle, .adult line, .adult polyline { stroke: #057092; }
+  .l-net line, .l-net ellipse { stroke: #920570; stroke-width: 4; stroke-linecap: round; }
+  .l-net .mesh { stroke: #920570; stroke-width: 1.5; opacity: 0.55; fill: none; }
+  .alert { fill: var(--crit); }
+  .alert-t { fill: #fff; font: 800 22px var(--font-display); }
+  .tag { fill: var(--navy); }
+  .tag.c { fill: #057092; }
+  .tag.e { fill: #8a5f00; }
+  .tag.h { fill: #920570; }
+  .tag-t { fill: #fff; font: 700 16px var(--font-body); }
+  .score { stroke-width: 3; }
+  .score.warn { fill: #fde9b5; stroke: #c98a00; }
+  .score.good { fill: #d4efc0; stroke: #3b7a14; }
+  .score-n { font: 800 48px var(--font-display); fill: #032c47; }
+  .score-t { font: 700 22px var(--font-display); fill: #032c47; }
+  .score-s { font: 400 19px var(--font-body); fill: #032c47; }
+
+  /* Which layers show in each frame */
+  :where(.tr svg g[class^='l-']) { opacity: 0; transition: opacity 0.45s ease; }
+  .tr .l-base { opacity: 1 !important; }
+  [data-f='1'] .l-glow, [data-f='1'] .l-tag-hazard,
+  [data-f='2'] .l-three, [data-f='2'] .l-tags-cause,
+  [data-f='3'] .l-three, [data-f='3'] .l-tag-effect,
+  [data-f='4'] .l-three, [data-f='4'] .l-fly, [data-f='4'] .l-tag-hz,
+  [data-f='5'] .l-three, [data-f='5'] .l-hurt,
+  [data-f='6'] .l-three, [data-f='6'] .l-hurt, [data-f='6'] .l-score3,
+  [data-f='7'] .l-net, [data-f='7'] .l-one,
+  [data-f='8'] .l-net, [data-f='8'] .l-one, [data-f='8'] .l-adult, [data-f='8'] .l-soft,
+  [data-f='9'] .l-net, [data-f='9'] .l-one, [data-f='9'] .l-adult, [data-f='9'] .l-soft, [data-f='9'] .l-score2 { opacity: 1; }
+  [data-f='4'] .leaver, [data-f='5'] .leaver, [data-f='6'] .leaver { opacity: 0; }
+  [data-f='2'] .l-three .kid, [data-f='7'] .l-one .kid, [data-f='9'] .l-one .kid { animation: bounce 1.6s ease-in-out infinite; }
+  [data-f='2'] .l-three .kid:nth-child(2) { animation-delay: 0.5s; }
+  [data-f='2'] .l-three .kid:nth-child(3) { animation-delay: 1s; }
+  [data-f='3'] .l-three .kid { animation: wild 0.9s ease-in-out infinite; }
+  [data-f='3'] .l-three .kid:nth-child(2) { animation-duration: 0.7s; animation-delay: 0.2s; }
+  [data-f='3'] .l-three .kid:nth-child(3) { animation-duration: 1.1s; animation-delay: 0.4s; }
+  @keyframes wild { 0%, 100% { transform: translate(0, 0) rotate(0); } 30% { transform: translate(-8px, -26px) rotate(-12deg); } 60% { transform: translate(10px, -10px) rotate(14deg); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+  .cap p { margin: 0; }
+  .cap-n { font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .cap-k { font-family: var(--font-display); font-weight: 800; font-size: var(--step-2); line-height: 1.15; margin: 0.15rem 0 0.4rem !important; }
+  .cap-d { font-size: 1.05rem; margin-bottom: 0.9rem !important; }
+  .pair { display: grid; gap: 0.6rem; }
+  .pair p { padding: 0.75rem 0.9rem; border-radius: 12px; background: var(--soft-teal); }
+  .pair p + p { background: var(--soft-magenta); }
+  .pair span { display: block; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 0.15rem; }
+  .tr-nav { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 1rem; }
+  .tr-nav .btn[disabled] { opacity: 0.4; cursor: default; }
+  @media (max-width: 820px) { .tr-stage { grid-template-columns: minmax(0, 1fr); } .tr-dots { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.3rem; } .tr-dots button { white-space: nowrap; font-size: 0.8rem; } }
+  @media print { .tr svg g[class^='l-'] { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .tr .kid { animation: none !important; } }
+</style>

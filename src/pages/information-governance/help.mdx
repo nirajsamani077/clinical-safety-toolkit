@@ -1,0 +1,68 @@
+---
+layout: ../../layouts/Page.astro
+title: Help
+zone: ig
+lede: Where to get support with data protection, the training your team needs, and answers to common questions.
+checked: 3 November 2026
+---
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+## Finding a DPO
+
+Every practice must have one. They can be shared or external.<sup><a href="#ref-1">1</a></sup>
+
+<div class="optcards">
+  <div class="optcard" style="--c:#032c47"><span class="ib"><Icon name="users" /></span><strong>Through your ICB</strong><p>Ask whether it provides or arranges DPO support for practices.</p><small>Ask first: it may already exist</small></div>
+  <div class="optcard" style="--c:#057092"><span class="ib"><Icon name="link" /></span><strong>Shared across a PCN or federation</strong><p>One DPO covers several practices.</p><small>Good for: spreading cost</small></div>
+  <div class="optcard" style="--c:#920570"><span class="ib"><Icon name="shield" /></span><strong>An external provider</strong><p>A company or commissioning support unit provides a DPO service for a yearly fee. Examples are listed in the references, as a guide only.<sup><a href="#ref-4">4</a>,<a href="#ref-5">5</a></sup></p><small>Good for: practices without in-house capacity</small></div>
+</div>
+
+The usual route is through the ICB, though more practices now use external providers. The DPO advises independently, so they shouldn't be someone who decides how data is used. That usually rules out the practice manager.<sup><a href="#ref-1">1</a></sup>
+
+## Caldicott Guardian and SIRO
+
+Two senior roles, usually held by partners, with different jobs.<sup><a href="#ref-6">6</a></sup>
+
+<div class="split">
+  <div style="--c:#057092"><h3><Icon name="heart" /> Caldicott Guardian</h3><p>Looks after <strong>confidentiality</strong>: is it right to use or share this patient's information? Advises on sharing and is consulted on DPIAs.<sup><a href="#ref-2">2</a></sup></p></div>
+  <div style="--c:#8a5f00"><h3><Icon name="key" /> Senior Information Risk Owner</h3><p>Owns <strong>information risk</strong> for the practice: security, breaches and compliance. Accepts the remaining risk in a DPIA.</p></div>
+</div>
+
+In a small practice one partner may hold both, but they look at different questions, so two people is better where you can. The DPO is usually someone else, so their advice stays independent.<sup><a href="#ref-1">1</a></sup>
+
+## Training
+
+All staff need data security awareness training, refreshed every year, and the DSPT asks you to show it.<sup><a href="#ref-7">7</a></sup> The free **Data Security Awareness, Level 1** e-learning covers it,<sup><a href="#ref-3">3</a></sup> and most practice training platforms have an equivalent module. DPOs and IG leads need more; ask your ICB.
+
+## Common questions
+
+<div class="faq">
+<details>
+<summary>Can staff use ChatGPT or a similar tool to write a letter?</summary>
+
+Not with any patient details in a personal or free account. Only use AI tools the practice has approved, with a DPIA and agreement in place. Your practice AI policy should say which tools are approved: see [AI policy](/ai-policy). Tools provided through NHS contracts, such as Microsoft 365 Copilot, still need a DPIA that says whether patient information can be entered.
+</details>
+
+
+<details>
+<summary>Do we need patient consent to use an AI scribe?</summary>
+
+Not GDPR consent. Tell the patient, respect a no, and record their answer. See [consent: two different things](/information-governance/understand#consent-two-different-things).
+</details>
+
+</div>
+
+## Further reading
+
+- [Information governance guidance for health and care](https://transform.england.nhs.uk/information-governance/), NHS England
+
+<Refs items={[
+  ['Appointing a data protection officer (DPO)', 'https://www.bma.org.uk/advice-and-support/ethics/confidentiality-and-health-records/appointing-a-data-protection-officer-dpo', 'BMA'],
+  ['NDG announces new Caldicott principle and guidance on Caldicott Guardians', 'https://gov.uk/government/news/ndg-announces-new-caldicott-principle-and-guidance-on-caldicott-guardians', 'National Data Guardian'],
+  ['Data Security Awareness, Level 1', 'https://portal.e-lfh.org.uk/Component/Details/508599', 'e-Learning for Healthcare'],
+  ['Howbeck Healthcare', 'https://www.howbeckhealthcare.co.uk', 'DPO service for GP practices. Listed as a guide only, not an endorsement'],
+  ['Primary care information governance and data protection services', 'https://www.ardengemcsu.nhs.uk/services/a-z-directory-of-services/pc-information-governance-and-data-protection-services-for-primary-care/', 'Arden and GEM Commissioning Support Unit (NHS). Listed as a guide only, not an endorsement'],
+  ['Key relationships: Caldicott Guardian and SIRO', 'https://ukcgc.uk/key-relationships', 'UK Caldicott Guardian Council'],
+  ['Data Security and Protection Toolkit', 'https://www.dsptoolkit.nhs.uk/', 'NHS England'],
+]} />

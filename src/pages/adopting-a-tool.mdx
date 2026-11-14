@@ -1,0 +1,56 @@
+---
+layout: ../layouts/Page.astro
+title: Adopting a digital tool
+lede: The master checklist. Bringing in a new tool involves three areas of work. Start here; each step links to the detail.
+zone: adopt
+checked: 3 November 2026
+---
+import ThreeTracks from '../components/ThreeTracks.astro';
+import FiveStages from '../components/FiveStages.astro';
+import Refs from '../components/Refs.astro';
+
+## Three areas of work
+
+<ThreeTracks />
+
+They overlap: a text sent to the wrong number belongs in both the hazard log (clinical safety) and the DPIA (information governance).
+
+## The five stages
+
+Choose a stage to see its steps.
+
+<FiveStages track="all" />
+
+## Which tools need what?
+
+A rough guide. Your CSO and DPO make the final call.
+
+| Tool | Clinical safety assessment (DCB0160) | Data protection impact assessment (DPIA) | Covered by your AI policy |
+| --- | --- | --- | --- |
+| AI scribe (ambient voice technology) | Yes | Yes | Yes |
+| AI receptionist or phone agent that answers calls, books or directs patients | Yes | Yes | Yes |
+| Online consultation or triage tool, including AI triage that sorts requests or suggests urgency | Yes. If it uses AI to triage, hold an extra hazard workshop on the AI's decisions and [check if it's a medical device](/explainers/medical-devices) | Yes | If it uses AI: add it to your AI policy and register |
+| Document processing that reads, codes or files incoming letters | Yes | Yes | If it uses AI |
+| Tools that use rules (robotic process automation, or RPA) to file or code pathology results automatically | Yes | Review the existing DPIA | If it uses AI |
+| Recall tools that find patients due a review and invite them | Yes | Yes | If it uses AI |
+| New AI feature in software you already use, such as letter summaries or suggested codes | Yes, reassess | Review the existing DPIA | Yes |
+| Patient messaging, such as texts, emails or reminders, including booking links | Yes | Yes | No |
+| Telephone system with call queues or call-backs | Usually | Usually, especially with call recording | If it uses AI |
+| General AI assistants used for admin, such as a chatbot or Copilot | Only if used in patient care | If any personal data goes in (it shouldn't, unless the tool is NHS-provided and approved locally) | Yes |
+| Staff rota, HR or finance software | No | Possibly, for staff data | No |
+
+**Rule of thumb:** if a tool could affect a clinical decision, a record or access to care, it needs a clinical safety assessment.<sup><a href="#ref-1">1</a></sup> If it handles patient data, it almost certainly needs a DPIA.<sup><a href="#ref-2">2</a></sup>
+
+## Go deeper
+
+<div class="go-cards">
+  <a href="/clinical-safety" class="gc cs"><strong>Clinical safety</strong><span>Hazard logs, safety cases and a full worked example.</span></a>
+  <a href="/information-governance" class="gc ig"><strong>Information governance</strong><span>DPIAs, suppliers, telling patients and data breaches.</span></a>
+  <a href="/ai-policy" class="gc ai"><strong>AI policy</strong><span>An example policy, a tool register and a CQC checklist.</span></a>
+  <a href="/explainers" class="gc lib"><strong>Explainers</strong><span>DTAC, DSPT, medical devices, IM1 and more, one short page each.</span></a>
+</div>
+
+<Refs items={[
+  ['DCB0160: Clinical risk management in the deployment and use of health IT systems', 'https://data.standards.nhs.uk/current-standards/clinical-risk-management-its-application-in-the-deployment-and-use-of-health-it-systems', 'NHS England standards directory'],
+  ['Data protection impact assessments', 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/data-protection-impact-assessments-dpias/', 'Information Commissioner’s Office'],
+]} />

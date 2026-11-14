@@ -1,0 +1,53 @@
+---
+import Base from './Base.astro';
+import { csPages, igPages, aiPages, libPages, extraPages, zones } from '../data/site.js';
+
+const fm = Astro.props.frontmatter ?? Astro.props;
+const headings = (Astro.props.headings ?? []).filter((h) => h.depth === 2 && h.slug !== 'references');
+const { title, lede, zone = 'cs', checked } = fm;
+const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '');
+const tabsFor = { cs: csPages, ig: igPages, ai: aiPages, lib: libPages, ref: extraPages };
+const list = tabsFor[zone] ?? [];
+const isCs = zone === 'cs' || zone === 'ig' || zone === 'ai' || zone === 'lib';
+const i = list.findIndex((p) => p.href === here);
+const next = isCs && i >= 0 && i < list.length - 1 ? list[i + 1] : null;
+const zoneName = zones[zone]?.name ?? 'Reference';
+const zc = { cs: '#057092', ig: '#920570', adopt: '#0b4a6e', ai: '#3b7a14', lib: '#b04e0a' }[zone] ?? '#5b6f7c';
+---
+<Base title={title} description={lede} zone={zone}>
+  <div class={`page-top z-${zone}`} style={`--zone:${zc}`}>
+    <div class="wrap page-head">
+      <div class="crumb"><a href="/">Home</a> / {isCs ? <a href={zones[zone].href}>{zoneName}</a> : zoneName}</div>
+      <h1>{title}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </div>
+    {list.length > 0 && <nav class="tabs" aria-label={isCs ? `${zoneName} sections` : 'Reference pages'}>
+      <div class="wrap tabs-in">
+        {list.map((p, n) => (
+          <a href={p.href} aria-current={p.href === here ? 'page' : undefined}>
+            {isCs && zone !== 'lib' && <span class="tn">{n + 1}</span>}{p.title}
+          </a>
+        ))}
+      </div>
+    </nav>}
+  </div>
+  <div class="wrap layout" style={`--zone:${zc}`}>
+    {headings.length > 2 ? (
+      <aside class="side" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>{headings.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+      </aside>
+    ) : <div></div>}
+    <div style="min-width:0">
+      <article class="prose">
+        <slot />
+        {checked && <p class="checked">Sources on this page last checked {checked}.</p>}
+      </article>
+      {next && (
+        <nav class="pager" aria-label="Next section">
+          <a class="next" href={next.href}><span>Next</span><strong>{next.title}</strong></a>
+        </nav>
+      )}
+    </div>
+  </div>
+</Base>

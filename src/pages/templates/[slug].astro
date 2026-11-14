@@ -1,0 +1,194 @@
+---
+// A template shown as a readable document. Opens on its own, or inside the viewer on the Templates tab (#embed).
+// Cells written as ["", "example"] are empty in the blank version and filled in the Oakfield version.
+import data from '../../data/templates.json';
+import { site } from '../../data/site.js';
+
+export function getStaticPaths() {
+  return data.templates.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+const { t } = Astro.props;
+const { risk } = data;
+const ext = t.kind === 'sheet' ? 'xlsx' : 'docx';
+const app = t.kind === 'sheet' ? 'Excel' : 'Word';
+const cell = (c) => (Array.isArray(c) ? { blank: c[0], ex: c[1] } : { fixed: c });
+const tone = (v) => (v >= 4 ? 'crit' : v === 3 ? 'warn' : 'good');
+const Lpos = Object.fromEntries(risk.likelihood.map((n, i) => [n, i]));
+const Spos = Object.fromEntries(risk.severity.map((n, i) => [n, i]));
+const score = (l, s) => (l in Lpos && s in Spos ? risk.grid[Lpos[l]][Spos[s]] : '');
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.title} template | {site.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap" />
+    <script is:inline>if (location.hash === '#embed') document.documentElement.classList.add('embed');</script>
+  </head>
+  <body data-mode="blank">
+    <header class="bar no-print">
+      <a class="back" href="/templates">← All templates</a>
+      <div class="mode" role="group" aria-label="Show the blank template or the Oakfield example">
+        <button type="button" data-m="blank" aria-pressed="true">Blank</button>
+        <button type="button" data-m="ex" aria-pressed="false">Oakfield example</button>
+      </div>
+      <div class="acts">
+        <a class="b" href={`/downloads/${t.slug}.${ext}`} download>Download {app}</a>
+        <a class="b alt" href={`/downloads/${t.slug}-oakfield-example.${ext}`} download>Example ({app})</a>
+        <button type="button" class="b alt" onclick="window.print()">Print or save PDF</button>
+      </div>
+    </header>
+
+    <main class={`doc ${t.kind}`}>
+      <p class="draft">{t.section === 'ai' ? 'An example to adapt to your practice. Your partners approve the final version.' : 'Draft for review by a Clinical Safety Officer. Adapt it to your practice before use.'}</p>
+      <header class="dh">
+        <p class="kick">{t.formal} · {t.stage} stage</p>
+        <h1>{t.title}</h1>
+        <p class="ex-only org">Oakfield Surgery (a made-up practice)</p>
+        <dl class="meta">
+          <div><dt>What it's for</dt><dd>{t.purpose}</dd></div>
+          <div><dt>Who</dt><dd>{t.who}</dd></div>
+          <div><dt>When</dt><dd>{t.when}</dd></div>
+        </dl>
+      </header>
+
+      {t.kind === 'doc' && t.blocks.map((b, bi) => (
+        b.t === 'h' ? <h2>{b.x}</h2> :
+        b.t === 'p' ? <p>{b.x}</p> :
+        b.t === 'g' ? <p class="guide">{b.x}</p> :
+        b.t === 'list' ? <ul>{b.x.map((x) => <li>{x}</li>)}</ul> :
+        b.t === 'fields' ? (
+          <table class="fields"><tbody>{b.rows.map(([l, ex]) => <tr><th scope="row">{l}</th><td><span class="ex-only">{ex}</span></td></tr>)}</tbody></table>
+        ) :
+        b.t === 'area' ? (
+          <div class="area"><p class="al">{b.label}</p><p class="ex-only">{b.ex}</p></div>
+        ) :
+        b.t === 'sign' ? (
+          <table class="sign"><thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+            <tbody>{b.rows.map((r) => <tr><th scope="row">{r}</th><td></td><td></td><td></td></tr>)}</tbody></table>
+        ) :
+        b.t === 'grid' ? (
+          <div class="tw" tabindex="0" role="region" aria-label="Risk grid"><table class="rgrid"><thead><tr><th>Likelihood ↓ / Severity →</th>{risk.severity.map((s) => <th>{s}</th>)}</tr></thead>
+            <tbody>{risk.grid.map((row, i) => <tr><th scope="row">{risk.likelihood[i]}</th>{row.map((v) => <td class={tone(v)}>{v}</td>)}</tr>)}</tbody></table></div>
+        ) :
+        b.t === 'table' ? (
+          <div class="tw" tabindex="0" role="region" aria-label={b.label || `${(t.blocks.slice(0, bi).filter((x) => x.t === 'h').pop() || { x: t.title }).x}: table`}><table class="grid">
+            <thead><tr>{b.cols.map((c) => <th>{c}</th>)}</tr></thead>
+            <tbody>
+              {(b.fixed || []).map((r) => <tr>{r.map((c) => <td>{c}</td>)}</tr>)}
+              {(b.rows || []).map((r) => <tr>{r.map((c) => { const x = cell(c); return x.fixed !== undefined ? <td>{x.fixed}</td> : <td><span class="ex-only">{x.ex}</span></td>; })}</tr>)}
+              {Array.from({ length: b.blank || 0 }).map(() => <tr class="empty">{b.cols.map(() => <td></td>)}</tr>)}
+            </tbody>
+          </table></div>
+        ) : null
+      ))}
+
+      {t.kind === 'sheet' && (
+        <>
+          <p class="guide no-print">This is a spreadsheet. Download the {app} version to use it: the drop-down lists are built in{t.risk ? ', and the risk scores are worked out for you from the grid' : ''}.</p>
+          <div class="tw" tabindex="0" role="region" aria-label="Spreadsheet columns, scrolls sideways"><table class="grid sheet-t">
+            <thead>
+              <tr>{t.cols.map((c) => <th style={`min-width:${Math.max(5, c.w * 0.42)}rem`}>{c.n}</th>)}</tr>
+              <tr class="g">{t.cols.map((c) => <td>{c.g}{Array.isArray(c.v) && <span class="opts">{c.v.join(' / ')}</span>}</td>)}</tr>
+            </thead>
+            <tbody>
+              {t.ex.map((r) => (
+                <tr class="ex-row">{r.map((v, i) => {
+                  const f = t.cols[i].f;
+                  if (f) { const [a, b2] = f.split(',').map(Number); const s = score(r[a], r[b2]); return <td><b class={`pill ${tone(s)}`}>{s}</b></td>; }
+                  return <td>{v}</td>;
+                })}</tr>
+              ))}
+              {Array.from({ length: 4 }).map(() => <tr class="empty blank-row">{t.cols.map(() => <td></td>)}</tr>)}
+            </tbody>
+          </table></div>
+          {t.risk && (
+            <>
+              <h2>The risk grid</h2>
+              <div class="tw" tabindex="0" role="region" aria-label="Risk grid"><table class="rgrid"><thead><tr><th>Likelihood ↓ / Severity →</th>{risk.severity.map((s) => <th>{s}</th>)}</tr></thead>
+                <tbody>{risk.grid.map((row, i) => <tr><th scope="row">{risk.likelihood[i]}</th>{row.map((v) => <td class={tone(v)}>{v}</td>)}</tr>)}</tbody></table></div>
+              <p class="guide">1 to 2: acceptable. 3: reduce if you reasonably can. 4: must reduce before go-live. 5: unacceptable.</p>
+            </>
+          )}
+        </>
+      )}
+
+      <footer class="df">
+        <p>From the {site.name} by {site.author}. Written for this toolkit; you're free to copy and adapt it. Not legal advice. Your Clinical Safety Officer signs off your practice's own documents.</p>
+      </footer>
+    </main>
+
+    <script is:inline>
+      document.querySelectorAll('[data-m]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.body.dataset.mode = b.dataset.m;
+          document.querySelectorAll('[data-m]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        });
+      });
+    </script>
+    <style is:global>
+      :root { --navy: #032c47; --teal: #057092; --mag: #920570; --line: #cfdbe3; --muted: #4b6577; --fd: 'Bricolage Grotesque', 'Segoe UI', sans-serif; --fb: 'Atkinson Hyperlegible Next', Verdana, sans-serif; }
+      * { box-sizing: border-box; }
+      html { background: #e9eff3; }
+      body { margin: 0; font: 16px/1.55 var(--fb); color: #12293a; }
+      .bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; background: var(--navy); color: #fff; }
+      .embed .bar .back, .embed .bar .acts { display: none; }
+      .back { color: #cfe2ec; font-weight: 700; text-decoration: none; }
+      .mode { display: inline-flex; background: rgba(255,255,255,0.1); border-radius: 99px; padding: 3px; }
+      .mode button { font: 700 0.85rem var(--fb); border: 0; border-radius: 99px; padding: 0.35rem 0.85rem; background: none; color: #cfe2ec; cursor: pointer; }
+      .mode button[aria-pressed='true'] { background: #fff; color: var(--navy); }
+      .acts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+      .b { font: 700 0.85rem var(--fb); padding: 0.4rem 0.8rem; border-radius: 8px; background: #92d050; color: var(--navy); text-decoration: none; border: 0; cursor: pointer; }
+      .b.alt { background: rgba(255,255,255,0.12); color: #fff; }
+      .doc { max-width: 900px; margin: 1.5rem auto 3rem; background: #fff; padding: clamp(1.2rem, 4vw, 3rem); border-top: 10px solid var(--teal); border-radius: 4px; box-shadow: 0 18px 40px rgba(3,44,71,0.12); }
+      .doc.sheet { max-width: 1200px; }
+      .embed .doc { margin: 0 auto; box-shadow: none; border-radius: 0; }
+      .draft { margin: 0 0 1rem; padding: 0.4rem 0.7rem; background: #fff4d6; border-left: 4px solid #c98a00; font-size: 0.85rem; font-weight: 700; }
+      .kick { margin: 0; font: 700 0.75rem var(--fb); text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal); }
+      h1 { font: 800 2rem/1.15 var(--fd); color: var(--navy); margin: 0.2rem 0 0.4rem; }
+      h2 { font: 800 1.2rem var(--fd); color: var(--navy); margin: 1.8rem 0 0.5rem; padding-bottom: 0.3rem; border-bottom: 2px solid #e2ebf0; }
+      .org { margin: 0 0 0.5rem; font-weight: 700; color: var(--mag); }
+      .meta { margin: 0.8rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+      .meta div { background: #f2f7fa; border-radius: 8px; padding: 0.6rem 0.75rem; }
+      .meta dt { font: 700 0.7rem var(--fb); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+      .meta dd { margin: 0.15rem 0 0; font-size: 0.9rem; }
+      .guide { color: var(--muted); font-style: italic; font-size: 0.92rem; }
+      table { border-collapse: collapse; width: 100%; margin: 0.6rem 0 1rem; font-size: 0.92rem; }
+      th, td { border: 1px solid var(--line); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+      thead th { background: var(--navy); color: #fff; font-weight: 700; }
+      .fields th { width: 34%; background: #f2f7fa; font-weight: 700; }
+      .fields td { height: 2.3rem; }
+      .grid td { height: 2.3rem; }
+      .area { border: 1px solid var(--line); border-radius: 6px; padding: 0.5rem 0.7rem; min-height: 5.5rem; margin: 0.5rem 0 0.9rem; }
+      .al { margin: 0 0 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+      .area p:not(.al) { margin: 0; }
+      .sign td { height: 2.8rem; }
+      .sign tbody th { width: 34%; background: #f2f7fa; }
+      .rgrid { width: auto; }
+      .rgrid td { text-align: center; font-weight: 800; width: 4.5rem; }
+      .rgrid tbody th { background: #f2f7fa; }
+      .good { background: #dff0d2; } .warn { background: #fde9b3; } .crit { background: #f6c9c3; }
+      .tw { overflow-x: auto; }
+      .sheet-t th, .sheet-t td { font-size: 0.85rem; }
+      .sheet-t tr.g td { background: #f2f7fa; color: var(--muted); font-style: italic; font-size: 0.78rem; }
+      .opts { display: block; font-style: normal; color: var(--teal); font-weight: 700; margin-top: 0.15rem; }
+      .pill { display: inline-block; min-width: 1.8rem; text-align: center; border-radius: 6px; padding: 0.1rem 0.4rem; }
+      .ex-only { color: #0b4a6e; }
+      body[data-mode='blank'] .ex-only, body[data-mode='blank'] .ex-row { display: none; }
+      body[data-mode='ex'] .blank-row { display: none; }
+      .df { margin-top: 2rem; padding-top: 0.8rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); }
+      @media (max-width: 640px) { .rgrid td { width: auto; } .bar { padding: 0.5rem 0.7rem; } .meta { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } }
+      @media print {
+        html, body { background: #fff; }
+        .no-print { display: none !important; }
+        .doc { box-shadow: none; margin: 0; max-width: none; border-top-width: 6px; padding: 0; }
+        thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .good, .warn, .crit, .draft { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        h2 { break-after: avoid; } tr, .area { break-inside: avoid; }
+      }
+    </style>
+  </body>
+</html>

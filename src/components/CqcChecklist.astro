@@ -1,0 +1,111 @@
+---
+// The evidence CQC says inspectors may look for when a practice uses AI, as a checklist with a progress ring.
+// Ticks are remembered in this browser only.
+const groups = [
+  { t: 'People and responsibility', c: '#3b7a14', items: [
+    ['lead', 'A named digital lead responsible for AI', '/ai-policy/your-policy#the-example-policy'],
+    ['cso', 'A named Clinical Safety Officer (CSO) with practitioner-level training', '/clinical-safety/help'],
+    ['policy', 'An AI policy and tool register, so all of this is in one place', '/ai-policy/your-policy#the-example-policy'],
+  ]},
+  { t: 'Supplier evidence', c: '#0b4a6e', items: [
+    ['dcb0129', 'The supplier’s clinical safety documents (DCB0129 safety case and hazard log)', '/explainers/dcb0129-and-dcb0160'],
+    ['dtac', 'The supplier’s Digital Technology Assessment Criteria (DTAC)', '/explainers/dtac'],
+    ['mhra', 'Medical device status checked, and MHRA registration where it is one', '/explainers/medical-devices'],
+    ['intended', 'The tool is used only for what the supplier says it is for', '/clinical-safety/process#stage-1-prepare'],
+  ]},
+  { t: 'Clinical safety', c: '#057092', items: [
+    ['crmp', 'A clinical risk management plan (CRMP) for each AI tool', '/templates/clinical-risk-management-plan'],
+    ['hazard', 'A hazard log and risk assessment for each AI tool', '/clinical-safety/worked-examples'],
+    ['case', 'A clinical safety case report (CSCR) signed by the CSO', '/clinical-safety/process#stage-3-approve'],
+  ]},
+  { t: 'Data protection', c: '#920570', items: [
+    ['dpia', 'A data protection impact assessment (DPIA) for each tool', '/information-governance/dpia'],
+    ['dpa', 'A data processing agreement (DPA) with the supplier', '/information-governance/suppliers#the-data-processing-agreement-dpa'],
+    ['dspt', 'The supplier’s Data Security and Protection Toolkit (DSPT) and Cyber Essentials Plus', '/explainers/dspt'],
+    ['ropa', 'The tool recorded in your record of processing activities (ROPA)', '/information-governance/after-go-live#keeping-records'],
+  ]},
+  { t: 'Patients', c: '#8a5f00', items: [
+    ['told', 'Patients are told when AI is used, and can object', '/information-governance/telling-patients'],
+    ['fair', 'The tool works fairly for all your patients, and there’s a way to get care without it', '/information-governance/telling-patients'],
+  ]},
+  { t: 'Staff and learning', c: '#5b6f7c', items: [
+    ['training', 'Training records for staff who use each tool', '/clinical-safety/process#stage-4-go-live'],
+    ['oversight', 'Audits or quality improvement showing a person checks AI output', '/clinical-safety/after-go-live#keeping-watch'],
+    ['incidents', 'Incidents reported, including to the supplier, Yellow Card and LFPSE where relevant', '/clinical-safety/after-go-live'],
+    ['shared', 'Incidents and learning discussed at clinical governance meetings', '/clinical-safety/after-go-live#keeping-watch'],
+  ]},
+];
+const total = groups.reduce((n, g) => n + g.items.length, 0);
+const C = 2 * Math.PI * 52;
+---
+<div class="cq" data-cq data-total={total}>
+  <div class="cq-side">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="52" class="cq-track" />
+      <circle cx="60" cy="60" r="52" class="cq-ring" data-ring stroke-dasharray={`${C}`} stroke-dashoffset={`${C}`} style={`--c:${C}`} />
+    </svg>
+    <p class="cq-count"><b data-done>0</b><span>of {total}</span></p>
+    <p class="cq-label" data-label aria-live="polite">Let's get started</p>
+    <button type="button" class="btn btn-plain no-print" data-reset>Clear ticks</button>
+    <p class="cq-small">Ticks are saved in this browser only.</p>
+  </div>
+  <div class="cq-groups">
+    {groups.map((g) => (
+      <fieldset class="cq-g" style={`--c:${g.c}`}>
+        <legend>{g.t}</legend>
+        {g.items.map(([k, t, href]) => (
+          <div class="cq-i">
+            <input type="checkbox" id={`cq-${k}`} data-k={k} />
+            <label for={`cq-${k}`}>{t}</label>
+            <a href={href}>How</a>
+          </div>
+        ))}
+      </fieldset>
+    ))}
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-cq]').forEach(function (cq) {
+      var KEY = 'cst-cqc-ai', boxes = cq.querySelectorAll('[data-k]'), total = +cq.dataset.total, ring = cq.querySelector('[data-ring]'), C = parseFloat(ring.getAttribute('stroke-dasharray'));
+      try { var s = JSON.parse(localStorage.getItem(KEY) || '{}'); boxes.forEach(function (b) { b.checked = !!s[b.dataset.k]; }); } catch (e) {}
+      function update() {
+        var n = 0, o = {};
+        boxes.forEach(function (b) { if (b.checked) n++; o[b.dataset.k] = b.checked; });
+        ring.style.strokeDashoffset = String(C * (1 - n / total));
+        cq.querySelector('[data-done]').textContent = n;
+        cq.querySelector('[data-label]').textContent = n === total ? 'Inspection ready' : n >= total * 0.7 ? 'Nearly there' : n > 0 ? 'Good progress' : 'Let’s get started';
+        cq.classList.toggle('done', n === total);
+        try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+      }
+      boxes.forEach(function (b) { b.addEventListener('change', update); });
+      cq.querySelector('[data-reset]').addEventListener('click', function () { boxes.forEach(function (b) { b.checked = false; }); update(); });
+      update();
+    });
+  })();
+</script>
+<style>
+  .cq { margin: 1.5rem 0; display: grid; grid-template-columns: minmax(0, 210px) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+  .cq-side { position: sticky; top: 6rem; background: linear-gradient(160deg, #3b7a14, #2f6a12); color: #fff; border-radius: 20px; padding: 1.25rem; display: grid; justify-items: center; gap: 0.4rem; text-align: center; }
+  .cq-side svg { width: 140px; height: 140px; rotate: -90deg; }
+  .cq-track { fill: none; stroke: rgba(255, 255, 255, 0.2); stroke-width: 12; }
+  .cq-ring { fill: none; stroke: #fff; stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+  .cq-count { margin: -98px 0 50px; display: grid; line-height: 1; }
+  .cq-count b { font: 800 2.4rem var(--font-display); }
+  .cq-count span { font-size: 0.85rem; opacity: 0.85; }
+  .cq-label { margin: 0; font: 700 1.05rem var(--font-display); }
+  .cq.done .cq-side { background: linear-gradient(160deg, #032c47, #057092); }
+  .cq-side .btn { padding: 0.4rem 0.9rem; font-size: 0.85rem; background: rgba(255, 255, 255, 0.15); color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+  .cq-small { margin: 0; font-size: 0.75rem; opacity: 0.8; }
+  .cq-groups { display: grid; gap: 1rem; }
+  .cq-g { margin: 0; border: 0; padding: 0; }
+  .cq-g legend { font: 800 1.05rem var(--font-display); color: var(--c); padding: 0 0 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
+  .cq-g legend::before { content: ''; width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
+  .cq-i { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.75rem; align-items: center; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); }
+  .cq-i:first-of-type { border-top: 1px solid var(--line); }
+  .cq-i input { width: 1.3rem; height: 1.3rem; accent-color: var(--c); cursor: pointer; }
+  .cq-i label { cursor: pointer; }
+  .cq-i input:checked + label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--c); }
+  .cq-i a { font-size: 0.82rem; font-weight: 700; white-space: nowrap; }
+  @media (max-width: 760px) { .cq { grid-template-columns: minmax(0, 1fr); } .cq-side { position: static; grid-template-columns: auto 1fr; justify-items: start; text-align: left; } .cq-side svg { width: 90px; height: 90px; grid-row: span 4; } .cq-count { margin: 0; } }
+</style>

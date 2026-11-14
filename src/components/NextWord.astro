@@ -1,0 +1,50 @@
+---
+// A made-up illustration of next-word prediction. The model picks a likely word, not a checked fact.
+const words = [['ramipril', 34], ['amlodipine', 29], ['a statin', 17], ['metformin', 12], ['aspirin', 8]];
+---
+<figure class="nw" data-nw>
+  <p class="nw-tag">Illustration with made-up numbers</p>
+  <p class="nw-s">“The patient was started on <span class="nw-blank" data-blank>______</span>”</p>
+  <div class="nw-bars">
+    {words.map(([w, p]) => (
+      <div class="nw-row" data-w={w} data-p={p}>
+        <span class="nw-w">{w}</span>
+        <span class="nw-bar"><i style={`--p:${p}%`}></i></span>
+        <span class="nw-p">{p}%</span>
+      </div>
+    ))}
+  </div>
+  <button type="button" class="btn btn-primary no-print" data-go>Let the model choose</button>
+  <p class="nw-out" aria-live="polite" data-out></p>
+</figure>
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-nw]').forEach(function (nw) {
+      var rows = nw.querySelectorAll('[data-w]');
+      nw.querySelector('[data-go]').addEventListener('click', function () {
+        var r = Math.random() * 100, pick = rows[0];
+        for (var i = 0, acc = 0; i < rows.length; i++) { acc += +rows[i].dataset.p; if (r < acc) { pick = rows[i]; break; } }
+        rows.forEach(function (x) { x.classList.toggle('on', x === pick); });
+        nw.querySelector('[data-blank]').textContent = pick.dataset.w;
+        nw.querySelector('[data-out]').textContent = 'It chose “' + pick.dataset.w + '” because that word often follows these words, not because it knows what this patient was prescribed. Press again and you may get a different answer. In a real scribe, the conversation shifts the odds, but the principle is the same.';
+      });
+    });
+  })();
+</script>
+<style>
+  .nw { margin: 1.5rem 0; background: #032c47; color: #fff; border-radius: 22px; padding: 1.3rem 1.4rem; display: grid; gap: 0.9rem; }
+  .nw-tag { margin: 0; font: 700 0.72rem var(--font-body); text-transform: uppercase; letter-spacing: 0.08em; color: #f6b56a; }
+  .nw-s { margin: 0; font: 700 clamp(1.15rem, 3vw, 1.5rem) var(--font-display); }
+  .nw-blank { color: #f0a33a; border-bottom: 3px solid #f0a33a; padding: 0 0.2em; }
+  .nw-bars { display: grid; gap: 0.4rem; }
+  .nw-row { display: grid; grid-template-columns: 7rem minmax(0, 1fr) 3rem; gap: 0.7rem; align-items: center; border-radius: 8px; padding: 0.15rem 0.3rem; transition: background 0.2s ease; }
+  .nw-row.on { background: rgba(240, 163, 58, 0.18); }
+  .nw-w { font-weight: 700; }
+  .nw-bar { height: 0.8rem; background: rgba(255, 255, 255, 0.1); border-radius: 99px; overflow: hidden; }
+  .nw-bar i { display: block; height: 100%; width: var(--p); background: linear-gradient(90deg, #b04e0a, #f0a33a); border-radius: 99px; animation: grow 0.8s ease both; }
+  .nw-p { text-align: right; font-variant-numeric: tabular-nums; color: #b9d3e1; }
+  .nw .btn { justify-self: start; background: #f0a33a; border-color: #f0a33a; color: #032c47; }
+  .nw-out { margin: 0; min-height: 1.5em; color: #e3eef3; }
+  @keyframes grow { from { width: 0; } }
+  @media (max-width: 480px) { .nw-row { grid-template-columns: 5.8rem minmax(0, 1fr) 2.6rem; } }
+</style>

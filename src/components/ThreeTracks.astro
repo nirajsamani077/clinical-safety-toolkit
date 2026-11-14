@@ -1,0 +1,32 @@
+---
+const tracks = [
+  { k: 'cs', n: 'Clinical safety', q: 'How could this tool harm a patient, and what are we doing about it?', docs: 'Clinical risk management system (CRMS) and plan (CRMP), hazard log, clinical safety case report (CSCR)', lead: 'CSO and practice manager', where: 'Go to clinical safety', href: '/clinical-safety' },
+  { k: 'ig', n: 'Information governance', q: 'Are we handling patient data lawfully and securely?', docs: 'Data protection impact assessment (DPIA), data processing agreement (DPA), privacy notice', lead: 'DPO and practice manager', where: 'Go to information governance', href: '/information-governance' },
+  { k: 'ai', n: 'AI and digital use policy', q: 'What are staff allowed to use, and how?', docs: 'Practice AI policy', lead: 'Partners and practice manager', where: 'Go to AI policy', href: '/ai-policy' },
+];
+---
+<div class="tt" role="list">
+  {tracks.map((t) => (
+    <div class={`track ${t.k}`} role="listitem">
+      <h3>{t.n}</h3>
+      <p class="q">{t.q}</p>
+      <dl>
+        <div><dt>Main documents</dt><dd>{t.docs}</dd></div>
+        <div><dt>Usually led by</dt><dd>{t.lead}</dd></div>
+      </dl>
+      <a href={t.href}>{t.where}</a>
+    </div>
+  ))}
+</div>
+<p class="tt-foot">The three tracks run in parallel and often complement each other, but they are separate pieces of work.</p>
+<style>
+  .tt { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 0.9rem; margin-top: 1.25rem; }
+  .track { border-radius: var(--radius); padding: 1.1rem 1.15rem; border-top: 8px solid; background: var(--surface); border-inline: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.6rem; }
+  .cs { border-top-color: #057092; } .ig { border-top-color: #920570; } .ai { border-top-color: #92d050; }
+  .q { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.3; margin: 0; }
+  dl { margin: 0; display: grid; gap: 0.4rem; font-size: 0.93rem; }
+  dt { font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+  dd { margin: 0; }
+  .track a { margin-top: auto; font-weight: 700; }
+  .tt-foot { font-size: 0.95rem; color: var(--muted); }
+</style>

@@ -1,0 +1,27 @@
+---
+// How the AI policy sits on top of the assessments.
+---
+<figure class="ps" aria-label="The AI policy sits on the tool register, which rests on the clinical safety and data protection assessments">
+  <div class="ps-row r1"><strong>The AI policy</strong><span>The rules: what staff can and can't do, and how a tool gets approved</span></div>
+  <div class="ps-row r2"><strong>The AI tool register</strong><span>The list: which tools are approved, for what, and by whom</span></div>
+  <div class="ps-row r3">
+    <a href="/clinical-safety"><strong>Clinical safety assessment</strong><span>Could it harm a patient?</span></a>
+    <a href="/information-governance"><strong>Data protection impact assessment</strong><span>Is patient data safe and lawful?</span></a>
+  </div>
+  <div class="ps-row r4"><strong>Training, monitoring and incident reporting</strong><span>Keeping it working once it's in use</span></div>
+</figure>
+<style>
+  .ps { margin: 1.5rem auto; display: grid; gap: 0.45rem; justify-items: center; }
+  .ps-row { width: 100%; border-radius: 14px; padding: 0.85rem 1.1rem; display: grid; gap: 0.15rem; text-align: center; color: #fff; animation: build 0.5s ease both; }
+  .ps-row strong { font-family: var(--font-display); font-size: 1.08rem; }
+  .ps-row span { font-size: 0.9rem; opacity: 0.9; }
+  .r1 { max-width: 62%; background: linear-gradient(135deg, #3b7a14, #6aa83a); animation-delay: 0.45s; }
+  .r2 { max-width: 78%; background: #0b4a6e; animation-delay: 0.3s; }
+  .r3 { max-width: 92%; background: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; animation-delay: 0.15s; }
+  .r3 a { border-radius: 14px; padding: 0.85rem 1rem; display: grid; gap: 0.15rem; color: #fff; text-decoration: none; }
+  .r3 a:first-child { background: #057092; } .r3 a:last-child { background: #920570; }
+  .r3 a:hover { filter: brightness(1.1); }
+  .r4 { background: #032c47; }
+  @keyframes build { from { transform: translateY(12px); } to { transform: none; } }
+  @media (max-width: 640px) { .r1, .r2, .r3 { max-width: 100%; } .r3 { grid-template-columns: 1fr; } }
+</style>

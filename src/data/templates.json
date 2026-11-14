@@ -1,0 +1,2457 @@
+{
+  "risk": {
+    "likelihood": [
+      "Very high",
+      "High",
+      "Medium",
+      "Low",
+      "Very low"
+    ],
+    "severity": [
+      "Minor",
+      "Significant",
+      "Considerable",
+      "Major",
+      "Catastrophic"
+    ],
+    "grid": [
+      [
+        3,
+        4,
+        4,
+        5,
+        5
+      ],
+      [
+        2,
+        3,
+        3,
+        4,
+        5
+      ],
+      [
+        2,
+        2,
+        3,
+        3,
+        4
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        4
+      ],
+      [
+        1,
+        1,
+        2,
+        2,
+        3
+      ]
+    ],
+    "meaning": {
+      "1": "Acceptable",
+      "2": "Acceptable",
+      "3": "Reduce if you reasonably can",
+      "4": "Must reduce before go-live",
+      "5": "Unacceptable"
+    }
+  },
+  "templates": [
+    {
+      "slug": "technology-register",
+      "title": "Technology register",
+      "formal": "Health IT system inventory",
+      "kind": "sheet",
+      "stage": "Prepare",
+      "purpose": "A list of every digital tool the practice uses, and where each one stands on clinical safety and data protection.",
+      "who": "Practice manager keeps it. CSO and DPO check it.",
+      "when": "Set up once. Update whenever a tool is added, changed or switched off. Review yearly.",
+      "cols": [
+        {
+          "n": "Tool",
+          "g": "Name of the product or service",
+          "w": 26
+        },
+        {
+          "n": "Supplier",
+          "g": "Company that provides it",
+          "w": 20
+        },
+        {
+          "n": "What we use it for",
+          "g": "In plain words",
+          "w": 34
+        },
+        {
+          "n": "Who bought it",
+          "g": "Practice, PCN, ICB or NHS England",
+          "w": 14,
+          "v": [
+            "Practice",
+            "PCN",
+            "ICB",
+            "NHS England"
+          ]
+        },
+        {
+          "n": "Clinical use?",
+          "g": "Could it affect patient care?",
+          "w": 11,
+          "v": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "n": "Supplier safety documents held?",
+          "g": "DCB0129 safety case and hazard log",
+          "w": 16,
+          "v": [
+            "Yes",
+            "Requested",
+            "No",
+            "Not needed"
+          ]
+        },
+        {
+          "n": "Our clinical safety status",
+          "g": "DCB0160 work for our practice",
+          "w": 18,
+          "v": [
+            "Not started",
+            "In progress",
+            "Signed off",
+            "Not needed (reason in notes)"
+          ]
+        },
+        {
+          "n": "DPIA status",
+          "g": "Data protection impact assessment",
+          "w": 16,
+          "v": [
+            "Not started",
+            "In progress",
+            "Signed off",
+            "Not needed (reason in notes)"
+          ]
+        },
+        {
+          "n": "Medical device?",
+          "g": "Yes, with class, or No",
+          "w": 13
+        },
+        {
+          "n": "Practice owner",
+          "g": "Named person",
+          "w": 18
+        },
+        {
+          "n": "Last reviewed",
+          "g": "Date",
+          "w": 13
+        },
+        {
+          "n": "Next review",
+          "g": "Date",
+          "w": 13
+        },
+        {
+          "n": "Notes",
+          "g": "Anything else, including why a step isn't needed",
+          "w": 36
+        }
+      ],
+      "ex": [
+        [
+          "Kestrel Consult",
+          "Kestrel Health Ltd",
+          "Patients send admin and clinical requests through our website and the NHS App",
+          "Practice",
+          "Yes",
+          "Yes",
+          "Signed off",
+          "Signed off",
+          "No",
+          "Jo Reid (practice manager)",
+          "02/03/2026",
+          "02/06/2026",
+          "Three-month review then yearly"
+        ],
+        [
+          "GP clinical system",
+          "Clinical system supplier",
+          "The patient record",
+          "ICB",
+          "Yes",
+          "Yes",
+          "Signed off",
+          "Signed off",
+          "No",
+          "Jo Reid (practice manager)",
+          "15/01/2026",
+          "15/01/2027",
+          "Safety case held by the ICB; our local hazards added"
+        ],
+        [
+          "Text messaging service",
+          "Example Messaging Ltd",
+          "Appointment reminders and results messages",
+          "ICB",
+          "Yes",
+          "Yes",
+          "Signed off",
+          "Signed off",
+          "No",
+          "Jo Reid (practice manager)",
+          "10/09/2025",
+          "10/09/2026",
+          ""
+        ],
+        [
+          "Wren Scribe (AI scribe)",
+          "Wren Health Ltd",
+          "Drafting consultation notes and referral letters",
+          "Practice",
+          "Yes",
+          "Yes",
+          "Signed off",
+          "Signed off",
+          "Yes, Class I",
+          "Dr Helen Marsh (CSO)",
+          "14/10/2026",
+          "14/01/2027",
+          "Trained clinicians only. Three-month review, then yearly"
+        ],
+        [
+          "Linnet Voice (AI phone receptionist)",
+          "Linnet Ltd",
+          "Answering calls and booking appointments",
+          "Practice",
+          "Yes",
+          "Requested",
+          "In progress",
+          "In progress",
+          "Ask supplier",
+          "Jo Reid (practice manager)",
+          "",
+          "",
+          "Not to be used until signed off. Decision due January 2027"
+        ],
+        [
+          "Rota software",
+          "Example Rota Ltd",
+          "Staff rotas",
+          "Practice",
+          "No",
+          "Not needed",
+          "Not needed (reason in notes)",
+          "Signed off",
+          "No",
+          "Jo Reid (practice manager)",
+          "01/04/2026",
+          "01/04/2027",
+          "No patient data or clinical use"
+        ]
+      ],
+      "blank": 15,
+      "section": "cs"
+    },
+    {
+      "slug": "clinical-risk-management-system",
+      "title": "Clinical risk management system",
+      "formal": "Clinical Risk Management System (DCB0160)",
+      "kind": "doc",
+      "stage": "Prepare",
+      "purpose": "A short practice document that says how you do clinical safety for every digital tool. Written once, used for all of them.",
+      "who": "Written by the CSO and practice manager. Approved by the partners.",
+      "when": "Once, then reviewed yearly.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Practice",
+              "Oakfield Surgery"
+            ],
+            [
+              "Version",
+              "1.0"
+            ],
+            [
+              "Approved by",
+              "The partners, at the practice meeting on 12/01/2026"
+            ],
+            [
+              "Next review",
+              "January 2027"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. Purpose"
+        },
+        {
+          "t": "p",
+          "x": "This document sets out how the practice manages clinical risk when it introduces, changes, uses and switches off digital tools (health IT systems), in line with the NHS standard DCB0160. It applies to every tool that could affect patient care, whoever bought it."
+        },
+        {
+          "t": "h",
+          "x": "2. Who does what"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Role",
+            "Responsibility",
+            "Name"
+          ],
+          "rows": [
+            [
+              "Partners",
+              "Accountable for clinical safety in the practice. Accept the remaining risk before a tool goes live.",
+              [
+                "",
+                "All partners"
+              ]
+            ],
+            [
+              "Clinical Safety Officer (CSO)",
+              "A registered clinician trained in clinical risk management. Leads the assessment and signs the safety case report.",
+              [
+                "",
+                "Dr Helen Marsh, GP partner"
+              ]
+            ],
+            [
+              "Practice manager",
+              "Keeps the technology register and the safety documents. Organises workshops, training and reviews.",
+              [
+                "",
+                "Jo Reid"
+              ]
+            ],
+            [
+              "All staff",
+              "Use tools as trained, follow the controls, and report problems and near misses.",
+              [
+                "",
+                "Everyone"
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "g",
+          "x": "If your CSO is external or shared across your PCN, say so here and how to contact them."
+        },
+        {
+          "t": "h",
+          "x": "3. Our process"
+        },
+        {
+          "t": "p",
+          "x": "For each tool, we follow five stages. The paperwork matches the risk: a minor change may need one line in the hazard log, a new clinical tool needs the full set."
+        },
+        {
+          "t": "list",
+          "x": [
+            "Prepare: add the tool to the technology register, get the supplier's safety documents, agree the plan.",
+            "Assess: hold a hazard workshop and write the hazard log.",
+            "Approve: the CSO writes and signs the safety case report; the partners accept the remaining risk.",
+            "Go live: train staff, put the controls in place, tell patients.",
+            "Monitor and review: record incidents, check the controls work, and review the hazard log."
+          ]
+        },
+        {
+          "t": "h",
+          "x": "4. How we score risk"
+        },
+        {
+          "t": "p",
+          "x": "Each hazard is scored for likelihood and severity using the grid below, before and after controls."
+        },
+        {
+          "t": "grid"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Score",
+            "What it means"
+          ],
+          "fixed": [
+            [
+              "1 to 2",
+              "Acceptable. Record it and keep it under review."
+            ],
+            [
+              "3",
+              "Reduce it if you reasonably can. The CSO records why the remaining risk is acceptable."
+            ],
+            [
+              "4",
+              "Must be reduced before go-live."
+            ],
+            [
+              "5",
+              "Unacceptable. The tool can't be used as planned."
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "5. The documents we keep"
+        },
+        {
+          "t": "p",
+          "x": "For each tool we keep a clinical risk management file containing: the plan, the supplier's safety documents, our hazard log, our safety case report, training records and the incident log. Files are kept in:"
+        },
+        {
+          "t": "area",
+          "label": "Where the files are kept",
+          "ex": "Shared drive > Governance > Clinical safety > [tool name]. The practice manager controls access."
+        },
+        {
+          "t": "h",
+          "x": "6. Incidents"
+        },
+        {
+          "t": "p",
+          "x": "Problems with digital tools, including near misses, go into the incident log and through our usual significant event process. The CSO reviews each one and updates the hazard log. We report to the supplier and, where relevant, to the Learn from Patient Safety Events (LFPSE) service and the MHRA Yellow Card scheme."
+        },
+        {
+          "t": "h",
+          "x": "7. Training"
+        },
+        {
+          "t": "p",
+          "x": "The CSO completes recognised clinical safety training and keeps it up to date. Staff are trained before using a new tool, and attendance is recorded."
+        },
+        {
+          "t": "area",
+          "label": "CSO training and date",
+          "ex": "NHS England clinical safety practitioner training, completed 2025."
+        },
+        {
+          "t": "h",
+          "x": "8. Review"
+        },
+        {
+          "t": "p",
+          "x": "This document is reviewed every year, or sooner if national guidance or our arrangements change."
+        },
+        {
+          "t": "sign",
+          "rows": [
+            "Clinical Safety Officer",
+            "On behalf of the partners"
+          ]
+        }
+      ],
+      "section": "cs"
+    },
+    {
+      "slug": "clinical-risk-management-plan",
+      "title": "Clinical risk management plan (CRMP)",
+      "formal": "Clinical Risk Management Plan (DCB0160)",
+      "kind": "doc",
+      "stage": "Prepare",
+      "purpose": "The CRMP sets out the scope, people and timeline for assessing one particular tool.",
+      "who": "Practice manager drafts it. The CSO agrees it.",
+      "when": "At the start, before the hazard workshop.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Tool and version",
+              "Kestrel Consult, version 4"
+            ],
+            [
+              "Supplier",
+              "Kestrel Health Ltd"
+            ],
+            [
+              "Plan version and date",
+              "1.0, 19/01/2026"
+            ],
+            [
+              "Clinical Safety Officer",
+              "Dr Helen Marsh"
+            ],
+            [
+              "Plan owner",
+              "Jo Reid, practice manager"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. What the tool is and how we'll use it"
+        },
+        {
+          "t": "area",
+          "label": "Description",
+          "ex": "Patients send requests through our website and the NHS App. Care navigators sort them, admin requests go to the right team, and the duty doctor reviews anything clinical."
+        },
+        {
+          "t": "h",
+          "x": "2. Scope"
+        },
+        {
+          "t": "area",
+          "label": "In scope",
+          "ex": "Admin and clinical requests from adult patients and from parents for children, in core hours. Care navigator sorting and duty doctor review."
+        },
+        {
+          "t": "area",
+          "label": "Out of scope",
+          "ex": "Video consultations, and features we are not switching on (automatic booking)."
+        },
+        {
+          "t": "h",
+          "x": "3. Supplier documents"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Document",
+            "Received?",
+            "Date"
+          ],
+          "rows": [
+            [
+              "DCB0129 clinical safety case report",
+              [
+                "",
+                "Yes"
+              ],
+              [
+                "",
+                "26/01/2026"
+              ]
+            ],
+            [
+              "Supplier hazard log",
+              [
+                "",
+                "Yes"
+              ],
+              [
+                "",
+                "26/01/2026"
+              ]
+            ],
+            [
+              "DTAC",
+              [
+                "",
+                "Yes"
+              ],
+              [
+                "",
+                "26/01/2026"
+              ]
+            ],
+            [
+              "Medical device status",
+              [
+                "",
+                "Not a device"
+              ],
+              [
+                "",
+                "26/01/2026"
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "4. Who's involved"
+        },
+        {
+          "t": "area",
+          "label": "Hazard workshop attendees",
+          "ex": "CSO, practice manager, two care navigators, a receptionist, a practice nurse, the duty doctor."
+        },
+        {
+          "t": "h",
+          "x": "5. Timeline"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Task",
+            "Who",
+            "By when"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Get supplier documents"
+              ],
+              [
+                "",
+                "Practice manager"
+              ],
+              [
+                "",
+                "30/01/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Hazard workshop"
+              ],
+              [
+                "",
+                "CSO and team"
+              ],
+              [
+                "",
+                "06/02/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Hazard log complete"
+              ],
+              [
+                "",
+                "CSO"
+              ],
+              [
+                "",
+                "13/02/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "DPIA signed off"
+              ],
+              [
+                "",
+                "Practice manager and DPO"
+              ],
+              [
+                "",
+                "20/02/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Safety case report signed; partners accept risk"
+              ],
+              [
+                "",
+                "CSO and partners"
+              ],
+              [
+                "",
+                "23/02/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Staff training"
+              ],
+              [
+                "",
+                "Practice manager"
+              ],
+              [
+                "",
+                "27/02/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Go live"
+              ],
+              [
+                "",
+                "All"
+              ],
+              [
+                "",
+                "02/03/2026"
+              ]
+            ],
+            [
+              [
+                "",
+                "Three-month review"
+              ],
+              [
+                "",
+                "CSO"
+              ],
+              [
+                "",
+                "02/06/2026"
+              ]
+            ]
+          ],
+          "blank": 3
+        },
+        {
+          "t": "h",
+          "x": "6. How we'll judge acceptable risk"
+        },
+        {
+          "t": "p",
+          "x": "We use the risk grid and acceptance rules in our clinical risk management system."
+        },
+        {
+          "t": "sign",
+          "rows": [
+            "Clinical Safety Officer"
+          ]
+        }
+      ],
+      "section": "cs"
+    },
+    {
+      "slug": "hazard-workshop-pack",
+      "title": "Hazard workshop pack",
+      "formal": "Hazard identification workshop",
+      "kind": "doc",
+      "stage": "Assess",
+      "purpose": "Everything you need to run a one-hour hazard workshop: who to invite, an agenda, prompt questions, a worksheet and a sign-in sheet.",
+      "who": "Led by the CSO. Organised by the practice manager.",
+      "when": "Once per tool, early in the assessment.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Tool",
+              "Kestrel Consult"
+            ],
+            [
+              "Date and place",
+              "06/02/2026, practice meeting room"
+            ],
+            [
+              "Led by",
+              "Dr Helen Marsh, CSO"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. Before the workshop"
+        },
+        {
+          "t": "list",
+          "x": [
+            "Invite the people who'll use the tool: clinicians, reception, admin, and anyone with a special role such as the safeguarding lead.",
+            "Bring the supplier's hazard log and safety case report.",
+            "Draw the workflow as a simple list of steps, from the patient's first contact to the task being closed.",
+            "Print this pack."
+          ]
+        },
+        {
+          "t": "h",
+          "x": "2. Agenda (60 minutes)"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Time",
+            "What"
+          ],
+          "fixed": [
+            [
+              "5 min",
+              "Why we're here: what the tool does, and that every view counts"
+            ],
+            [
+              "10 min",
+              "Walk through the workflow, one step at a time"
+            ],
+            [
+              "30 min",
+              "At each step, ask the prompt questions and note hazards on the worksheet"
+            ],
+            [
+              "10 min",
+              "Agree rough scores and controls for the main hazards"
+            ],
+            [
+              "5 min",
+              "Actions: who writes up the hazard log, and by when"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "3. Prompt questions"
+        },
+        {
+          "t": "p",
+          "x": "Ask these at each step of the workflow. Write each problem as cause, effect, hazard and harm."
+        },
+        {
+          "t": "list",
+          "x": [
+            "What could go wrong here? What would cause it?",
+            "What would go wrong with the information first: missed, delayed, wrong, or sent to the wrong patient?",
+            "Who would that put at risk, and in what situation? (This is the hazard. It always names a person.)",
+            "What would happen to the patient if nobody noticed? (This is the harm.)",
+            "What if the system is slow, down, or updated?",
+            "What would a busy or new member of staff do? Are there workarounds?",
+            "Who might not be able to use this, and what happens to them?",
+            "Could a safeguarding concern be missed?",
+            "Which hazards in the supplier's log apply to how we work?",
+            "For AI tools: what if the input is poor (a noisy room, a bad microphone)? What if it adds or misses something? What happens when people trust it and stop checking?"
+          ]
+        },
+        {
+          "t": "h",
+          "x": "4. Worksheet"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Workflow step",
+            "Cause",
+            "Effect",
+            "Hazard (who is at risk, and how)",
+            "Harm"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Patient fills in the form"
+              ],
+              [
+                "",
+                "Form doesn’t flag red-flag symptoms"
+              ],
+              [
+                "",
+                "Urgent request sits in the routine queue"
+              ],
+              [
+                "",
+                "Patient with red-flag symptoms not directed to an urgent assessment in time"
+              ],
+              [
+                "",
+                "Delayed treatment; at worst death"
+              ]
+            ],
+            [
+              [
+                "",
+                "Request arrives in the queue"
+              ],
+              [
+                "",
+                "No named owner that day"
+              ],
+              [
+                "",
+                "Request left unopened"
+              ],
+              [
+                "",
+                "Patient’s request never actioned"
+              ],
+              [
+                "",
+                "Missed or delayed care"
+              ]
+            ],
+            [
+              [
+                "",
+                "Care navigator files it"
+              ],
+              [
+                "",
+                "Parent submits for a child"
+              ],
+              [
+                "",
+                "Filed in the wrong record"
+              ],
+              [
+                "",
+                "The child’s request isn’t seen"
+              ],
+              [
+                "",
+                "Missed or delayed care"
+              ]
+            ]
+          ],
+          "blank": 8
+        },
+        {
+          "t": "h",
+          "x": "5. Sign-in sheet"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Name",
+            "Role",
+            "Signature"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Dr Helen Marsh"
+              ],
+              [
+                "",
+                "CSO, GP partner"
+              ],
+              ""
+            ],
+            [
+              [
+                "",
+                "Jo Reid"
+              ],
+              [
+                "",
+                "Practice manager"
+              ],
+              ""
+            ],
+            [
+              [
+                "",
+                "Sam Ali"
+              ],
+              [
+                "",
+                "Care navigator"
+              ],
+              ""
+            ],
+            [
+              [
+                "",
+                "Amy Clarke"
+              ],
+              [
+                "",
+                "Practice nurse"
+              ],
+              ""
+            ]
+          ],
+          "blank": 6
+        }
+      ],
+      "section": "cs"
+    },
+    {
+      "slug": "hazard-log",
+      "title": "Hazard log",
+      "formal": "Hazard Log (DCB0160)",
+      "kind": "sheet",
+      "stage": "Assess",
+      "purpose": "Every hazard you’ve found for one tool, written as cause, effect, hazard and harm, with the controls and the risk before and after.",
+      "who": "The CSO owns it. The team adds to it at the workshop and after incidents.",
+      "when": "Started at the hazard workshop. Updated after incidents, changes and reviews.",
+      "risk": true,
+      "cols": [
+        {
+          "n": "ID",
+          "g": "H1, H2...",
+          "w": 6
+        },
+        {
+          "n": "Cause",
+          "g": "What could make it happen, usually the technology or how it’s used. Often more than one",
+          "w": 32
+        },
+        {
+          "n": "Effect",
+          "g": "What goes wrong with the information first",
+          "w": 26
+        },
+        {
+          "n": "Hazard",
+          "g": "The situation where a person, usually the patient, could come to harm",
+          "w": 30
+        },
+        {
+          "n": "Harm",
+          "g": "What could happen to the patient",
+          "w": 26
+        },
+        {
+          "n": "Likelihood before",
+          "g": "From the risk grid",
+          "w": 12,
+          "v": "L"
+        },
+        {
+          "n": "Severity before",
+          "g": "From the risk grid",
+          "w": 13,
+          "v": "S"
+        },
+        {
+          "n": "Risk before",
+          "g": "Worked out for you",
+          "w": 9,
+          "f": "5,6"
+        },
+        {
+          "n": "Evidence for the score before",
+          "g": "Why you chose this likelihood and severity: incidents, supplier data, local experience",
+          "w": 34
+        },
+        {
+          "n": "Controls and mitigations",
+          "g": "Controls that stop the cause leading to the hazard; mitigations that limit harm if it happens. Include supplier controls",
+          "w": 40
+        },
+        {
+          "n": "Control owner",
+          "g": "Named person or role",
+          "w": 16
+        },
+        {
+          "n": "Evidence the controls are in place",
+          "g": "How you know: setting checked, training record, audit, test",
+          "w": 32
+        },
+        {
+          "n": "Likelihood after",
+          "g": "With controls in place",
+          "w": 12,
+          "v": "L"
+        },
+        {
+          "n": "Severity after",
+          "g": "With controls in place",
+          "w": 13,
+          "v": "S"
+        },
+        {
+          "n": "Risk after",
+          "g": "Worked out for you",
+          "w": 9,
+          "f": "12,13"
+        },
+        {
+          "n": "Evidence for the score after",
+          "g": "Why the controls bring the score down, and by how much",
+          "w": 34
+        },
+        {
+          "n": "Status",
+          "g": "Open or closed",
+          "w": 9,
+          "v": [
+            "Open",
+            "Closed"
+          ]
+        },
+        {
+          "n": "Last reviewed",
+          "g": "Date",
+          "w": 12
+        }
+      ],
+      "ex": [
+        [
+          "H1",
+          "The patient chooses an admin or \"ask a question\" route but includes red-flag symptoms. The form’s questions don’t pick up the red flag. The patient goes back and changes answers after a red-flag warning.",
+          "A request describing red-flag symptoms is triaged as routine",
+          "A patient with red-flag symptoms is not directed to an urgent assessment in time",
+          "Delayed treatment of a serious condition, such as sepsis, a heart attack or a suicidal crisis; at worst, death",
+          "Medium",
+          "Major",
+          "",
+          "Supplier’s DCB0129 hazard log rates under-triage as its top risk. In a one-week sample of 50 requests, 2 described possible red flags under an admin route.",
+          "Controls: A banner at the start of the form tells patients to call 999 or 111 for red-flag symptoms. Red-flag answers stop the form from going further and direct the patient to 999 or 111. The supplier confirms in writing that changing answers after a red-flag warning is logged and flagged. Requests sent as “ask the GP a question” go straight to the duty GP, so any symptoms in them are seen quickly. Mitigations: Every request that mentions symptoms is reviewed by the duty doctor within two hours in core hours. A safety-netting message about red-flag symptoms is shown when the form is sent.",
+          "CSO",
+          "Form screenshots and test cases on file. Duty doctor rota and audit spreadsheet.",
+          "Very low",
+          "Major",
+          "",
+          "Red-flag stop tested with 10 test cases before go-live, all stopped. Duty doctor review times audited monthly: 96% within two hours in the first month.",
+          "Open: controls in place",
+          "02/03/2026"
+        ],
+        [
+          "H2",
+          "The tool books some requests straight into a routine slot, or sends the patient a booking link, using the patient’s answers to set questions. Nobody reads the free text before the appointment.",
+          "Important detail written in the free text, such as weight loss or a new lump, sits unread until the routine appointment",
+          "A patient whose problem needs an earlier or different assessment waits for a routine appointment",
+          "Delayed diagnosis, for example of cancer, and delayed treatment",
+          "Medium",
+          "Major",
+          "",
+          "Audit of 30 auto-booked requests found 3 with free text a GP judged should have been seen sooner.",
+          "Controls: Only admin and clearly routine request types are set to auto-book; anything with symptoms goes to a person first. Free text containing set words (for example lump, bleeding, weight loss) is sent to the duty doctor instead of being auto-booked. Mitigations: A care navigator reads the free text of every auto-booked request the same working day and escalates anything worrying.",
+          "CSO",
+          "Auto-book settings export and keyword list on file. Same-day read recorded in the care navigation log.",
+          "Very low",
+          "Major",
+          "",
+          "Repeat audit after the change: 0 of 30. Auto-book settings exported from the tool and checked by the CSO.",
+          "Open: controls in place",
+          "02/03/2026"
+        ],
+        [
+          "H3",
+          "The form stays open in the evening and at weekends with nobody watching it. On busy days or during leave, nobody owns the queue. A request is assigned to a clinician who has gone home.",
+          "A request sits unread for hours or days",
+          "A patient’s request is not actioned when it needs to be, while they believe the practice is dealing with it",
+          "Delayed assessment and treatment; the problem may get worse",
+          "High",
+          "Considerable",
+          "",
+          "Before the change, 15% of requests arrived outside core hours, and 4 in one month waited more than a working day.",
+          "Controls: Symptom requests can only be sent in core hours; outside them, the form directs patients to 111 or 999. A named owner for the queue every session, on the rota. Mitigations: An end-of-day check that the queue is empty or handed over. The first job on a Monday is any request that arrived at the weekend.",
+          "Practice manager",
+          "Supplier settings screenshot. Queue owner rota. End-of-day check log.",
+          "Low",
+          "Considerable",
+          "",
+          "Form hours confirmed in the supplier settings. End-of-day checks signed off on the care navigation log, audited monthly.",
+          "Open: controls in place",
+          "02/03/2026"
+        ],
+        [
+          "H4",
+          "A parent or carer submits for someone else using their own details, or the patient’s details don’t match the record",
+          "The request is attached to the wrong patient’s record",
+          "The right patient isn’t assessed, and decisions are made using the wrong patient’s record",
+          "Missed or delayed care for the patient who needed it; the wrong treatment or advice for the other",
+          "Medium",
+          "Considerable",
+          "",
+          "Supplier’s hazard log lists patient-matching errors. Two near misses in the first month, both requests from parents.",
+          "Controls: The form asks who the request is for and collects the patient’s own details. Staff check name, date of birth and NHS number before filing. Mitigations: Requests made on someone else’s behalf are flagged for a second check before a clinician acts on them.",
+          "Practice manager",
+          "Care navigation protocol v2. Training record. Incident log.",
+          "Low",
+          "Considerable",
+          "",
+          "Filing check added to the care navigation protocol; all care navigators trained. No further near misses in three months.",
+          "Open: controls in place",
+          "02/03/2026"
+        ],
+        [
+          "H5",
+          "As more same-day appointments are released through the online form, fewer are left for patients who phone or walk in",
+          "Patients who can’t use the form find no appointments left",
+          "A patient who can’t use the form, because of age, disability, language or no internet, is assessed later than they need to be",
+          "Delayed care for patients already more likely to come to harm",
+          "Medium",
+          "Considerable",
+          "",
+          "In the first fortnight, all same-day appointments had gone by 9:30 on four days, mostly to online requests.",
+          "Controls: A fixed share of same-day appointments is kept for phone and walk-in requests. Reception can fill in the form on a patient’s behalf. Mitigations: Access data and complaints by route reviewed at the quarterly clinical governance meeting.",
+          "Practice manager",
+          "Appointment template. Clinical governance minutes.",
+          "Low",
+          "Considerable",
+          "",
+          "Appointment template shows the reserved slots. Quarterly review minuted at clinical governance.",
+          "Open: controls in place",
+          "02/03/2026"
+        ]
+      ],
+      "blank": 20,
+      "section": "cs"
+    },
+    {
+      "slug": "safety-case-report",
+      "title": "Safety case report",
+      "formal": "Clinical Safety Case Report (DCB0160)",
+      "kind": "doc",
+      "stage": "Approve",
+      "purpose": "The short summary the CSO signs to say the tool is acceptably safe to use, with the controls in place. Two to six pages is plenty.",
+      "who": "Written and signed by the CSO. The partners accept the remaining risk.",
+      "when": "Before go-live. Updated after reviews and significant changes.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Practice",
+              "Oakfield Surgery"
+            ],
+            [
+              "Tool and version",
+              "Kestrel Consult, version 4"
+            ],
+            [
+              "Supplier",
+              "Kestrel Health Ltd"
+            ],
+            [
+              "Report version and date",
+              "1.0, 23/02/2026"
+            ],
+            [
+              "Clinical Safety Officer",
+              "Dr Helen Marsh, GP partner"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. Summary"
+        },
+        {
+          "t": "area",
+          "label": "Our conclusion in two or three sentences",
+          "ex": "With the controls in our hazard log in place, the CSO considers Kestrel Consult acceptably safe to introduce for admin and clinical requests in core hours. Five hazards were found. After controls, all are scored 2 (acceptable)."
+        },
+        {
+          "t": "h",
+          "x": "2. The tool and how we'll use it"
+        },
+        {
+          "t": "area",
+          "label": "Description and scope",
+          "ex": "Patients send requests through our website and the NHS App. Care navigators sort them; the duty doctor reviews anything clinical. In scope: adult and parent-on-behalf-of-child requests in core hours. Out of scope: video consultations and automatic booking."
+        },
+        {
+          "t": "h",
+          "x": "3. How we assessed it"
+        },
+        {
+          "t": "area",
+          "label": "Method",
+          "ex": "Review of the supplier's DCB0129 safety case report and hazard log. A one-hour hazard workshop on 06/02/2026 with clinical and care navigation staff, including a salaried GP who regularly does duty doctor sessions, walking through a request from start to finish."
+        },
+        {
+          "t": "h",
+          "x": "4. Main hazards and controls"
+        },
+        {
+          "t": "g",
+          "x": "Summarise. The full detail is in the hazard log."
+        },
+        {
+          "t": "table",
+          "cols": [
+            "ID",
+            "Hazard",
+            "Risk before",
+            "Key controls and mitigations",
+            "Risk after"
+          ],
+          "rows": [
+            [
+              "H1",
+              [
+                "",
+                "A patient with red-flag symptoms is not directed to an urgent assessment in time"
+              ],
+              [
+                "",
+                "3"
+              ],
+              [
+                "",
+                "Red-flag stop on the form; duty doctor reviews symptom requests within two hours"
+              ],
+              [
+                "",
+                "2"
+              ]
+            ],
+            [
+              "H2",
+              [
+                "",
+                "A patient whose problem needs an earlier or different assessment waits for a routine appointment"
+              ],
+              [
+                "",
+                "3"
+              ],
+              [
+                "",
+                "Auto-booking limited to admin and clearly routine requests; free text read the same day"
+              ],
+              [
+                "",
+                "2"
+              ]
+            ],
+            [
+              "H3",
+              [
+                "",
+                "A patient’s request is not actioned when it needs to be, while they believe the practice is dealing with it"
+              ],
+              [
+                "",
+                "3"
+              ],
+              [
+                "",
+                "Symptom requests in core hours only; named queue owner; end-of-day check"
+              ],
+              [
+                "",
+                "2"
+              ]
+            ],
+            [
+              "H4",
+              [
+                "",
+                "The right patient isn’t assessed, and decisions are made using the wrong patient’s record"
+              ],
+              [
+                "",
+                "3"
+              ],
+              [
+                "",
+                "Patient details checked before filing; second check for requests made on someone’s behalf"
+              ],
+              [
+                "",
+                "2"
+              ]
+            ],
+            [
+              "H5",
+              [
+                "",
+                "A patient who can’t use the form, because of age, disability, language or no internet, is assessed later than they need to be"
+              ],
+              [
+                "",
+                "3"
+              ],
+              [
+                "",
+                "Same-day appointments reserved for phone and walk-in; reception can complete the form"
+              ],
+              [
+                "",
+                "2"
+              ]
+            ]
+          ],
+          "blank": 2
+        },
+        {
+          "t": "h",
+          "x": "5. Supplier assurance"
+        },
+        {
+          "t": "area",
+          "label": "What we received and checked",
+          "ex": "DCB0129 safety case report and hazard log (January 2026), DTAC, confirmation that the product is not a medical device. The supplier's CSO is named in their report."
+        },
+        {
+          "t": "h",
+          "x": "6. Remaining risk"
+        },
+        {
+          "t": "area",
+          "label": "Why the remaining risk is acceptable",
+          "ex": "All hazards score 2 after controls. The controls are in place and staff have been trained. The partners accepted the remaining risk at the practice meeting on 23/02/2026."
+        },
+        {
+          "t": "h",
+          "x": "7. Conditions for go-live"
+        },
+        {
+          "t": "area",
+          "label": "Anything that must be in place first",
+          "ex": "Symptom requests in core hours only. Red-flag stop tested before go-live. Auto-booking limited to admin and clearly routine requests. Phone and walk-in route kept, with reserved same-day appointments."
+        },
+        {
+          "t": "h",
+          "x": "8. Review"
+        },
+        {
+          "t": "area",
+          "label": "When we'll review this",
+          "ex": "After three months (June 2026), then yearly, or sooner after an incident or a significant product change."
+        },
+        {
+          "t": "sign",
+          "rows": [
+            "Clinical Safety Officer",
+            "Partner, accepting the remaining risk on behalf of the practice"
+          ]
+        }
+      ],
+      "section": "cs"
+    },
+    {
+      "slug": "incident-log",
+      "title": "Incident log",
+      "formal": "Incident and issue log",
+      "kind": "sheet",
+      "stage": "Monitor",
+      "purpose": "One log for problems and near misses with any of your digital tools, linked back to the hazard log.",
+      "who": "Anyone can raise an entry. The CSO reviews and closes each one.",
+      "when": "Whenever something goes wrong or nearly does. Reviewed at clinical meetings.",
+      "cols": [
+        {
+          "n": "Ref",
+          "g": "I1, I2...",
+          "w": 6
+        },
+        {
+          "n": "Date",
+          "g": "When it happened",
+          "w": 12
+        },
+        {
+          "n": "Tool",
+          "g": "From the technology register",
+          "w": 22
+        },
+        {
+          "n": "What happened",
+          "g": "Facts, no names of patients",
+          "w": 40
+        },
+        {
+          "n": "Harm",
+          "g": "To the patient",
+          "w": 14,
+          "v": [
+            "Near miss",
+            "No harm",
+            "Low",
+            "Moderate",
+            "Severe",
+            "Death"
+          ]
+        },
+        {
+          "n": "Immediate action",
+          "g": "What was done at the time",
+          "w": 30
+        },
+        {
+          "n": "Hazard log link",
+          "g": "Which hazard, or new hazard added",
+          "w": 26
+        },
+        {
+          "n": "Change made",
+          "g": "To stop it happening again",
+          "w": 32
+        },
+        {
+          "n": "Reported to",
+          "g": "Supplier, LFPSE, Yellow Card, DSPT",
+          "w": 24
+        },
+        {
+          "n": "Closed by and date",
+          "g": "CSO",
+          "w": 18
+        }
+      ],
+      "ex": [
+        [
+          "I1",
+          "12/03/2026",
+          "Kestrel Consult",
+          "A request mentioning a new breast lump was filed as routine",
+          "Near miss",
+          "Spotted by the duty doctor within the hour. Patient called and assessed the same day.",
+          "H1: controls in place but the red-flag wording missed 'tight chest'",
+          "Supplier asked to add the phrase; care navigators briefed",
+          "Supplier; LFPSE",
+          "Dr Helen Marsh, 20/03/2026"
+        ]
+      ],
+      "blank": 20,
+      "section": "cs"
+    },
+    {
+      "slug": "dpia",
+      "section": "ig",
+      "title": "Data protection impact assessment (DPIA)",
+      "formal": "DPIA (UK GDPR Article 35)",
+      "kind": "doc",
+      "stage": "Assess",
+      "purpose": "Records what personal data a tool uses, why it's lawful, the risks to people's privacy, and what you've done about them.",
+      "who": "Practice manager drafts it with the supplier's help. The DPO advises. A partner, as SIRO, accepts the remaining risk.",
+      "when": "Before the tool is used with personal data. Reviewed when use changes, and at least yearly.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Practice",
+              "Oakfield Surgery"
+            ],
+            [
+              "Tool and supplier",
+              "Kestrel Consult, Kestrel Health Ltd"
+            ],
+            [
+              "DPIA version and date",
+              "1.0, 18/02/2026"
+            ],
+            [
+              "Completed by",
+              "Jo Reid, practice manager"
+            ],
+            [
+              "Data Protection Officer",
+              "Our DPO service"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. Why we need a DPIA"
+        },
+        {
+          "t": "area",
+          "label": "What the tool does and why a DPIA is needed",
+          "ex": "Patients send requests, including health information, through our website and the NHS App. This is new technology processing special category data about many patients, so a DPIA is required."
+        },
+        {
+          "t": "h",
+          "x": "2. The data"
+        },
+        {
+          "t": "g",
+          "x": "Follow the data from start to finish. Ask the supplier for their data flow diagram, or draw your own as boxes and arrows, then list each flow in the table."
+        },
+        {
+          "t": "table",
+          "cols": [
+            "#",
+            "From → to",
+            "What moves",
+            "How"
+          ],
+          "rows": [
+            [
+              "1",
+              [
+                "",
+                "Patient → tool"
+              ],
+              [
+                "",
+                "The request: symptoms, any photos, name, date of birth, contact details"
+              ],
+              [
+                "",
+                "Online form on the website or NHS App, encrypted"
+              ]
+            ],
+            [
+              "2",
+              [
+                "",
+                "Tool → Heron Link → EMIS"
+              ],
+              [
+                "",
+                "Name, date of birth and NHS number to find the patient, then the request"
+              ],
+              [
+                "",
+                "Heron Link, another company, runs the link"
+              ]
+            ],
+            [
+              "3",
+              [
+                "",
+                "Tool → staff"
+              ],
+              [
+                "",
+                "The request"
+              ],
+              [
+                "",
+                "Staff log in to the tool; access by role"
+              ]
+            ],
+            [
+              "4",
+              [
+                "",
+                "Staff → EMIS"
+              ],
+              [
+                "",
+                "Notes, codes and actions"
+              ],
+              [
+                "",
+                "Typed by staff, who open the patient in EMIS separately"
+              ]
+            ],
+            [
+              "5",
+              [
+                "",
+                "Staff → patient"
+              ],
+              [
+                "",
+                "The reply"
+              ],
+              [
+                "",
+                "Sent from the tool by text or email to the contact details given"
+              ]
+            ]
+          ],
+          "label": "2. The data: data flows table"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "Whose data?",
+              [
+                "",
+                "Registered patients, and parents or carers acting for them"
+              ]
+            ],
+            [
+              "What data?",
+              [
+                "",
+                "Name, date of birth, NHS number, contact details, the request including symptoms and any photos"
+              ]
+            ],
+            [
+              "Where does it come from?",
+              [
+                "",
+                "Patients, through the online form. Reception enters phone requests."
+              ]
+            ],
+            [
+              "Where is it stored, and in which country?",
+              [
+                "",
+                "Supplier's cloud servers in the UK"
+              ]
+            ],
+            [
+              "Who can see it?",
+              [
+                "",
+                "Care navigators, clinicians and the practice manager, by role. Supplier support staff only when we ask them to help. Heron Link, the integration partner that links the tool to EMIS, passes details through but doesn’t use them."
+              ]
+            ],
+            [
+              "Is any of it shared or sent on?",
+              [
+                "",
+                "Relevant parts are copied into the GP record. Nothing else is shared."
+              ]
+            ],
+            [
+              "How long is it kept?",
+              [
+                "",
+                "In the tool for 90 days after the request is closed, then deleted. The record keeps what matters."
+              ]
+            ],
+            [
+              "Does the supplier use it for anything else, such as training AI?",
+              [
+                "",
+                "No. The contract rules this out unless the data is anonymised."
+              ]
+            ],
+            [
+              "How many people?",
+              [
+                "",
+                "About 9,000 registered patients; around 900 requests a month"
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "3. Is it lawful?"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "Our role",
+              [
+                "",
+                "Controller. The supplier is our processor."
+              ]
+            ],
+            [
+              "Lawful basis (UK GDPR Article 6)",
+              [
+                "",
+                "6(1)(e): a task in the public interest, providing NHS care"
+              ]
+            ],
+            [
+              "Condition for health data (Article 9)",
+              [
+                "",
+                "9(2)(h): providing health care"
+              ]
+            ],
+            [
+              "Confidentiality",
+              [
+                "",
+                "Used for direct care, so implied consent applies. Patients are told in our privacy notice."
+              ]
+            ],
+            [
+              "Data processing agreement in place?",
+              [
+                "",
+                "Yes, signed 10/02/2026"
+              ]
+            ],
+            [
+              "Supplier's DSPT status",
+              [
+                "",
+                "Standards Met, 2025-26"
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "4. Who we asked"
+        },
+        {
+          "t": "area",
+          "label": "Who was consulted and what they said",
+          "ex": "DPO (advice below). Caldicott Guardian: content with the access controls. Patient participation group: asked for clear guidance on what to put in the form. Supplier: provided their DPIA, hosting details and DSPT."
+        },
+        {
+          "t": "h",
+          "x": "5. Is it necessary and in proportion?"
+        },
+        {
+          "t": "area",
+          "label": "Do we need all of this data? Could we do it with less? How do we tell patients and support their rights?",
+          "ex": "The form asks only for what's needed to handle the request. Free text is needed for clinical requests. The privacy notice and website explain the tool. Patients can still phone or call in. Rights requests are handled through our usual process."
+        },
+        {
+          "t": "h",
+          "x": "6. Risks to people's privacy"
+        },
+        {
+          "t": "g",
+          "x": "For each risk, score likelihood (remote, possible, probable) and severity (minimal, significant, severe) to give an overall rating (low, medium, high). The clinical risks go in the hazard log, not here."
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Risk",
+            "Likelihood",
+            "Severity",
+            "Overall"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Staff add notes or send a message to the wrong patient because the tool and EMIS don’t open the same patient"
+              ],
+              [
+                "",
+                "Possible"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Medium"
+              ]
+            ],
+            [
+              [
+                "",
+                "A reply reaches someone other than the patient"
+              ],
+              [
+                "",
+                "Possible"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Medium"
+              ]
+            ],
+            [
+              [
+                "",
+                "Heron Link, the integration partner, handles patient details when linking the tool to EMIS"
+              ],
+              [
+                "",
+                "Possible"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Medium"
+              ]
+            ],
+            [
+              [
+                "",
+                "Too many staff can read requests"
+              ],
+              [
+                "",
+                "Possible"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Medium"
+              ]
+            ],
+            [
+              [
+                "",
+                "Data is stored outside the UK"
+              ],
+              [
+                "",
+                "Remote"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Low"
+              ]
+            ],
+            [
+              [
+                "",
+                "The supplier uses requests to train or improve its product"
+              ],
+              [
+                "",
+                "Possible"
+              ],
+              [
+                "",
+                "Significant"
+              ],
+              [
+                "",
+                "Medium"
+              ]
+            ],
+            [
+              [
+                "",
+                "Requests are kept longer than needed"
+              ],
+              [
+                "",
+                "Probable"
+              ],
+              [
+                "",
+                "Minimal"
+              ],
+              [
+                "",
+                "Low"
+              ]
+            ]
+          ],
+          "blank": 3
+        },
+        {
+          "t": "h",
+          "x": "7. What we're doing about them"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Risk",
+            "Measures",
+            "Residual risk",
+            "Approved?"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Wrong patient open in EMIS"
+              ],
+              [
+                "",
+                "Check name, date of birth and NHS number in both systems before adding or sending; close each record when finished; wrong-record entries corrected and reported as a data breach"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Reply reaches the wrong person"
+              ],
+              [
+                "",
+                "Check who the reply goes to before sending; sensitive replies ask the patient to phone"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Integration partner handles data"
+              ],
+              [
+                "",
+                "Named as a subcontractor in the supplier’s agreement on the same terms; UK storage; DSPT completed"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Too many staff can read"
+              ],
+              [
+                "",
+                "Access by role; access log checked monthly"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Stored outside the UK"
+              ],
+              [
+                "",
+                "UK hosting written into the contract"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Supplier reuses data"
+              ],
+              [
+                "",
+                "Contract rules it out unless anonymised"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ],
+            [
+              [
+                "",
+                "Kept too long"
+              ],
+              [
+                "",
+                "Deleted 90 days after closing"
+              ],
+              [
+                "",
+                "Low"
+              ],
+              [
+                "",
+                "Yes"
+              ]
+            ]
+          ],
+          "blank": 3
+        },
+        {
+          "t": "h",
+          "x": "8. Sign-off"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Item",
+            "Name and date",
+            "Notes"
+          ],
+          "rows": [
+            [
+              "Measures approved by",
+              [
+                "",
+                "Jo Reid, 18/02/2026"
+              ],
+              [
+                "",
+                ""
+              ]
+            ],
+            [
+              "Remaining risk accepted by (SIRO or partner)",
+              [
+                "",
+                "Dr Helen Marsh, 23/02/2026"
+              ],
+              [
+                "",
+                "All residual risks low"
+              ]
+            ],
+            [
+              "DPO advice given",
+              [
+                "",
+                "DPO service, 16/02/2026"
+              ],
+              [
+                "",
+                "Add retention period to privacy notice"
+              ]
+            ],
+            [
+              "DPO advice accepted or overruled?",
+              [
+                "",
+                "Accepted"
+              ],
+              [
+                "",
+                "If overruled, say why"
+              ]
+            ],
+            [
+              "Caldicott Guardian consulted",
+              [
+                "",
+                "Dr Tom Hughes, 12/02/2026"
+              ],
+              [
+                "",
+                ""
+              ]
+            ],
+            [
+              "Next review",
+              [
+                "",
+                "June 2026, then yearly"
+              ],
+              [
+                "",
+                ""
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "g",
+          "x": "If a high risk remains that you can't reduce, you must consult the ICO before you start. Your DPO will advise."
+        }
+      ]
+    },
+    {
+      "slug": "ai-policy",
+      "section": "ai",
+      "title": "AI policy",
+      "formal": "Practice AI policy",
+      "kind": "doc",
+      "stage": "Prepare",
+      "purpose": "Tells everyone which AI tools they can use, what for, and how a new one gets approved.",
+      "who": "The digital lead drafts it with the CSO and DPO. The partners approve it.",
+      "when": "Before any AI tool is used. Reviewed every year, or when a tool or national guidance changes.",
+      "blocks": [
+        {
+          "t": "fields",
+          "rows": [
+            [
+              "Practice",
+              "Oakfield Surgery"
+            ],
+            [
+              "Version",
+              "2.0"
+            ],
+            [
+              "Owner",
+              "Jo Reid, practice manager and digital lead"
+            ],
+            [
+              "Approved",
+              "Partners’ meeting, 14/10/2026"
+            ],
+            [
+              "Next review",
+              "October 2027"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "1. Purpose and scope"
+        },
+        {
+          "t": "g",
+          "x": "Say what the policy is for and who it covers. Include AI added to software you already use, and apps on personal devices."
+        },
+        {
+          "t": "area",
+          "label": "What this policy is for, and who it covers",
+          "ex": "This policy sets out how Oakfield Surgery chooses, approves and uses tools that use artificial intelligence (AI), so they are safe for patients and protect their information. It applies to everyone who works here, including locums, trainees, students and contractors. It covers any AI tool used for practice work: tools we buy, tools the ICB or NHS England provides, AI features added to software we already use, and apps on personal devices."
+        },
+        {
+          "t": "h",
+          "x": "2. Who is responsible"
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Role",
+            "Name",
+            "What they do"
+          ],
+          "rows": [
+            [
+              "Digital lead",
+              [
+                "",
+                "Jo Reid, practice manager"
+              ],
+              "Keeps the AI tool register and answers questions"
+            ],
+            [
+              "Clinical Safety Officer (CSO)",
+              [
+                "",
+                "Dr Helen Marsh, GP partner"
+              ],
+              "Signs off the clinical safety work for each tool"
+            ],
+            [
+              "Data Protection Officer (DPO)",
+              [
+                "",
+                "ICB DPO service"
+              ],
+              "Advises on the DPIA and data protection"
+            ],
+            [
+              "Caldicott Guardian",
+              [
+                "",
+                "Dr Tom Hughes, GP partner"
+              ],
+              "Advises on confidentiality"
+            ],
+            [
+              "Senior Information Risk Owner (SIRO)",
+              [
+                "",
+                "Dr Helen Marsh, GP partner"
+              ],
+              "Accepts the remaining information risk"
+            ],
+            [
+              "All staff",
+              [
+                "",
+                "Everyone"
+              ],
+              "Follow this policy and report problems"
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "3. Our AI tools"
+        },
+        {
+          "t": "g",
+          "x": "A summary of your AI tool register: each tool, its status, and what it is and isn’t used for. The full register is a spreadsheet kept by the digital lead."
+        },
+        {
+          "t": "table",
+          "cols": [
+            "Tool",
+            "Status",
+            "Used for",
+            "Not for"
+          ],
+          "rows": [
+            [
+              [
+                "",
+                "Kestrel Consult (online consultation and triage)"
+              ],
+              [
+                "",
+                "Approved"
+              ],
+              [
+                "",
+                "Patients send requests through the website and NHS App; it suggests urgency and which team"
+              ],
+              [
+                "",
+                "Closing or turning down a request. A care navigator reads every one and can change the urgency"
+              ]
+            ],
+            [
+              [
+                "",
+                "Wren Scribe (AI scribe)"
+              ],
+              [
+                "",
+                "Approved"
+              ],
+              [
+                "",
+                "Drafting consultation notes and referral letters, for trained clinicians"
+              ],
+              [
+                "",
+                "When a patient says no. Nothing saved until the clinician has read and corrected it"
+              ]
+            ],
+            [
+              [
+                "",
+                "Microsoft 365 Copilot (NHS.net)"
+              ],
+              [
+                "",
+                "Admin only"
+              ],
+              [
+                "",
+                "Summarising email chains, drafting practice documents, notes of non-clinical meetings"
+              ],
+              [
+                "",
+                "Patient-identifiable information, or anything to do with a clinical decision"
+              ]
+            ],
+            [
+              [
+                "",
+                "Linnet Voice (AI phone receptionist)"
+              ],
+              [
+                "",
+                "Being assessed"
+              ],
+              [
+                "",
+                "Nothing yet. Hazard log and DPIA in progress; decision due January 2027"
+              ],
+              [
+                "",
+                "Any live calls until approved"
+              ]
+            ],
+            [
+              [
+                "",
+                "Free public chatbots"
+              ],
+              [
+                "",
+                "Not approved"
+              ],
+              [
+                "",
+                "Nothing involving patients or practice information"
+              ],
+              [
+                "",
+                "Any patient details, on any device, even with names removed"
+              ]
+            ]
+          ]
+        },
+        {
+          "t": "h",
+          "x": "4. Rules for everyone"
+        },
+        {
+          "t": "list",
+          "x": [
+            "Use only tools on the register, and only for what the register allows.",
+            "Never put patient details into a tool that isn’t approved for them, including free or personal accounts.",
+            "Read and correct anything AI writes before you save it, send it or act on it. You are responsible for what you sign.",
+            "Don’t switch on a new AI feature in existing software. Tell the digital lead and wait for it to be reviewed.",
+            "Use practice devices and accounts. Don’t bring your own AI apps into clinic."
+          ]
+        },
+        {
+          "t": "h",
+          "x": "5. Bringing in a new tool"
+        },
+        {
+          "t": "list",
+          "x": [
+            "Ask the digital lead, who checks the register and whether the ICB has already assessed it.",
+            "Get the supplier’s evidence: DCB0129 safety documents, DTAC, DSPT, and medical device registration where it applies.",
+            "The CSO completes a hazard log and clinical safety case report (DCB0160).",
+            "The DPO reviews a data protection impact assessment (DPIA), and the privacy notice is updated.",
+            "The partners approve it at a practice meeting, and the register is updated.",
+            "Staff are trained before they use it, and the first three months are checked closely."
+          ]
+        },
+        {
+          "t": "h",
+          "x": "6. Telling patients"
+        },
+        {
+          "t": "area",
+          "label": "How patients are told, and how they can say no",
+          "ex": "Our privacy notice, website and waiting room posters explain which AI tools we use and why. For Wren Scribe, the clinician tells the patient at the start, respects a no, and records the answer. Patients can always contact us by phone or in person: AI is never the only way to get care here."
+        },
+        {
+          "t": "h",
+          "x": "7. Checking it works"
+        },
+        {
+          "t": "area",
+          "label": "How you check the tools, and how often",
+          "ex": "For the first three months of a new tool, the CSO checks a sample of its output each month. After that, each tool is audited at least once a year. We check whether tools work equally well for all our patients, including people with strong accents, disabilities or limited English."
+        },
+        {
+          "t": "h",
+          "x": "8. When something goes wrong"
+        },
+        {
+          "t": "area",
+          "label": "How problems are reported and learned from",
+          "ex": "Report any problem or near miss through our incident process the same day. The CSO reviews it and decides whether to pause the tool. If patient information went somewhere it shouldn’t, tell the DPO straight away: it’s a data breach. We report to the supplier and, where relevant, Learn from Patient Safety Events and the MHRA Yellow Card scheme. Incidents and what we learned are discussed at our monthly clinical governance meeting."
+        },
+        {
+          "t": "h",
+          "x": "9. Training"
+        },
+        {
+          "t": "area",
+          "label": "Training and induction",
+          "ex": "Staff are trained on each tool before they use it, and training is recorded. New staff, locums and trainees are shown this policy and the register at induction."
+        },
+        {
+          "t": "h",
+          "x": "10. Review and sign-off"
+        },
+        {
+          "t": "p",
+          "x": "This policy and the register are reviewed every year alongside the DSPT, or sooner if a tool, national guidance or the law changes."
+        },
+        {
+          "t": "sign",
+          "rows": [
+            "Digital lead",
+            "Clinical Safety Officer",
+            "Partner (SIRO)"
+          ]
+        }
+      ]
+    }
+  ]
+}

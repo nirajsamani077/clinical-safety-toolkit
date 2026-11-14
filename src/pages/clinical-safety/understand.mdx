@@ -1,0 +1,74 @@
+---
+layout: ../../layouts/Page.astro
+title: Understand
+lede: If your practice uses a digital tool in patient care, you need to show you've thought about how it could harm a patient and what you're doing about it. That's clinical safety.
+checked: 3 November 2026
+---
+import Oakfield from '../../components/Oakfield.astro';
+import Trampoline from '../../components/Trampoline.astro';
+import RiskGrid from '../../components/RiskGrid.astro';
+import IncidentCards from '../../components/IncidentCards.astro';
+import SafetyGap from '../../components/SafetyGap.astro';
+import QriskCase from '../../components/QriskCase.astro';
+import Refs from '../../components/Refs.astro';
+
+## Why it matters
+
+Anything used in patient care has to be safe. We expect that of the medicines and equipment we use, and digital software is no different. When it goes wrong, patients can come to harm, sometimes for years before anyone notices.
+
+<QriskCase />
+
+## The national study
+
+A 2025 national study found most NHS digital tools had no documented clinical safety assurance, despite it being a legal requirement.<sup><a href="#ref-4">4</a></sup>
+
+<SafetyGap />
+
+## DCB0160: the two-minute version
+
+- **DCB0160** is the NHS standard for organisations that use health software, including GP practices. It's a legal requirement.<sup><a href="#ref-1">1</a></sup>
+- The supplier's clinical safety work (known as **DCB0129**) doesn't cover you. You check what could go wrong with the tool in your own practice, so DCB0160 can only be completed by the local team.
+- You need a **Clinical Safety Officer (CSO)** to sign off your clinical safety work. They don't have to work directly in your practice, but they need to be named and accountable for signing off your DCB0160 work.<sup><a href="#ref-2">2</a></sup>
+- The DCB0160 documents are your **[clinical risk management system](/templates/clinical-risk-management-system)** (CRMS: one practice-wide document on how you manage clinical safety for any tool), a **[clinical risk management plan](/templates/clinical-risk-management-plan)** (CRMP) for each individual tool, a **[hazard log](/templates/hazard-log)** and a **[clinical safety case report](/templates/safety-case-report)** (CSCR).
+- This process carries on for as long as you use the tool. It isn't a one-off.
+
+DCB0160 applies if a tool could affect a clinical decision, a patient's record or access to care. For example, a staff rota doesn't need it. See [which tools need what](/adopting-a-tool#which-tools-need-what).
+
+<Oakfield short />
+
+## The trampoline analogy
+
+The words and phrases used in clinical safety sound technical, but the principles are something anybody can relate to. It's the same process any parent goes through without thinking when they put a **trampoline** in the garden: what could go wrong, why could it go wrong, how bad would it be, and what are you going to do to stop it happening or limit the harm if it does. Click through the steps one by one. Each shows the process for a garden trampoline, then the same process for Oakfield Surgery's new online consultation tool.
+
+The steps follow a chain: a **cause** leads to an **effect**, which creates a **hazard** for a person, which could lead to **harm**. Controls work on the causes; mitigations work on the harm.<sup><a href="#ref-1">1</a></sup>
+
+<Trampoline />
+
+## Scoring a risk
+
+Each hazard is scored before and after controls, by combining **likelihood** with **severity**. Choose a square to see what it means.<sup><a href="#ref-1">1</a></sup>
+
+<RiskGrid />
+
+## Real incidents
+
+Harm usually comes from how a tool fits the day's work, not just from the software crashing.<sup><a href="#ref-3">3</a></sup> Turn each card to see the lesson.
+
+<IncidentCards max={4} />
+
+## Six habits for every user
+
+1. **Know what the tool is for,** and what it isn't for.
+2. **Get trained,** and make sure it's recorded.
+3. **Know how it fails** and what to do when it does.
+4. **Tell patients** when it affects them.
+5. **Check the output** before acting on it.
+6. **Report anything that goes wrong,** including near misses.
+
+<Refs items={[
+  ['DCB0160: Clinical risk management in the deployment and use of health IT systems', 'https://data.standards.nhs.uk/current-standards/clinical-risk-management-its-application-in-the-deployment-and-use-of-health-it-systems', 'NHS England standards directory'],
+  ['Guidance on the use of AI-enabled ambient scribing products in health and care settings', 'https://www.england.nhs.uk/long-read/guidance-on-the-use-of-ai-enabled-ambient-scribing-products-in-health-and-care-settings/', 'NHS England'],
+  ['Patient safety issues associated with electronic patient record systems: a thematic review', 'https://www.hssib.org.uk/patient-safety-investigations/electronic-patient-record-epr-systems-thematic-review/investigation-report/', 'HSSIB, November 2025'],
+  ['Digital health technology compliance with clinical safety standards in the National Health Service in England: national cross-sectional study', 'https://www.jmir.org/2025/1/e80076', 'Oskrochi Y, Roy-Highley E, Grimes K, Shah S. Journal of Medical Internet Research, 2025'],
+  ['QRisk2 in TPP “fixed” but up to 270,000 patients affected', 'https://www.digitalhealth.net/2016/06/qrisk2-in-tpp-fixed-but-up-to-270000-patients-affected/', 'Digital Health News, June 2016'],
+]} />

@@ -1,0 +1,46 @@
+---
+layout: ../../layouts/Page.astro
+title: DCB0129 and DCB0160
+zone: lib
+lede: Two legally required NHS clinical safety standards. One is for the company that makes the software, the other is for you.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import DcbLanes from '../../components/DcbLanes.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="Both standards ask the same question, “could this harm a patient?”, from two sides: the supplier's product and your practice's use of it." whose="Supplier: DCB0129. Your practice: DCB0160." lead="Each side's Clinical Safety Officer" when="Every new tool, and every significant change" />
+
+## Side by side
+
+Both are NHS information standards that are mandatory by law.<sup><a href="#ref-1">1</a></sup><sup><a href="#ref-2">2</a></sup>
+
+<div class="vs">
+  <span class="vh z"></span><span class="vh a">DCB0129</span><span class="vh b">DCB0160</span>
+  <span class="k">Who it's for</span><span>The manufacturer of the software</span><span>The organisation using it: your practice</span>
+  <span class="k">What it covers</span><span>Risks in the product itself</span><span>Risks in how you set it up and use it</span>
+  <span class="k">Who signs</span><span>The supplier's Clinical Safety Officer</span><span>Your Clinical Safety Officer</span>
+  <span class="k">What it produces</span><span>Their hazard log and safety case report</span><span>Your hazard log and safety case report</span>
+</div>
+
+## How they fit together
+
+<DcbLanes />
+
+You can't do good DCB0160 work without the supplier's DCB0129 documents. They tell you what the supplier has already thought about, and what they expect you to manage locally.
+
+## What to ask the supplier
+
+<ul class="askq">
+  <li>Can you send your clinical safety case report and hazard log?</li>
+  <li>Who is your Clinical Safety Officer?</li>
+  <li>Which risks do you expect us to manage locally?</li>
+  <li>How will you tell us about safety issues and updates?</li>
+</ul>
+
+For the whole process, with templates and a worked example, see [clinical safety](/clinical-safety/process).
+
+<Refs items={[
+  ['DCB0129: Clinical risk management in the manufacture of health IT systems', 'https://data.standards.nhs.uk/current-standards/nhsd-clinical-risk-management-its-application-in-the-manufacture-of-health-it-systems', 'NHS England standards directory'],
+  ['DCB0160: Clinical risk management in the deployment and use of health IT systems', 'https://data.standards.nhs.uk/current-standards/clinical-risk-management-its-application-in-the-deployment-and-use-of-health-it-systems', 'NHS England standards directory'],
+]} />

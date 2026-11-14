@@ -1,0 +1,175 @@
+---
+// "Edit text" mode for the published preview. The owner clicks any wording, changes it, and the
+// change is saved to the artifact's database. Claude reads the saved edits and applies them to the
+// source. Only shows for people who can edit the artifact; invisible on a normal website.
+const page = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+---
+<div class="em no-print" data-em data-page={page} hidden>
+  <div class="em-panel" data-em-panel hidden>
+    <div class="em-top"><p class="em-h">Editing this page</p><button type="button" class="em-min" data-em-min>Hide panel</button></div>
+    <p class="em-tip">Click any text and change it. Changes save as you type. Edited text gets an orange underline. Ask Claude to apply your edits when you're ready.</p>
+    <label for="em-note">Anything else on this page? (move a section, add something, cut something)</label>
+    <textarea id="em-note" rows="3" data-em-note></textarea>
+    <button type="button" class="em-btn2" data-em-note-save>Save note</button>
+    <p class="em-status" data-em-status aria-live="polite"></p>
+    <p class="em-sub" data-em-count></p>
+    <ol class="em-list" data-em-list></ol>
+  </div>
+  <button type="button" class="em-toggle" data-em-toggle aria-pressed="false" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z" /><path d="M14 6l4 4" /></svg>
+    <span data-em-label>Edit text</span>
+  </button>
+</div>
+<script is:inline>
+  (async function () {
+    var root = document.querySelector('[data-em]');
+    if (!root || !window.claude || !window.claude.use) return;
+    var db = null, user = null;
+    try { db = await window.claude.use('db'); user = await window.claude.use('user'); } catch (e) { return; }
+    if (!db) return;
+    try { if (user && !(await user.canEdit())) return; } catch (e) {}
+    root.hidden = false;
+
+    var PAGE = root.dataset.page, col = db.collection('edits');
+    var panel = root.querySelector('[data-em-panel]'), tog = root.querySelector('[data-em-toggle]');
+    var statusEl = root.querySelector('[data-em-status]'), listEl = root.querySelector('[data-em-list]');
+    var countEl = root.querySelector('[data-em-count]'), noteEl = root.querySelector('[data-em-note]');
+    var main = document.querySelector('main') || document.body;
+
+    function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
+    function clean(s) { return (s || '').replace(/ /g, ' ').replace(/[ \t]+\n/g, '\n').trim(); }
+    function norm(s) { return (s || '').replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); }
+    function safe(html) {
+      var t = document.createElement('template'); t.innerHTML = html;
+      t.content.querySelectorAll('*').forEach(function (n) {
+        if (!/^(A|STRONG|EM|B|I|SUP|SUB|SPAN|BR|SMALL|ABBR|CODE|DIV|P)$/.test(n.tagName)) { n.replaceWith(document.createTextNode(n.textContent)); return; }
+        Array.prototype.slice.call(n.attributes).forEach(function (at) {
+          var ok = at.name === 'class' || /^data-astro-cid-/.test(at.name) || (at.name === 'href' && /^(https?:|\.|\/|#)/.test(at.value)) || (at.name === 'style' && /^(\s*--[a-z0-9-]+\s*:\s*[#a-z0-9.,% -]+;?\s*)+$/i.test(at.value));
+          if (!ok) n.removeAttribute(at.name);
+        });
+      });
+      return t.innerHTML;
+    }
+    var BLOCK = 'p, li, h1, h2, h3, h4, td, th, summary, dd, dt, figcaption, blockquote, .lede';
+    var SKIP = 'button, nav, aside, [data-em], [role=tab], .s-modal, .breadcrumb, script, style';
+    var els = [], origHtml = new Map(), dirty = new Set();
+    main.querySelectorAll(BLOCK).forEach(function (el) {
+      if (el.closest(SKIP) || el.querySelector(BLOCK) || !norm(el.textContent)) return;
+      els.push(el);
+    });
+    main.querySelectorAll('strong, span, em, small, b').forEach(function (el) {
+      if (el.closest(SKIP) || el.closest(BLOCK) || el.querySelector('strong, span, em, small, b')) return;
+      var own = Array.prototype.some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim().length > 1; });
+      if (own) els.push(el);
+    });
+    els.forEach(function (el) { el.dataset.emOrig = norm(el.textContent); el.dataset.emId = hash(PAGE + '|' + el.dataset.emOrig); origHtml.set(el, el.innerHTML); });
+
+    function section(el) {
+      var n = el; while (n && n !== main) { var p = n.previousElementSibling; while (p) { if (/^H[23]$/.test(p.tagName)) return norm(p.textContent); p = p.previousElementSibling; } n = n.parentElement; }
+      return '';
+    }
+    var saved = {}, on = false;
+    function say(t) { statusEl.textContent = t; }
+
+    function apply() {
+      els.forEach(function (el) {
+        if (el === document.activeElement || dirty.has(el)) return;
+        var d = saved[el.dataset.emId];
+        if (d && d.kind === 'text') {
+          if (norm(el.textContent) !== norm(d.after)) {
+            if (d.html) el.innerHTML = safe(d.html);
+            else if (!el.children.length) el.textContent = d.after;
+          }
+          el.classList.add('em-done');
+        } else if (el.classList.contains('em-done')) { el.innerHTML = origHtml.get(el); el.classList.remove('em-done'); }
+      });
+      var mine = Object.keys(saved).map(function (k) { return saved[k]; }).filter(function (d) { return d.page === PAGE; });
+      var total = Object.keys(saved).length;
+      countEl.textContent = total ? mine.length + ' saved on this page, ' + total + ' across the toolkit' : 'Nothing saved yet.';
+      listEl.textContent = '';
+      mine.forEach(function (d) {
+        var li = document.createElement('li');
+        var t = document.createElement('span'); t.textContent = d.kind === 'note' ? 'Note: ' + d.after : '“' + d.after.slice(0, 70) + (d.after.length > 70 ? '…”' : '”');
+        var u = document.createElement('button'); u.type = 'button'; u.textContent = 'Undo';
+        u.addEventListener('click', async function () { try { await col.doc(d.id).delete(); say('Undone.'); } catch (e) { say('Couldn’t undo. Try again.'); } });
+        li.appendChild(t); li.appendChild(u); listEl.appendChild(li);
+      });
+      var n = saved['note-' + hash(PAGE)];
+      if (n && document.activeElement !== noteEl && !noteEl.dataset.dirty) noteEl.value = n.after;
+    }
+
+    var timer = setTimeout(function () { say('Can’t reach saved edits yet.'); }, 10000);
+    col.onSnapshot(function (snap) {
+      if (!snap.metadata.fromCache) { clearTimeout(timer); if (statusEl.textContent === 'Can’t reach saved edits yet.') say(''); }
+      saved = {};
+      snap.docs.forEach(function (doc) { var d = doc.data(); if (d) { d = Object.assign({}, d, { id: doc.id }); saved[doc.id] = d; } });
+      apply();
+    }, function () { clearTimeout(timer); say('Saved edits are unavailable here.'); });
+
+    function setOn(v) {
+      on = v; document.body.classList.toggle('em-on', v);
+      tog.setAttribute('aria-pressed', v ? 'true' : 'false'); tog.setAttribute('aria-expanded', v ? 'true' : 'false');
+      root.querySelector('[data-em-label]').textContent = v ? 'Done editing' : 'Edit text';
+      panel.hidden = !v;
+      els.forEach(function (el) { if (v) { el.setAttribute('contenteditable', 'true'); el.setAttribute('spellcheck', 'true'); } else el.removeAttribute('contenteditable'); });
+    }
+    tog.addEventListener('click', function () { if (tog.dataset.min) { delete tog.dataset.min; panel.hidden = false; root.querySelector('[data-em-label]').textContent = 'Done editing'; return; } setOn(!on); });
+    root.querySelector('[data-em-min]').addEventListener('click', function () { panel.hidden = true; root.querySelector('[data-em-label]').textContent = 'Show panel'; tog.dataset.min = '1'; });
+    main.addEventListener('click', function (e) { if (on && e.target.closest('a[href]') && e.target.closest('[contenteditable]')) e.preventDefault(); }, true);
+    ['dragstart', 'dragover', 'drop'].forEach(function (t) { main.addEventListener(t, function (e) { if (on) { e.preventDefault(); if (t === 'drop') say('Dragging is switched off while editing. Type or paste instead.'); } }, true); });
+    els.forEach(function (el) {
+      el.addEventListener('input', function () { if (!on) return; dirty.add(el); clearTimeout(el._emT); el._emT = setTimeout(function () { save(el); }, 1200); });
+      el.addEventListener('paste', function (e) { if (!on) return; e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain')); });
+      el.addEventListener('blur', function () { clearTimeout(el._emT); save(el); });
+      el.addEventListener('keydown', function (e) { if (on && e.key === 'Enter') { e.preventDefault(); say('Each box is one line of text. Add a page note for new paragraphs.'); } });
+    });
+    async function save(el) {
+      {
+        if (!on || !dirty.has(el)) return;
+        dirty.delete(el);
+        var now = norm(el.textContent), orig = el.dataset.emOrig, id = el.dataset.emId, had = saved[id];
+        if (had && now === norm(had.after)) return;
+        try {
+          if (now === orig) { el.innerHTML = origHtml.get(el); if (had) await col.doc(id).delete(); say('Back to the original.'); return; }
+          var t0 = document.createElement('template'); t0.innerHTML = origHtml.get(el);
+          var extra = ['a', 'p', 'div', 'li'].some(function (tag) { return el.querySelectorAll(tag).length > t0.content.querySelectorAll(tag).length; });
+          if (extra) { el.innerHTML = origHtml.get(el); say('That change pulled in part of another block, so it wasn’t saved. Try again by typing.'); return; }
+          el.classList.add('em-done');
+          await col.doc(id).set({ kind: 'text', page: PAGE, title: document.title, section: section(el), before: orig, after: now, html: safe(el.innerHTML), at: new Date().toISOString() });
+          say('Saved.');
+        } catch (e) { say('Couldn’t save that change. Try again.'); }
+      }
+    }
+    noteEl.addEventListener('input', function () { noteEl.dataset.dirty = '1'; clearTimeout(noteEl._emT); noteEl._emT = setTimeout(function () { root.querySelector('[data-em-note-save]').click(); }, 2000); });
+    root.querySelector('[data-em-note-save]').addEventListener('click', async function () {
+      var id = 'note-' + hash(PAGE), v = clean(noteEl.value);
+      try {
+        if (!v) await col.doc(id).delete(); else await col.doc(id).set({ kind: 'note', page: PAGE, title: document.title, section: '', before: '', after: v, at: new Date().toISOString() });
+        delete noteEl.dataset.dirty; say(v ? 'Note saved.' : 'Note removed.');
+      } catch (e) { say('Couldn’t save the note. Try again.'); }
+    });
+  })();
+</script>
+<style>
+  .em { position: fixed; right: 16px; bottom: 16px; z-index: 60; display: grid; justify-items: end; gap: 0.6rem; }
+  .em-toggle { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 0.95rem var(--font-body); padding: 0.7rem 1.1rem; border-radius: 99px; border: 0; background: #920570; color: #fff; cursor: pointer; box-shadow: 0 8px 24px rgba(3, 44, 71, 0.3); }
+  .em-toggle[aria-pressed='true'] { background: #032c47; }
+  .em-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linejoin: round; }
+  .em-panel { width: min(340px, calc(100vw - 32px)); max-height: 60vh; overflow: auto; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-top: 6px solid #920570; border-radius: 16px; padding: 1rem; box-shadow: 0 16px 40px rgba(3, 44, 71, 0.25); font-size: 0.9rem; }
+  .em-panel p { margin: 0 0 0.6rem; }
+  .em-top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+  .em-h { font: 800 1.05rem var(--font-display); }
+  .em-min { font: 700 0.8rem var(--font-body); border: 0; background: none; color: #05607e; text-decoration: underline; cursor: pointer; }
+  .em-tip, .em-sub { color: var(--muted); }
+  .em-panel label { display: block; font-weight: 700; margin-bottom: 0.3rem; }
+  .em-panel textarea { width: 100%; font: inherit; border: 1px solid var(--line); border-radius: 10px; padding: 0.5rem; background: var(--bg); color: var(--fg); }
+  .em-btn2 { margin: 0.4rem 0 0.6rem; font: 700 0.85rem var(--font-body); border: 2px solid #920570; color: #920570; background: none; border-radius: 99px; padding: 0.3rem 0.8rem; cursor: pointer; }
+  .em-status { font-weight: 700; color: #3b7a14; min-height: 1.2em; }
+  .em-list { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.35rem; }
+  .em-list li { display: flex; gap: 0.5rem; justify-content: space-between; align-items: baseline; }
+  .em-list button { flex: none; font: 700 0.8rem var(--font-body); border: 0; background: none; color: #05607e; text-decoration: underline; cursor: pointer; }
+  :global(body.em-on [contenteditable='true']) { outline: 1px dashed color-mix(in srgb, #920570 45%, transparent); outline-offset: 2px; cursor: text; }
+  :global(body.em-on [contenteditable='true']:focus) { outline: 2px solid #920570; background: color-mix(in srgb, #920570 6%, transparent); }
+  :global(.em-done) { text-decoration: underline 2px #e0a526; text-underline-offset: 4px; text-decoration-skip-ink: none; }
+  @media print { .em { display: none; } }
+</style>

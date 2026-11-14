@@ -1,0 +1,46 @@
+---
+layout: ../../layouts/Page.astro
+title: Large language models
+zone: lib
+lede: The technology behind AI chatbots and most AI scribes. Knowing how it works explains why it can sound right and still be wrong.
+checked: 6 November 2026
+---
+import Facts from '../../components/Facts.astro';
+import NextWord from '../../components/NextWord.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+<Facts line="A large language model writes by predicting the next likely word. It is very good at sounding right. It doesn't check whether it is right." whose="Everyone who uses an AI tool" lead="Your digital lead, through training" when="Every time you use one" />
+
+## How it works
+
+A large language model (LLM) is trained on huge amounts of text. When you give it some words, it predicts which word is likely to come next, then the next, and so on. The UK government's guidance puts it simply: LLMs "predict the next word in a sequence", and don't understand what they produce the way a person does.<sup><a href="#ref-1">1</a></sup>
+
+Try it. The odds below are made up, but the idea is real.
+
+<NextWord />
+
+## Why it makes things up
+
+Because it's built to produce text that sounds plausible, an LLM can write something fluent, confident and wrong. The government's guidance warns that output can look convincing while being factually incorrect.<sup><a href="#ref-1">1</a></sup> This is often called a "hallucination". In a scribe, it might be a symptom the patient never mentioned, or a dose that was never said.
+
+## The other risk: us
+
+The more often a tool is right, the less carefully people check it. This is called automation bias, and it's why a person checking every output matters most once a tool feels reliable.
+
+One UK study of AI in radiology found that, week by week over three months, radiologists agreed with the AI more and more. It was most marked in junior staff and out of hours, when people were busiest.<sup><a href="#ref-3">3</a></sup> So "a clinician checks it" isn't a control on its own. It depends on time, training and workload, and those belong in your hazard log too. See the [clinical safety basics](/clinical-safety/understand#six-habits-for-every-user).
+
+## Good habits
+
+<ul class="rows">
+  <li><Icon name="eye" /><strong>Read it before you sign it</strong><span>Every note, letter or summary, every time. NHS England's guidance on AI scribes expects the clinician to review what the tool produces.<sup><a href="#ref-2">2</a></sup></span></li>
+  <li><Icon name="alert" /><strong>Watch for the specific</strong><span>Doses, dates, numbers, names and sides of the body are where errors hurt most.</span></li>
+  <li><Icon name="lock" /><strong>Approved tools only</strong><span>No patient details in free or personal accounts. See your <a href="/ai-policy/your-policy#a-card-for-staff">AI policy</a>.</span></li>
+  <li><Icon name="bell" /><strong>Report the odd ones</strong><span>A strange output is a near miss. Report it so it can be fixed.</span></li>
+</ul>
+
+<Refs items={[
+  ['Generative AI framework for HM Government', 'https://www.gov.uk/government/publications/generative-ai-framework-for-hmg/generative-ai-framework-for-hmg-html', 'Cabinet Office'],
+  ['Guidance on the use of AI-enabled ambient scribing products in health and care settings', 'https://www.england.nhs.uk/long-read/guidance-on-the-use-of-ai-enabled-ambient-scribing-products-in-health-and-care-settings/', 'NHS England'],
+  ['Clinical safety and AVTs webinar', 'https://www.youtube.com/watch?v=YipHvKtjUFc', 'Newton’s Tree, April 2026. Haris Shuaib describes Newton’s Tree’s radiology study. Panel with Dr Keith Grimes, Dr Youssof Oskrochi and Haris Shuaib'],
+]} />

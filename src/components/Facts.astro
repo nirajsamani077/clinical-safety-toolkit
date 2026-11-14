@@ -1,0 +1,22 @@
+---
+// The same four answers at the top of every explainer, so pages can be scanned quickly.
+const { line, whose, lead, when } = Astro.props;
+---
+<section class="facts" aria-label="At a glance">
+  <p class="facts-line">{line}</p>
+  <dl>
+    <div><dt>Whose job</dt><dd>{whose}</dd></div>
+    <div><dt>Who usually leads</dt><dd>{lead}</dd></div>
+    <div><dt>How often</dt><dd>{when}</dd></div>
+  </dl>
+</section>
+<style>
+  .facts { margin: 0 0 2rem; border-radius: 22px; overflow: hidden; background: linear-gradient(125deg, #b04e0a, #e07a1f 60%, #f0a33a); color: #fff; box-shadow: 0 14px 34px rgba(194, 87, 12, 0.22); }
+  .facts-line { margin: 0; padding: 1.2rem 1.4rem 1rem; font: 700 clamp(1.1rem, 2.4vw, 1.35rem)/1.35 var(--font-display); }
+  .facts dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: rgba(3, 44, 71, 0.88); }
+  .facts dl div { padding: 0.75rem 1.4rem; border-right: 1px solid rgba(255, 255, 255, 0.12); }
+  .facts dl div:last-child { border-right: 0; }
+  .facts dt { font: 700 0.72rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; color: #f6b56a; }
+  .facts dd { margin: 0.15rem 0 0; font-weight: 600; }
+  @media (max-width: 640px) { .facts dl { grid-template-columns: minmax(0, 1fr); } .facts dl div { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.12); } }
+</style>

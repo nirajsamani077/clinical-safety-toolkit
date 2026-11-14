@@ -1,0 +1,61 @@
+---
+layout: ../../layouts/Page.astro
+title: After go-live
+lede: Most of the safety work happens after a tool is switched on. This is how you find out whether your controls are working.
+checked: 3 November 2026
+---
+import YouAreHere from '../../components/YouAreHere.astro';
+import FeedbackLoop from '../../components/FeedbackLoop.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+<YouAreHere what="The clinical safety detail" on={[3, 4]} />
+
+## The safety loop
+
+Every incident or near miss is a chance to check the hazard log. Listed already? A control may have failed. Not listed? You've found a new hazard.
+
+<FeedbackLoop />
+
+Keep one [incident log](/templates/incident-log) for all your digital tools, alongside your significant event process.
+
+## Who to tell
+
+<ol class="ladder">
+  <li style="--c:#057092"><span class="dot"><Icon name="shield" /></span><span class="when">Always</span><span class="who">Your CSO, and record it locally</span></li>
+  <li style="--c:#0b4a6e"><span class="dot"><Icon name="server" /></span><span class="when">The tool contributed</span><span class="who">The supplier, who should have an escalation route for safety issues</span></li>
+  <li style="--c:#920570"><span class="dot"><Icon name="heart" /></span><span class="when">A patient was or could have been harmed</span><span class="who">The patient (duty of candour), and the national <a href="https://www.england.nhs.uk/patient-safety/learn-from-patient-safety-events-service/primary-care-information/">LFPSE service</a><sup><a href="#ref-1">1</a></sup></span></li>
+  <li style="--c:#8a5f00"><span class="dot"><Icon name="alert" /></span><span class="when">It's a medical device</span><span class="who">The <a href="https://yellowcard.mhra.gov.uk/">MHRA Yellow Card scheme</a></span></li>
+  <li style="--c:#c0392b"><span class="dot"><Icon name="lock" /></span><span class="when">Data went somewhere it shouldn't</span><span class="who">Your Caldicott Guardian and DPO straight away: it's a <a href="/information-governance/after-go-live#data-breaches">data breach</a></span></li>
+</ol>
+
+## Keeping watch
+
+Five minutes on digital tools at the monthly clinical governance meeting, where incidents and what was learned are shared, and a monthly check of ten random examples. That audit makes a good QI project for a GP registrar or FY2.
+
+<div class="boards">
+  <div class="board" style="--c:#920570">
+    <h3>Example check: AI scribe notes</h3>
+    <ul>
+      <li>Was the patient asked, and the answer recorded? <em>Every note</em></li>
+      <li>Does the note include anything that wasn't said? <em>Nothing</em></li>
+      <li>Are the plan and safety-netting recorded? <em>Yes</em></li>
+    </ul>
+  </div>
+</div>
+
+## When to look again
+
+<ul class="chips warm">
+  <li><Icon name="refresh" />A significant update or new feature</li>
+  <li><Icon name="users" />A new way of using it</li>
+  <li><Icon name="alert" />An incident that shows a new hazard</li>
+  <li><Icon name="book" />New national guidance</li>
+  <li><Icon name="calendar" />A year since the last review</li>
+</ul>
+
+Switching a tool off has risks too: finish open work, get the supplier's data handling in writing, and update the register.
+
+<Refs items={[
+  ['Primary care information on the Learn from Patient Safety Events service', 'https://www.england.nhs.uk/patient-safety/learn-from-patient-safety-events-service/primary-care-information/', 'NHS England'],
+]} />

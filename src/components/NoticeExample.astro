@@ -1,0 +1,33 @@
+---
+// An example privacy notice section for Oakfield's online consultation tool, with each part labelled.
+const parts = [
+  ['What the tool is', '#057092', 'We use an online consultation tool, Kestrel Consult, so you can contact us through our website or the NHS App, at any time of day.'],
+  ['What information', '#0b4a6e', 'Your name, date of birth, NHS number and contact details, and what you tell us about your health, including any photos you send.'],
+  ['Why we can use it', '#6d0a55', 'We use your information to provide your care. The law allows this as part of our public task of providing NHS care (UK GDPR Articles 6(1)(e) and 9(2)(h)).'],
+  ['Who else handles it', '#920570', 'Kestrel Health Ltd runs the tool for us, and Heron Link connects it to our clinical system. They can only use your information to provide this service for us. They do not use it to train or improve their products.'],
+  ['Where and how long', '#8a5f00', 'Your information is stored securely in the UK. Requests are deleted from the tool 90 days after they’re closed. Anything important is saved in your GP record.'],
+  ['Your choices', '#3b7a14', 'You can still contact us by phone or in person. To ask about your information or object to how we use it, contact our Data Protection Officer at dpo@oakfield.example. You can also complain to the Information Commissioner’s Office.'],
+];
+---
+<figure class="pn">
+  <div class="pn-doc">
+    <p class="pn-k">Oakfield Surgery · Privacy notice</p>
+    <h3>Online consultations</h3>
+    <dl>
+      {parts.map(([k, c, v]) => (<div style={`--c:${c}`}><dt>{k}</dt><dd>{v}</dd></div>))}
+    </dl>
+  </div>
+  <figcaption>An example section for a fictional practice. The labels on the left show what each part covers; your DPO can check your wording.</figcaption>
+</figure>
+<style>
+  .pn { margin: 1.5rem 0; }
+  .pn-doc { background: var(--surface); border: 1px solid var(--line); border-top: 8px solid #057092; border-radius: 16px; padding: clamp(1rem, 3vw, 1.6rem); box-shadow: 0 10px 30px -18px rgba(3, 44, 71, 0.35); }
+  .pn-k { margin: 0; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .pn h3 { margin: 0.2rem 0 1rem; font: 800 1.35rem var(--font-display); }
+  .pn dl { margin: 0; display: grid; gap: 0.6rem; }
+  .pn dl > div { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 0.9rem; align-items: start; }
+  .pn dt { background: var(--c); color: #fff; font-size: 0.8rem; font-weight: 800; border-radius: 8px; padding: 0.35rem 0.6rem; }
+  .pn dd { margin: 0; padding: 0.15rem 0 0.6rem 0.9rem; border-left: 3px solid color-mix(in srgb, var(--c) 45%, transparent); }
+  .pn figcaption { margin-top: 0.7rem; font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 640px) { .pn dl > div { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; } .pn dt { justify-self: start; } }
+</style>

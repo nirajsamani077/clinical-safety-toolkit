@@ -1,0 +1,37 @@
+---
+// Five common ways in. Open a door to see the lock, and who holds the key.
+import Icon from './Icon.astro';
+const doors = [
+  ['chat', 'A phishing email', 'Training, and a culture where it’s fine to ask “is this real?”', 'Your practice'],
+  ['key', 'A weak or shared password', 'Strong passwords, multi-factor sign-in, and never sharing smartcards', 'Your practice and ICB'],
+  ['refresh', 'An out-of-date computer', 'Security updates, installed promptly', 'ICB GP IT service'],
+  ['link', 'A supplier’s connection', 'Supplier checks, a contract, and Cyber Essentials Plus', 'Supplier, checked by you'],
+  ['phone', 'A lost or personal device', 'Encrypted devices, and no practice work on personal accounts', 'Your practice'],
+];
+---
+<div class="doors">
+  {doors.map(([ic, t, lock, who], i) => (
+    <button type="button" class="door" aria-pressed="false" style={`--i:${i}`} onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true')">
+      <span class="d-front"><Icon name={ic} /><strong>{t}</strong><em>Open the door</em></span>
+      <span class="d-back"><Icon name="lock" /><strong>{lock}</strong><em>{who}</em></span>
+    </button>
+  ))}
+</div>
+<style>
+  .doors { margin: 1.5rem 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.7rem; perspective: 900px; }
+  .door { position: relative; min-height: 14rem; border: 0; padding: 0; background: none; cursor: pointer; font: inherit; color: inherit; text-align: left; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(.3,.7,.3,1); animation: door-in 0.5s ease both; animation-delay: calc(var(--i) * 0.08s); }
+  .door[aria-pressed='true'] { transform: rotateY(180deg); }
+  .door > span { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px 14px 6px 6px; padding: 1rem 0.9rem; display: grid; align-content: space-between; gap: 0.5rem; }
+  .d-front { background: linear-gradient(170deg, #0b4a6e, #032c47); color: #fff; border: 4px solid #b04e0a; }
+  .d-front::after { content: ''; position: absolute; right: 0.7rem; top: 55%; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #f0a33a; }
+  .d-back { transform: rotateY(180deg); background: linear-gradient(170deg, #f0a33a, #b04e0a); color: #fff; }
+  .door .ico { width: 30px; height: 30px; }
+  .door strong { font: 800 1.05rem/1.25 var(--font-display); }
+  .d-back strong { font-size: 0.98rem; }
+  .door em { font: 700 0.75rem var(--font-body); font-style: normal; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+  .door:focus-visible { outline: 3px solid #b04e0a; outline-offset: 4px; }
+  @keyframes door-in { from { transform: translateY(10px); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .door { transition: none; } }
+  @media (max-width: 900px) { .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); } .door { min-height: 12rem; } }
+  @media (max-width: 420px) { .doors { grid-template-columns: minmax(0, 1fr); } .door { min-height: 9.5rem; } }
+</style>

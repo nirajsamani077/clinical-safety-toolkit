@@ -1,0 +1,34 @@
+---
+// The first 72 hours after a data breach, as a timeline.
+const marks = [
+  { at: 0, t: 'Straight away', d: 'Contain it: recall the message, remove access, pause the tool if needed, and deal with any clinical harm.' },
+  { at: 8, t: 'Same day', d: 'Tell your DPO. Together, decide how serious it is and what to do next.' },
+  { at: 55, t: 'Without undue delay', d: 'Tell the patients affected if there is a high risk to them, and if not already done. If a patient was harmed, the duty of candour applies too.' },
+  { at: 100, t: 'Within 72 hours', d: 'Report it through the DSPT incident tool, if it is reportable.' },
+];
+---
+<figure class="bc" aria-label="The first 72 hours after a data breach">
+  <div class="bc-bar" aria-hidden="true"><span class="bc-fill"></span>
+    {marks.map((m) => <i style={`left:${m.at}%`}></i>)}
+  </div>
+  <div class="bc-scale" aria-hidden="true"><span>0 hours</span><span>24</span><span>48</span><span>72 hours</span></div>
+  <ol class="bc-list">
+    {marks.map((m, i) => <li style={`--i:${i}`}><strong>{m.t}</strong><span>{m.d}</span></li>)}
+  </ol>
+  <figcaption>Record every breach in your own log, even the ones you don't need to report.</figcaption>
+</figure>
+<style>
+  .bc { margin: 1.5rem 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(1rem, 3vw, 1.5rem); display: grid; gap: 0.6rem; }
+  .bc-bar { position: relative; height: 14px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); margin: 0.6rem 0.5rem 0; }
+  .bc-fill { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, #c0392b, #c98a00 45%, #920570); transform-origin: left; animation: fill 1.6s ease-out both; }
+  @keyframes fill { from { transform: scaleX(0.05); } to { transform: scaleX(1); } }
+  .bc-bar i { position: absolute; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 4px solid var(--navy); translate: -50% -50%; }
+  .bc-scale { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); padding: 0 0.2rem; }
+  .bc-list { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; counter-reset: b; }
+  .bc-list li { counter-increment: b; background: var(--bg); border-radius: 12px; padding: 0.8rem 0.9rem; display: grid; gap: 0.25rem; border-top: 4px solid var(--navy); }
+  .bc-list li:first-child { border-top-color: #c0392b; } .bc-list li:last-child { border-top-color: #920570; }
+  .bc-list strong { font-family: var(--font-display); }
+  .bc-list span { font-size: 0.9rem; color: var(--muted); }
+  .bc figcaption { font-size: 0.9rem; color: var(--muted); }
+  @media (max-width: 760px) { .bc-list { grid-template-columns: minmax(0, 1fr); } .bc-bar, .bc-scale { display: none; } }
+</style>

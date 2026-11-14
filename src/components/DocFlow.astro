@@ -1,0 +1,66 @@
+---
+// How the documents relate: the supplier's documents feed into yours, and incidents feed back into your hazard log.
+---
+<figure class="df" aria-label="How the clinical safety documents fit together">
+  <div class="df-sup">
+    <p class="df-std">The supplier · DCB0129</p>
+    <div class="df-doc">Their hazard log</div>
+    <div class="df-doc">Their safety case report</div>
+    <p class="df-note">Ask for these. They are your starting point.</p>
+  </div>
+  <div class="df-arrow" aria-hidden="true"><span></span><em>shared with you</em></div>
+  <div class="df-prac">
+    <p class="df-std">Your practice · DCB0160</p>
+    <div class="df-once">
+      <p class="df-lab">Once for the practice</p>
+      <div class="df-doc m">Technology register</div>
+      <div class="df-doc m">Clinical risk management system: how we do clinical safety here</div>
+    </div>
+    <div class="df-each">
+      <p class="df-lab">For each tool</p>
+      <div class="df-chain">
+        <div class="df-doc t">Plan</div><span class="df-mini" aria-hidden="true"></span>
+        <div class="df-doc t hl">Hazard log</div><span class="df-mini" aria-hidden="true"></span>
+        <div class="df-doc t">Safety case report</div>
+      </div>
+    </div>
+    <div class="df-use">
+      <p class="df-lab">In use</p>
+      <div class="df-doc l">Incident log</div>
+      <p class="df-back"><span aria-hidden="true">↺</span> Every incident is checked against the hazard log</p>
+    </div>
+  </div>
+  <figcaption>Keep them together in one folder: your clinical risk management file.</figcaption>
+</figure>
+<style>
+  .df { margin: 1.5rem 0; display: grid; grid-template-columns: minmax(0, 0.8fr) auto minmax(0, 1.6fr); gap: 0.9rem; align-items: center; }
+  .df-sup, .df-prac { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1rem; display: grid; gap: 0.6rem; }
+  .df-sup { border-top: 6px solid #0b4a6e; }
+  .df-prac { border-top: 6px solid #057092; }
+  .df-std { margin: 0; font-family: var(--font-display); font-weight: 800; }
+  .df-note { margin: 0; font-size: 0.85rem; color: var(--muted); }
+  .df-lab { margin: 0 0 0.35rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .df-doc { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem 0.7rem; font-weight: 700; font-size: 0.9rem; position: relative; }
+  .df-doc::after { content: ''; position: absolute; right: 0; top: 0; border-width: 0 12px 12px 0; border-style: solid; border-color: var(--surface) var(--surface) var(--line) var(--line); border-radius: 0 8px 0 0; }
+  .df-doc.m { border-left: 5px solid #920570; }
+  .df-doc.t { border-left: 5px solid #057092; }
+  .df-doc.hl { background: var(--soft-teal); }
+  .df-doc.l { border-left: 5px solid #3b7a14; }
+  .df-once, .df-each, .df-use { display: grid; gap: 0.4rem; }
+  .df-chain { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .df-chain .df-doc { flex: 1 1 110px; }
+  .df-mini { width: 18px; height: 3px; background: linear-gradient(90deg, var(--line) 50%, transparent 50%) 0 0 / 8px 3px; animation: flow 0.8s linear infinite; }
+  .df-back { margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--muted); }
+  .df-back span { color: #3b7a14; font-weight: 800; font-size: 1.1rem; display: inline-block; animation: spin 4s linear infinite; }
+  .df-arrow { display: grid; justify-items: center; gap: 0.3rem; }
+  .df-arrow span { width: 70px; height: 6px; border-radius: 99px; background: linear-gradient(90deg, #0b4a6e 50%, transparent 50%) 0 0 / 14px 6px; animation: flow 0.8s linear infinite; position: relative; }
+  .df-arrow span::after { content: ''; position: absolute; right: -10px; top: -7px; border: 10px solid transparent; border-left-color: #0b4a6e; border-right: 0; }
+  .df-arrow em { font-size: 0.78rem; color: var(--muted); font-style: normal; }
+  .df figcaption { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
+  @keyframes flow { to { background-position: 14px 0; } }
+  @keyframes spin { to { transform: rotate(-360deg); } }
+  @media (max-width: 760px) {
+    .df { grid-template-columns: minmax(0, 1fr); }
+    .df-arrow span { transform: rotate(90deg); margin: 1.5rem 0; }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+// How a linked tool talks to the GP clinical system: reading, writing, and bulk extracts.
+---
+<figure class="im">
+  <svg viewBox="0 0 720 300" role="img" aria-label="A linked tool connects to the GP clinical system in three ways: reading patient information, writing information into the record, and extracting data in bulk. Writing carries the most clinical risk.">
+    <defs>
+      <marker id="im-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke" /></marker>
+    </defs>
+    <rect x="20" y="90" width="210" height="120" rx="18" class="im-tool" />
+    <text x="125" y="140" text-anchor="middle" class="im-t">The linked tool</text>
+    <text x="125" y="164" text-anchor="middle" class="im-s">online consultation, scribe,</text>
+    <text x="125" y="182" text-anchor="middle" class="im-s">triage or reporting tool</text>
+    <rect x="490" y="70" width="210" height="160" rx="18" class="im-gp" />
+    <text x="595" y="138" text-anchor="middle" class="im-t w">Your GP</text>
+    <text x="595" y="162" text-anchor="middle" class="im-t w">clinical system</text>
+    <text x="595" y="188" text-anchor="middle" class="im-s w">the patient record</text>
+    <path d="M490 105 C 400 70, 320 70, 232 110" class="im-l read" marker-end="url(#im-ar)" />
+    <path d="M232 150 L 488 150" class="im-l write" marker-end="url(#im-ar)" />
+    <path d="M490 200 C 400 240, 320 240, 232 192" class="im-l bulk" marker-end="url(#im-ar)" />
+    <text x="360" y="64" text-anchor="middle" class="im-lab">Reads patient information</text>
+    <text x="360" y="138" text-anchor="middle" class="im-lab hot">Writes into the record</text>
+    <text x="360" y="252" text-anchor="middle" class="im-lab">Extracts data in bulk</text>
+  </svg>
+  <figcaption><strong>Writing is where clinical risk concentrates.</strong> A wrong code, a note filed to the wrong patient, or a duplicate entry lands straight in the record. These belong in your hazard log.</figcaption>
+</figure>
+<style>
+  .im { margin: 1.5rem 0; background: linear-gradient(160deg, color-mix(in srgb, #b04e0a 7%, var(--surface)), var(--surface)); border-radius: 22px; padding: clamp(0.75rem, 2vw, 1.25rem); border: 1px solid var(--line); }
+  .im svg { width: 100%; height: auto; display: block; }
+  .im-tool { fill: var(--surface); stroke: #b04e0a; stroke-width: 3; }
+  .im-gp { fill: #032c47; }
+  .im-t { font: 800 19px var(--font-display); fill: #032c47; }
+  .im-s { font: 500 13px var(--font-body); fill: #4b6577; }
+  .im .w { fill: #fff; } .im-s.w { fill: #b9d3e1; }
+  .im-l { fill: none; stroke: #0b4a6e; stroke-width: 3; stroke-dasharray: 10 8; animation: flow 1.6s linear infinite; }
+  .im-l.write { stroke: #b04e0a; stroke-width: 5; animation-direction: reverse; }
+  .im-lab { font: 700 14px var(--font-body); fill: #0b4a6e; }
+  .im-lab.hot { fill: #b04e0a; font-size: 16px; }
+  .im figcaption { margin-top: 0.6rem; font-size: 0.95rem; }
+  @keyframes flow { to { stroke-dashoffset: -36; } }
+</style>

@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import { igPages } from '../../data/site.js';
+const colours = ['#920570', '#6d0a55', '#057092', '#0b4a6e', '#032c47', '#5b6f7c'];
+---
+<Base title="Information governance" zone="ig">
+  <div class="wrap page-head">
+    <div class="crumb"><a href="/">Home</a> / Information governance</div>
+    <h1>Information governance</h1>
+    <p class="lede">The data protection side of adopting and using a digital tool. If you're new to this, start with Understand. For the whole journey, including clinical safety, see <a href="/adopting-a-tool">adopting a tool</a>.</p>
+  </div>
+  <div class="wrap ig-home">
+    <ol class="six">
+      {igPages.map((p, i) => (
+        <li style={`--c:${colours[i]}`}>
+          <a href={p.href}>
+            <span class="n">{i + 1}</span>
+            <strong>{p.title}</strong>
+            <span class="b">{p.blurb}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="scope">This section covers information governance when you bring in and use a digital tool. Subject access requests, Freedom of Information and wider records management are touched on only where they affect a tool.</p>
+  </div>
+</Base>
+<style>
+  .ig-home { padding-bottom: 4rem; }
+  .six { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .six a { display: grid; gap: 0.35rem; height: 100%; padding: 1.25rem; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); border-top: 8px solid var(--c); text-decoration: none; color: var(--fg); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .six a:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(3, 44, 71, 0.12); }
+  .n { width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-family: var(--font-display); font-weight: 800; }
+  .six strong { font-family: var(--font-display); font-size: 1.35rem; }
+  .b { color: var(--muted); }
+  .scope { margin-top: 2rem; max-width: 70ch; color: var(--muted); }
+  @media (max-width: 860px) { .six { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .six { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,0 +1,20 @@
+---
+// Numbered references for the foot of a page. Cite in the text with <sup><a href="#ref-1">1</a></sup>.
+// items: [title, url, publisher/date note]
+const { items = [] } = Astro.props;
+---
+<section class="refs" aria-labelledby="references">
+  <h2 id="references">References</h2>
+  <ol>
+    {items.map(([t, u, n], i) => (
+      <li id={`ref-${i + 1}`}><a href={u}>{t}</a>{n && <span>. {n}</span>}</li>
+    ))}
+  </ol>
+</section>
+<style>
+  .refs { margin-top: 3rem; padding-top: 1.25rem; border-top: 2px solid var(--line); }
+  .refs h2 { font-size: var(--step-1); margin: 0 0 0.6rem; }
+  .refs ol { font-size: 0.9rem; color: var(--muted); padding-left: 1.4rem; }
+  .refs li + li { margin-top: 0.35rem; }
+  .refs li:target { background: var(--soft-teal); border-radius: 6px; }
+</style>

@@ -1,0 +1,38 @@
+---
+// A real GP example: the QRISK2 calculation error in a clinical system (found 2016).
+// The bars are an illustration of how a small error can cross a treatment threshold, not real patient data.
+---
+<figure class="qr">
+  <div class="qr-txt">
+    <p class="qr-k">A real example from general practice</p>
+    <p class="qr-h">A heart-risk calculator gave wrong answers for seven years</p>
+    <p>In 2016 the MHRA found that the QRISK2 calculator inside one GP clinical system had been miscalculating cardiovascular risk scores, possibly since 2009. Some clinical codes had been missed when the system was built. Potentially, up to 270,000 patients were affected.<sup><a href="#ref-5">5</a></sup></p>
+    <p>Most scores were only slightly out. But where a wrong score landed on the wrong side of the 10% threshold for offering a statin, the treatment decision could change, and harm was possible either way. A patient who needed a statin might not be offered one, raising their risk of heart attack or stroke. A patient at low risk might take one they didn't need, with the risk of side effects.</p>
+  </div>
+  <div class="qr-viz" role="img" aria-label="Illustration: the screen shows a 10-year risk of 8%, below the 10% statin threshold. The correct figure is 12%, above it.">
+    <div class="qr-scale">
+      <span class="qr-th"><b>10%</b> statin threshold</span>
+      <div class="qr-row"><em>On screen</em><span class="qr-bar shown" style="--v:8"><b>8%</b></span></div>
+      <div class="qr-row"><em>Correct</em><span class="qr-bar true" style="--v:12"><b>12%</b></span></div>
+    </div>
+    <p class="qr-note">Illustrative chart showing how an incorrectly calculated QRISK2 score could underestimate cardiovascular risk</p>
+  </div>
+</figure>
+<style>
+  .qr { margin: 1.25rem 0 1.75rem; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.25rem; align-items: center; padding: clamp(1rem, 3vw, 1.5rem); border-radius: 22px; background: color-mix(in srgb, #920570 7%, var(--surface)); border: 1px solid color-mix(in srgb, #920570 25%, transparent); }
+  .qr-txt p { margin: 0 0 0.6rem; }
+  .qr-k { font: 700 0.78rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; color: #920570; }
+  .qr-h { font: 800 1.2rem/1.25 var(--font-display); }
+  .qr-viz { background: var(--surface); border-radius: 16px; padding: 1rem; border: 1px solid var(--line); }
+  .qr-scale { position: relative; display: grid; gap: 0.9rem; padding-top: 1.8rem; }
+  .qr-th { position: absolute; top: 0; bottom: -0.3rem; left: calc(4.5rem + (100% - 4.5rem) * 0.5); border-left: 2px dashed #c0392b; padding-left: 0.35rem; font-size: 0.75rem; color: #a3271b; white-space: nowrap; }
+  .qr-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: center; }
+  .qr-row em { font-style: normal; font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+  .qr-bar { display: block; height: 30px; width: calc(var(--v) * 5%); border-radius: 0 8px 8px 0; position: relative; animation: qr-grow 1s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
+  .qr-bar.shown { background: #057092; } .qr-bar.true { background: #920570; animation-delay: 0.5s; }
+  .qr-bar b { position: absolute; right: 0.45rem; top: 50%; transform: translateY(-50%); color: #fff; font: 800 0.85rem var(--font-display); }
+  .qr-note { margin: 0.8rem 0 0; font-size: 0.75rem; color: var(--muted); }
+  @keyframes qr-grow { from { transform: scaleX(0); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .qr-bar { animation: none; } }
+  @media (max-width: 760px) { .qr { grid-template-columns: minmax(0, 1fr); } }
+</style>

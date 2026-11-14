@@ -1,0 +1,48 @@
+---
+// One row of Oakfield's hazard log, laid out left to right so each column's job is clear.
+const steps = [
+  ['Cause', 'What could make it happen', 'The form doesn’t flag red-flag symptoms', '#0b4a6e'],
+  ['Effect', 'What goes wrong with the information', 'An urgent request sits in the routine queue', '#057092'],
+  ['Hazard', 'The situation that puts a patient at risk', 'A patient with red-flag symptoms isn’t directed to an urgent assessment in time', '#032c47'],
+  ['Harm', 'What could happen to the patient', 'Delayed treatment; at worst, death', '#920570'],
+  ['Score before', 'Likelihood × severity, with evidence', 'Medium × Major', '#8a5f00', 3],
+  ['Controls', 'What stops it, and what limits the harm, each with an owner and evidence', 'Red flags stop the form; two-hour clinician review; safety-netting message', '#0b6e5a'],
+  ['Score after', 'The risk that remains, with evidence', 'Very low × Major', '#3b7a14', 2],
+];
+---
+<figure class="ha">
+  <p class="ha-cap">One row of Oakfield's hazard log: the chain, then the scores and controls</p>
+  <ol>
+    {steps.map(([h, g, ex, c, s], i) => (
+      <li style={`--c:${c}; --i:${i}`}>
+        <span class="ha-h">{h}</span>
+        <span class="ha-g">{g}</span>
+        <span class="ha-ex">{s && <b class={s >= 3 ? 'warn' : 'good'}>{s}</b>}{ex}</span>
+      </li>
+    ))}
+  </ol>
+  <figcaption>The full log, with evidence for each score, is in the <a href="/templates/hazard-log">hazard log template</a>. Scores come from the <a href="/clinical-safety/understand#scoring-a-risk">risk grid</a>.</figcaption>
+</figure>
+<style>
+  .ha { margin: 1.5rem 0; }
+  .ha-cap { margin: 0 0 0.6rem; font: 700 0.78rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+  .ha ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0.5rem; gap: 0; }
+  .ha li { position: relative; display: grid; grid-template-rows: auto auto 1fr; gap: 0.3rem; padding: 0.8rem 0.9rem 0.9rem 1.3rem; background: color-mix(in srgb, var(--c) 9%, var(--surface)); border-top: 6px solid var(--c); animation: ha-in 0.45s ease both; animation-delay: calc(var(--i) * 0.1s); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); }
+  .ha li:first-child { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); padding-left: 0.9rem; border-radius: 12px 0 0 12px; }
+  .ha li:nth-child(5) { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); padding-left: 0.9rem; border-radius: 12px 0 0 12px; }
+  .ha li:nth-child(4) { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%); }
+  .ha li:last-child { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%); }
+  .ha-h { font: 800 1rem var(--font-display); color: var(--c); }
+  .ha-g { font-size: 0.78rem; color: var(--muted); line-height: 1.3; }
+  .ha-ex { font-size: 0.88rem; font-weight: 600; line-height: 1.35; padding-top: 0.4rem; border-top: 1px dashed color-mix(in srgb, var(--c) 40%, transparent); }
+  .ha-ex b { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 8px; margin-right: 0.4rem; font: 800 0.95rem var(--font-display); }
+  .ha-ex b.warn { background: #fde9b3; color: #6b4a00; } .ha-ex b.good { background: #dff0d2; color: #2c5e10; }
+  .ha figcaption { margin-top: 0.7rem; font-size: 0.9rem; color: var(--muted); }
+  @keyframes ha-in { from { transform: translateX(-8px); } to { transform: none; } }
+  @media (max-width: 900px) {
+    .ha ol { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    .ha li, .ha li:first-child, .ha li:last-child { clip-path: none; border-top: 0; border-left: 6px solid var(--c); border-radius: 10px; padding-left: 0.9rem; grid-template-columns: 7rem minmax(0, 1fr); grid-template-rows: auto auto; }
+    .ha-h { grid-row: span 2; }
+    .ha-ex { border-top: 0; padding-top: 0; }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import { libPages } from '../../data/site.js';
+const marks = ['DCB', 'DTAC', 'MD', 'DSPT', 'CY', 'IM1', 'AVT', 'LLM'];
+const owners = { practice: 'Your practice', supplier: 'Supplier', icb: 'ICB', everyone: 'Everyone' };
+---
+<Base title="Explainers" zone="lib">
+  <div class="wrap page-head">
+    <div class="crumb"><a href="/">Home</a> / Explainers</div>
+    <h1>Explainers</h1>
+    <p class="lede">One short page on each term you'll meet when bringing in a digital tool. Each one starts with the same four answers: what it is, whose job it is, who usually leads, and how often it comes up.</p>
+  </div>
+  <div class="wrap ex-home" data-ex>
+    <div class="ex-filter no-print" role="group" aria-label="Show explainers by whose job it is">
+      <span>Whose job?</span>
+      <button type="button" aria-pressed="true" data-f="all">All</button>
+      {Object.entries(owners).map(([k, v]) => <button type="button" aria-pressed="false" data-f={k}>{v}</button>)}
+    </div>
+    <ol class="ex-list">
+      {libPages.map((p, i) => (
+        <li data-o={p.owner.join(' ')} style={`--i:${i}`}>
+          <a href={p.href}>
+            <span class="mk" aria-hidden="true">{marks[i]}</span>
+            <span class="tx"><strong>{p.title}</strong><span>{p.blurb}</span>
+              <span class="ow">{p.owner.map((o) => <em class={`o-${o}`}>{owners[o]}</em>)}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="ex-more">Can't find a term? Try the <a href="/glossary">glossary</a>.</p>
+  </div>
+</Base>
+<script is:inline>
+  (function () {
+    var ex = document.querySelector('[data-ex]'); if (!ex) return;
+    var btns = ex.querySelectorAll('[data-f]');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.dataset.f;
+        btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        ex.querySelectorAll('[data-o]').forEach(function (li) { li.hidden = f !== 'all' && li.dataset.o.split(' ').indexOf(f) < 0; });
+      });
+    });
+  })();
+</script>
+<style>
+  .ex-home { padding-bottom: 4rem; }
+  .ex-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 1.25rem; }
+  .ex-filter span { font-weight: 700; margin-right: 0.3rem; color: var(--muted); }
+  .ex-filter button { font: 700 0.9rem var(--font-body); padding: 0.45rem 0.95rem; border-radius: 99px; border: 2px solid #b04e0a; background: transparent; color: #a8480a; cursor: pointer; }
+  .ex-filter button[aria-pressed='true'] { background: #b04e0a; color: #fff; }
+  .ex-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+  .ex-list li { animation: pop 0.45s ease both; animation-delay: calc(var(--i) * 0.05s); }
+  .ex-list a { display: grid; grid-template-columns: 5.6rem minmax(0, 1fr); gap: 1rem; align-items: center; height: 100%; padding: 1rem 1.1rem; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); color: var(--fg); text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease; }
+  .ex-list a:hover { transform: translateY(-3px); border-color: #e07a1f; box-shadow: 0 12px 28px rgba(194, 87, 12, 0.16); }
+  .mk { aspect-ratio: 1; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(140deg, #b04e0a, #f0a33a); color: #fff; font: 800 1.15rem var(--font-display); letter-spacing: 0.02em; rotate: -3deg; transition: rotate 0.2s ease; }
+  .ex-list li:nth-child(even) .mk { rotate: 3deg; background: linear-gradient(140deg, #032c47, #0b4a6e); color: #f6b56a; }
+  .ex-list a:hover .mk { rotate: 0deg; }
+  .tx { display: grid; gap: 0.25rem; }
+  .tx strong { font: 800 1.2rem var(--font-display); }
+  .tx > span { color: var(--muted); font-size: 0.95rem; }
+  .ow { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
+  .ow em { font: 700 0.72rem var(--font-body); font-style: normal; padding: 0.15rem 0.55rem; border-radius: 99px; background: var(--soft-teal); color: #057092; }
+  .ow .o-supplier { background: color-mix(in srgb, #920570 12%, var(--surface)); color: #920570; }
+  .ow .o-icb { background: color-mix(in srgb, #0b4a6e 14%, var(--surface)); color: #0b4a6e; }
+  .ow .o-everyone { background: color-mix(in srgb, #b04e0a 14%, var(--surface)); color: #a8480a; }
+  .ex-more { margin-top: 1.5rem; color: var(--muted); }
+  @keyframes pop { from { transform: scale(0.97); } to { transform: none; } }
+  @media (max-width: 760px) { .ex-list { grid-template-columns: minmax(0, 1fr); } .ex-list a { grid-template-columns: 4.2rem minmax(0, 1fr); } .mk { font-size: 0.95rem; } }
+</style>

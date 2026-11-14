@@ -1,0 +1,52 @@
+---
+// Pick what an AI scribe does, and see how MHRA's July 2026 guidance treats it.
+const jobs = [
+  ['Writes down what was said', false],
+  ['Summarises it into notes for you to check', false],
+  ['Drafts a letter for you to check', false],
+  ['Suggests clinical codes for you to review', false],
+  ['Suggests a diagnosis or what to do next', true],
+  ['Takes action itself, such as placing an order, without a clinician checking', true],
+];
+---
+<div class="dc2" data-dc2>
+  <p class="dc2-h">What does the AI scribe do?</p>
+  <div class="dc2-opts">
+    {jobs.map(([t, dev], i) => <button type="button" aria-pressed="false" data-dev={dev ? '1' : '0'} style={`--i:${i}`}>{t}</button>)}
+  </div>
+  <div class="dc2-out" aria-live="polite" data-out>
+    <p class="dc2-wait">Pick one or more.</p>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-dc2]').forEach(function (w) {
+      var out = w.querySelector('[data-out]');
+      w.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+          var on = w.querySelectorAll('button[aria-pressed="true"]'), dev = w.querySelectorAll('button[aria-pressed="true"][data-dev="1"]').length;
+          out.className = 'dc2-out' + (on.length ? (dev ? ' is-dev' : ' not-dev') : '');
+          out.innerHTML = !on.length ? '<p class="dc2-wait">Pick one or more.</p>' : dev
+            ? '<p class="dc2-v">Likely a medical device</p><p>Supporting diagnosis or treatment, or acting without a clinician checking, brings it under medical device rules. Ask the supplier for its MHRA registration and class.</p>'
+            : '<p class="dc2-v">Not a medical device, on its own</p><p>Transcribing, summarising, drafting and suggesting codes for a clinician to check fall outside medical device rules. You still need your own clinical safety assessment and DPIA.</p>';
+        });
+      });
+    });
+  })();
+</script>
+<style>
+  .dc2 { margin: 1.5rem 0; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .dc2-h { margin: 0; padding: 0.9rem 1.2rem; background: #032c47; color: #fff; font: 800 1.1rem var(--font-display); }
+  .dc2-opts { padding: 1rem 1.2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .dc2-opts button { font: 600 0.92rem var(--font-body); padding: 0.55rem 0.9rem; border-radius: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
+  .dc2-opts button:hover { border-color: #e07a1f; }
+  .dc2-opts button[aria-pressed='true'] { border-color: #b04e0a; background: color-mix(in srgb, #b04e0a 12%, var(--surface)); }
+  .dc2-out { padding: 1rem 1.2rem 1.2rem; border-top: 1px dashed var(--line); transition: background 0.25s ease; }
+  .dc2-out :global(p) { margin: 0 0 0.3rem; }
+  .dc2-out :global(.dc2-wait) { color: var(--muted); }
+  .dc2-out :global(.dc2-v) { font: 800 1.3rem var(--font-display); }
+  .dc2-out.is-dev { background: linear-gradient(120deg, #b04e0a, #e07a1f); color: #fff; }
+  .dc2-out.not-dev { background: color-mix(in srgb, #3b7a14 14%, var(--surface)); }
+  .dc2-out.not-dev :global(.dc2-v) { color: #3b7414; }
+</style>

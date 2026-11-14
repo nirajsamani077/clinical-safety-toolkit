@@ -1,0 +1,123 @@
+---
+// Real incidents. Each card turns over to show the lesson and how it would appear in a hazard log.
+const { max } = Astro.props;
+const items = [
+  {
+    year: '2025', where: 'General practice, London', t: 'An AI summary invents a diagnosis',
+    what: "An AI tool summarising incoming documents added type 2 diabetes, medicines and other invented details to a young man's GP record. He was then invited to diabetic eye screening. A nurse spotted it when he said he wasn't diabetic.",
+    why: 'NHS England said a staff member had been distracted and saved the unreviewed draft instead of the corrected version.',
+    lesson: '"A human checks every output" only works as a control if checking is easy and someone audits that it happens.',
+    log: 'Cause: the AI adds a diagnosis that isn’t in the letter. Effect: a wrong code is filed. Hazard: the patient is recalled or treated for a condition they don’t have. Harm: patient anxiety; side effects of unnecessary tests or treatment. Controls: reviewer opens the source document before filing; monthly sample audit of AI summaries.',
+    src: [['Fortune, July 2025', 'https://fortune.com/2025/07/20/uk-health-service-ai-tool-false-diagnoses-patient-screening-nhs-anima-health-annie']],
+  },
+  {
+    year: '2016', where: 'General practice, England', t: 'A risk calculator gives wrong scores for years',
+    what: 'The QRISK2 calculator built into SystmOne used wrongly mapped clinical codes when pulling data from the record, so scores could be wrong back to 2009. The supplier estimated 260,000 to 270,000 patients were affected, around 100 per practice.',
+    why: 'Codes were left out and mis-mapped when a third-party tool was built into the clinical system. The MHRA told practices to stop using it, and practices had to review statin decisions.',
+    lesson: 'Tools that pull data from the record are only as good as that link, and the clean-up lands on practices.',
+    log: 'Cause: a built-in calculator uses the wrong data from the record. Effect: a wrong score is shown. Hazard: a patient is offered the wrong treatment, or none. Harm: a preventable heart attack or stroke, or statin side effects. Control: after system updates, spot-check a few scores against the official online calculator.',
+    src: [['Digital Health, June 2016', 'https://www.digitalhealth.net/analytics/47759/qrisk2-in-tpp-'], ['MIMS, May 2016', 'https://www.mims.co.uk/update-gps-warned-error-cardiovascular-risk-calculator/cardiovascular-system/article/1394654']],
+  },
+  {
+    year: '2025', where: 'Hospital prescribing', t: 'A wrong default dose reaches a child',
+    what: 'A four-year-old needed 1,520 units of a blood thinner twice daily but was prescribed 15,000 units through an electronic prescribing system. She received five doses over three days, which contributed to bleeding around her brain.',
+    why: 'The system was set up to favour adult strengths and didn’t flag the dose. The national safety investigator found these problems keep recurring and that staff training is often too thin.',
+    lesson: 'Defaults and set-up choices are clinical decisions, in GP prescribing as much as in hospitals.',
+    log: 'Cause: the default dose is wrong for this patient. Effect: the wrong dose is prescribed. Hazard: the patient takes too much or too little. Harm: bleeding or clotting, from too much or too little. Controls: review defaults at set-up; weight-based dose checks for children; training covers how to change a default dose.',
+    src: [['HSSIB thematic review, Nov 2025', 'https://www.hssib.org.uk/patient-safety-investigations/electronic-patient-record-epr-systems-thematic-review/investigation-report/'], ['Pharmaceutical Journal', 'https://pharmaceutical-journal.com/article/news/electronic-patient-records-pose-risk-to-safety-watchdog-warns']],
+  },
+  {
+    year: '2000', where: 'Antenatal screening, Sheffield', t: 'A date bug gives wrong Down’s syndrome risks',
+    what: 'After the year 2000 began, the PathLAN laboratory system at Sheffield’s Northern General Hospital worked out women’s ages wrongly, so over 150 women across nine hospitals were told their babies were at low risk of Down’s syndrome when they weren’t. Four babies were born with Down’s syndrome, and two pregnancies were ended after late testing.',
+    why: 'The inquiry blamed over-reliance on the software. Nobody checked whether the risk figures still looked right after the date change.',
+    lesson: 'A calculation you can’t see is easy to trust. Check outputs against a few known answers, especially after updates or date and system changes.',
+    log: 'Cause: the system works out ages wrongly after a date change. Effect: wrong risk figures are reported. Hazard: a woman at high risk is told she is low risk and isn’t offered further testing. Harm: decisions about continuing the pregnancy made late, or without the right information. Control: check a sample of results against a manual calculation after every update.',
+    src: [['The Register, Sept 2001', 'https://www.theregister.com/2001/09/14/downs_syndrome_screening_failures_linked/']],
+  },
+  {
+    year: '2018', where: 'National screening', t: 'A screening programme and its IT disagree',
+    what: 'The government announced that a computer algorithm failure meant around 450,000 women hadn’t been invited to their final breast screening. About 5,000 women were later found to have been missed through errors in how the IT was used.',
+    why: 'The independent review found the main cause was an unclear policy that nobody checked the IT could actually deliver.',
+    lesson: 'Before go-live, check the tool does what your process actually needs, and that staff agree on what that is.',
+    log: 'Cause: the system doesn’t do what our process assumes. Effect: some patients are never sent an invitation. Hazard: patients miss screening they’re due. Control: test the tool against the written process with real examples before go-live.',
+    src: [['Independent Breast Screening Review, Dec 2018', 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/764413/independent-breast-screening-review-report.pdf'], ['National Audit Office', 'https://www.nao.org.uk/wp-content/uploads/2019/01/Investigation-into-the-management-of-health-screening-Summary.pdf']],
+  },
+  {
+    year: '2020', where: 'Public health', t: 'A spreadsheet silently drops 15,841 COVID cases',
+    what: 'Positive test results were loaded into templates using an old Excel file format with a row limit. Once the limit was reached, further cases were left off without any warning, delaying contact tracing by up to a week.',
+    why: 'Nobody had a check that would notice when the numbers stopped adding up.',
+    lesson: 'Spreadsheets and home-made trackers are health IT too. Anything that can fail silently needs a check that would notice.',
+    log: 'Cause: a tracker drops entries without warning. Effect: patients disappear from the list. Hazard: patients aren’t followed up. Control: a daily count check against the source list.',
+    src: [['Digital Health, Oct 2020', 'https://digitalhealth.net/?p=108775']],
+  },
+];
+---
+<ul class="ic" data-ic>
+  {items.slice(0, max ?? items.length).map((it, i) => (
+    <li class="card">
+      <div class="face front">
+        <p class="meta"><span class="year">{it.year}</span> {it.where}</p>
+        <h3>{it.t}</h3>
+        <p>{it.what}</p>
+        <button type="button" class="btn btn-plain flip" aria-expanded="false" aria-controls={`ic-back-${i}`}>Show the lesson</button>
+      </div>
+      <div class="face back" id={`ic-back-${i}`}>
+        <p class="meta"><span class="year">{it.year}</span> The lesson</p>
+        <h3>{it.t}</h3>
+        <p><strong>Why it happened:</strong> {it.why}</p>
+        <p><strong>The lesson:</strong> {it.lesson}</p>
+        <div class="log"><span>In your hazard log</span><dl>{it.log.split(/\.\s+(?=(?:Cause|Effect|Hazard|Harm|Controls?):)/).map((part) => { const m = part.match(/^(Cause|Effect|Hazard|Harm|Controls?):\s*(.*)$/); return m ? <div><dt>{m[1]}</dt><dd>{m[2].replace(/\.$/, '')}</dd></div> : <div><dd>{part}</dd></div>; })}</dl></div>
+        <p class="src">Source: {it.src.map((s, j) => <>{j > 0 && '; '}<a href={s[1]} target="_blank" rel="noopener">{s[0]}</a></>)}</p>
+        <button type="button" class="btn btn-plain flip" aria-expanded="true">Back to what happened</button>
+      </div>
+    </li>
+  ))}
+</ul>
+<style>
+  .ic { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
+  .card { display: grid; perspective: 1400px; }
+  .face {
+    grid-area: 1 / 1; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .face p { margin: 0; }
+  .back { transform: rotateY(180deg); background: var(--soft-teal); border-color: var(--accent); }
+  .card.turned .front { transform: rotateY(-180deg); }
+  .card.turned .back { transform: rotateY(0); }
+  .meta { font-size: 0.85rem; color: var(--muted); }
+  .year { font-family: var(--font-display); font-weight: 800; color: var(--accent-2); margin-right: 0.3rem; }
+  h3 { font-size: 1.15rem; }
+  .log { background: var(--surface); border-radius: 10px; padding: 0.7rem 0.85rem; font-size: 0.95rem; }
+  .log span { display: block; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 0.3rem; }
+  .log dl { margin: 0; display: grid; gap: 0.25rem; }
+  .log dl div { display: grid; grid-template-columns: 4.8rem minmax(0, 1fr); gap: 0.5rem; }
+  .log dt { font-weight: 800; font-style: italic; }
+  .log dd { margin: 0; }
+  .src { font-size: 0.85rem; }
+  .flip { margin-top: auto; align-self: flex-start; font-size: 0.9rem; padding: 0.5rem 0.9rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .face { backface-visibility: visible; transform: none !important; }
+    .card .back { visibility: hidden; }
+    .card.turned .back { visibility: visible; }
+    .card.turned .front { visibility: hidden; }
+  }
+  @media print { .face { transform: none !important; backface-visibility: visible; } .card { display: block; } .back { margin-top: 0.5rem; } }
+</style>
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-ic] .card').forEach(function (card) {
+      var front = card.querySelector('.front'), back = card.querySelector('.back');
+      function set(t) {
+        card.classList.toggle('turned', t);
+        back.inert = !t; front.inert = t;
+        back.setAttribute('aria-hidden', t ? 'false' : 'true');
+        front.setAttribute('aria-hidden', t ? 'true' : 'false');
+        (t ? back : front).querySelector('.flip').focus({ preventScroll: true });
+      }
+      back.inert = true; back.setAttribute('aria-hidden', 'true');
+      front.querySelector('.flip').addEventListener('click', function () { set(true); });
+      back.querySelector('.flip').addEventListener('click', function () { set(false); });
+    });
+  })();
+</script>

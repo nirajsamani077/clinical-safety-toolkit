@@ -1,0 +1,49 @@
+---
+layout: ../../layouts/Page.astro
+title: Worked examples
+lede: "Oakfield's hazard log, then two shorter examples using the same method: an AI scribe, and a calculator built into your clinical system."
+checked: 3 November 2026
+---
+import HazardLog from '../../components/HazardLog.astro';
+import Oakfield from '../../components/Oakfield.astro';
+import Refs from '../../components/Refs.astro';
+
+## Oakfield Surgery: online consultations
+
+<Oakfield />
+
+### The hazard log
+
+Here is the hazard log Oakfield produced after a one-hour workshop with the CSO, practice manager, care navigators and reception, a nurse and a salaried GP who regularly does duty doctor sessions. Switch between the score before and after controls to see what made the difference.
+
+<HazardLog />
+
+The CSO signed a three-page [clinical safety case report](/templates/safety-case-report). Oakfield then switched over with an extra duty clinician for the first fortnight, sampled ten requests a week for the first month, and reviewed the hazard log after three months.
+
+## AI scribe
+
+An AI scribe transcribes the consultation and drafts the notes. Same method: start from the supplier's hazard log and add your own. For example:
+
+| Cause | Effect | Hazard | Controls and mitigations |
+| --- | --- | --- | --- |
+| The AI mishears, or "fills in" plausible detail (it "hallucinates"). Because the notes are usually right, the clinician skims instead of reading (automation bias) | The note or letter contains something that wasn't said, and it's saved unnoticed | A patient is treated on the basis of a wrong record | Clinician reads every note before saving; monthly sample audit of notes; training covers automation bias and why checking matters |
+| The plan or safety-netting is said after the recording stops | The note is missing the plan | A patient's follow-up or safety-netting is missed | Clinician checks the plan and safety-netting are in the note before saving |
+| Back-to-back patients: the clinician doesn't start a new session, or copies the note into EMIS after the next patient's record is already open | One patient's note is saved in another patient's record | Two patients' records are wrong, and the next clinician acts on someone else's history or plan | A new session for every patient; check the name on the scribe matches the open record before pasting; use the direct EMIS link where there is one |
+
+Asking the patient's permission matters too, but it's a data protection and confidentiality question rather than a clinical safety hazard. See the section on [telling patients](/information-governance/telling-patients).
+
+NHS England expects practices using AI scribes to have a CSO and complete DCB0160, as well as a DPIA from the information governance side.<sup><a href="#ref-1">1</a></sup>
+
+## A calculator built into your clinical system
+
+Calculators inside the clinical system or prescribing software, such as QRISK or creatinine clearance, feel like part of the furniture, but they're health IT too. The [QRISK2 error](/clinical-safety/understand#why-it-matters) went unnoticed for years. Two hazards a practice might log:
+
+| Cause | Effect | Hazard | Controls and mitigations |
+| --- | --- | --- | --- |
+| The creatinine clearance calculation uses an out-of-date weight, or eGFR is used in its place | Kidney function is overestimated | A patient on a DOAC (such as apixaban) is prescribed a dose too high for their kidney function | Record a current weight before calculating; use creatinine clearance, not eGFR, for DOAC doses, as the MHRA advises<sup><a href="#ref-2">2</a></sup>; pharmacist check at annual DOAC review |
+| A system update changes how a built-in risk calculator reads the record | Risk scores are wrong, with no warning on screen | A patient isn't offered treatment they need, such as a statin, or is offered one they don't | After each system update, check a few scores against the official online calculator; ask the supplier to flag calculator changes in release notes |
+
+<Refs items={[
+  ['Guidance on the use of AI-enabled ambient scribing products in health and care settings', 'https://www.england.nhs.uk/long-read/guidance-on-the-use-of-ai-enabled-ambient-scribing-products-in-health-and-care-settings/', 'NHS England'],
+  ['Prescribing medicines in renal impairment: using the appropriate estimate of renal function to avoid the risk of adverse drug reactions', 'https://www.gov.uk/drug-safety-update/prescribing-medicines-in-renal-impairment-using-the-appropriate-estimate-of-renal-function-to-avoid-the-risk-of-adverse-drug-reactions', 'MHRA Drug Safety Update, October 2019'],
+]} />

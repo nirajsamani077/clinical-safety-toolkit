@@ -1,0 +1,42 @@
+---
+// The evidence folder for one AI tool, drawn as a ring binder with coloured dividers.
+import Icon from './Icon.astro';
+const tabs = [
+  ['The register entry', 'What it is, what it’s approved for, who approved it', '#3b7a14', '/ai-policy/your-policy#the-example-policy'],
+  ['Clinical safety', 'CRMP, hazard log and safety case report, signed by the CSO', '#057092', '/clinical-safety/templates'],
+  ['Data protection', 'DPIA, data processing agreement and updated privacy notice', '#920570', '/information-governance/dpia'],
+  ['Supplier evidence', 'DCB0129 documents, DTAC, DSPT, medical device registration', '#0b4a6e', '/clinical-safety/process#stage-1-prepare'],
+  ['Training records', 'Who was trained, and when', '#8a5f00', '/clinical-safety/process#stage-4-go-live'],
+  ['Proof it’s watched', 'Audits, incidents, what changed, governance meeting minutes', '#c0392b', '/clinical-safety/after-go-live'],
+];
+---
+<figure class="ef">
+  <div class="ef-cover">
+    <span class="ef-ico"><Icon name="folder" size={30} /></span>
+    <div><p class="ef-k">Evidence folder</p><p class="ef-t">One per AI tool</p><p class="ef-s">AI policy at the front</p></div>
+  </div>
+  <ol class="ef-tabs">
+    {tabs.map(([t, d, c, href], i) => (
+      <li style={`--c:${c}; --i:${i}`}><a href={href}><span class="ef-n">{i + 1}</span><strong>{t}</strong><span class="ef-d">{d}</span></a></li>
+    ))}
+  </ol>
+</figure>
+<style>
+  .ef { margin: 1.5rem 0; display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); background: #f3d98a; border-radius: 6px 22px 22px 22px; padding: 1rem; position: relative; box-shadow: 0 14px 30px -18px rgba(3, 44, 71, 0.45); }
+  .ef::before { content: ''; position: absolute; left: 0; top: -16px; width: 38%; height: 18px; background: #f3d98a; border-radius: 10px 10px 0 0; }
+  .ef-cover { display: grid; align-content: start; gap: 0.7rem; padding: 0.6rem 0.8rem; color: #4a3500; }
+  .ef-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: #4a3500; color: #f3d98a; }
+  .ef-k { margin: 0; font: 800 0.75rem var(--font-body); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ef-t { margin: 0.1rem 0; font: 800 1.35rem var(--font-display); line-height: 1.15; }
+  .ef-s { margin: 0; font-size: 0.9rem; }
+  .ef-tabs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+  .ef-tabs li { animation: ef-in 0.45s ease both; animation-delay: calc(var(--i) * 0.07s); }
+  .ef-tabs a { display: grid; grid-template-columns: 2rem minmax(0, 13rem) minmax(0, 1fr); gap: 0 0.8rem; align-items: center; padding: 0.6rem 0.9rem; background: #fff; color: #1b2b36; border-radius: 10px; border-right: 14px solid var(--c); text-decoration: none; transition: translate 0.2s ease; }
+  .ef-tabs a:hover, .ef-tabs a:focus-visible { translate: -6px 0; }
+  .ef-n { width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-weight: 800; font-size: 0.85rem; }
+  .ef-tabs strong { font-family: var(--font-display); }
+  .ef-d { font-size: 0.88rem; color: #4b6577; }
+  @keyframes ef-in { from { opacity: 0; translate: 16px 0; } to { opacity: 1; translate: 0 0; } }
+  @media (prefers-reduced-motion: reduce) { .ef-tabs li { animation: none; } }
+  @media (max-width: 760px) { .ef { grid-template-columns: minmax(0, 1fr); } .ef-cover { grid-template-columns: auto 1fr; align-items: center; } .ef-tabs a { grid-template-columns: 2rem minmax(0, 1fr); } .ef-d { grid-column: 2; } }
+</style>

@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import { site, zones } from '../data/site.js';
+import Search from '../components/Search.astro';
+import EditMode from '../components/EditMode.astro';
+
+const { title, description = 'A plain-English clinical safety toolkit for general practice.', zone = '' } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&display=swap" />
+    <script is:inline>
+      // Open every page at the top unless a link points to a section.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      function toTop() { if (!location.hash) window.scrollTo(0, 0); }
+      window.addEventListener('pageshow', toTop);
+      window.addEventListener('load', function () { toTop(); setTimeout(toTop, 60); });
+    </script>
+  </head>
+  <body>
+    {site.draft && (
+      <section class="draft" aria-label="Draft notice"><div class="wrap">Shorter draft version, for comparison with the full toolkit. Content is still being checked and this site is not yet published.</div></section>
+    )}
+    <header class="mast">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <svg class="brand-mark" viewBox="0 0 34 34" aria-hidden="true">
+            <rect width="34" height="34" rx="9" fill="#ffffff" />
+            <path d="M7 24 C 13 24, 13 10, 19 10 S 27 18, 27 18" fill="none" stroke="#057092" stroke-width="3.2" stroke-linecap="round" />
+            <circle cx="7" cy="24" r="3.2" fill="#057092" />
+            <circle cx="19" cy="10" r="3.2" fill="#920570" />
+            <circle cx="27" cy="18" r="3.2" fill="#92d050" />
+          </svg>
+          <span class="brand-name">{site.name}<span class="brand-owner">{site.owner}</span></span>
+        </a>
+        <nav aria-label="Main">
+          {Object.entries(zones).map(([key, z]) => (
+            <a href={z.href} aria-current={zone === key ? 'true' : undefined} class={z.live ? '' : 'soon'}>{z.name}</a>
+          ))}
+          <a href="/templates" aria-current={zone === 'tpl' ? 'true' : undefined}>Templates</a>
+        </nav>
+        <Search />
+      </div>
+      <div class="track-line"></div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="foot">
+      <div class="wrap">
+        <div>
+          <h2>{site.name}</h2>
+          <p>Produced by {site.author}, for practice managers, partners and teams in general practice.</p>
+          <p>This toolkit explains the process and offers templates. It is not legal or clinical advice, and your Clinical Safety Officer signs off your practice's own safety work. <a href="/disclaimer">Full disclaimer</a>.</p>
+          <p>Last updated {site.lastUpdated}.</p>
+        </div>
+        <div>
+          <h2>Clinical safety</h2>
+          <ul>
+            <li><a href="/clinical-safety/understand">Understand</a></li>
+            <li><a href="/clinical-safety/process">The process</a></li>
+            <li><a href="/clinical-safety/worked-examples">Worked examples</a></li>
+            <li><a href="/clinical-safety/after-go-live">After go-live</a></li>
+            <li><a href="/clinical-safety/templates">Templates</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Reference</h2>
+          <ul>
+            <li><a href="/glossary">Glossary</a></li>
+            <li><a href="/sources">Sources and permissions</a></li>
+            <li><a href="/whats-changing">What's changing</a></li>
+            <li><a href="/about">About this toolkit</a></li>
+            <li><a href="/disclaimer">Disclaimer and privacy</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <EditMode />
+  </body>
+</html>

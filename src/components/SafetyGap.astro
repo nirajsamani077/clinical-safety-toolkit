@@ -1,0 +1,48 @@
+---
+// Context from the JMIR national study: how many NHS digital tools have documented clinical safety assurance.
+const parts = [
+  ['Both standards', 17.3, '#3b7a14'],
+  ['DCB0129 only', 8.7, '#8a5f00'],
+  ['DCB0160 only', 4.6, '#b04e0a'],
+  ['No documented assurance', 70.1, '#c0392b'],
+];
+---
+<figure class="gap">
+  <div class="gap-top">
+    <p class="gap-big"><b>70%</b><span>of digital tools in use across NHS trusts and ICBs had no documented clinical safety assurance</span></p>
+    <dl class="gap-facts">
+      <div><dt>14,747</dt><dd>tools counted in 178 organisations</dd></div>
+      <div><dt>13 of 204</dt><dd>organisations had every tool assured</dd></div>
+      <div><dt>10,000+</dt><dd>tools estimated to be in use without assurance</dd></div>
+    </dl>
+  </div>
+  <div class="gap-bar" role="img" aria-label="Of tools with data: 17.3% assured against both standards, 8.7% DCB0129 only, 4.6% DCB0160 only, 70.1% no documented assurance">
+    {parts.map(([l, v, c], i) => <span style={`--w:${v}%; --c:${c}; --i:${i}`}></span>)}
+  </div>
+  <ul class="gap-key" aria-hidden="true">
+    {parts.map(([l, v, c]) => <li style={`--c:${c}`}><b></b>{l} <em>{v}%</em></li>)}
+  </ul>
+  <figcaption>Oskrochi, Roy-Highley, Grimes and Shah, <em>Journal of Medical Internet Research</em>, 2025. Freedom of information requests to 239 NHS trusts and ICBs. General practice wasn't included. The study measured whether safety documents existed, and not how good they were.</figcaption>
+</figure>
+<style>
+  .gap { margin: 1.5rem 0; padding: clamp(1rem, 3vw, 1.6rem); border-radius: 22px; background: #032c47; color: #fff; }
+  .gap-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.25rem; align-items: center; }
+  .gap-big { margin: 0; display: grid; gap: 0.3rem; }
+  .gap-big b { font: 800 clamp(3.2rem, 9vw, 5rem)/0.9 var(--font-display); color: #ff8a7a; }
+  .gap-big span { font: 600 1.08rem/1.4 var(--font-display); color: #e3eef3; }
+  .gap-facts { margin: 0; display: grid; gap: 0.5rem; }
+  .gap-facts div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.7rem; align-items: baseline; padding: 0.45rem 0.7rem; border-radius: 10px; background: rgba(255, 255, 255, 0.07); }
+  .gap-facts dt { font: 800 1.25rem var(--font-display); color: #92d050; }
+  .gap-facts dd { margin: 0; font-size: 0.9rem; color: #cfe2ec; }
+  .gap-bar { display: flex; height: 26px; border-radius: 99px; overflow: hidden; margin: 1.25rem 0 0.6rem; background: rgba(255, 255, 255, 0.08); }
+  .gap-bar span { width: var(--w); background: var(--c); animation: gap-grow 0.9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 0.15s); transform-origin: left; }
+  .gap-bar span:nth-child(1) { background: #6fbf3a; } .gap-bar span:nth-child(2) { background: #e0a526; } .gap-bar span:nth-child(3) { background: #f08a3c; } .gap-bar span:nth-child(4) { background: #e2574c; }
+  .gap-key { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.85rem; color: #cfe2ec; }
+  .gap-key li { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .gap-key b { width: 0.8rem; height: 0.8rem; border-radius: 3px; background: var(--c); }
+  .gap-key li:nth-child(1) b { background: #6fbf3a; } .gap-key li:nth-child(2) b { background: #e0a526; } .gap-key li:nth-child(3) b { background: #f08a3c; } .gap-key li:nth-child(4) b { background: #e2574c; }
+  .gap-key em { font-style: normal; font-weight: 700; color: #fff; }
+  .gap figcaption { margin-top: 0.9rem; font-size: 0.82rem; color: #9fbccd; }
+  @keyframes gap-grow { from { transform: scaleX(0); } to { transform: none; } }
+  @media (max-width: 700px) { .gap-top { grid-template-columns: minmax(0, 1fr); } }
+</style>

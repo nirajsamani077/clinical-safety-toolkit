@@ -1,0 +1,82 @@
+---
+// Pick a template on the left to read it on the right. Each also opens in its own tab, or downloads as Word or Excel.
+import data from '../data/templates.json';
+const { section } = Astro.props;
+const list = section ? data.templates.filter((t) => t.section === section) : data.templates;
+const secName = { cs: 'Clinical safety', ig: 'Data protection', ai: 'AI policy' };
+const stageCol = { Prepare: '#057092', Assess: '#920570', Approve: '#0b4a6e', Monitor: '#3b7a14' };
+---
+<div class="tv" data-tv>
+  <ol class="tv-list" aria-label="Templates">
+    {list.map((t, i) => {
+      const ext = t.kind === 'sheet' ? 'xlsx' : 'docx';
+      return (
+        <li style={`--c:${stageCol[t.stage]}`}>
+          <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-slug={t.slug} data-title={t.title} data-ext={ext} data-app={t.kind === 'sheet' ? 'Excel' : 'Word'}>
+            <span class="tv-stage">{t.stage} stage</span>
+            <strong>{t.title}</strong>
+            <span class="tv-kind">{t.kind === 'sheet' ? 'Spreadsheet' : 'Document'}{!section && ` · ${secName[t.section]}`}</span>
+          </button>
+          <a class="tv-mob" href={`/templates/${t.slug}`} target="_blank" rel="noopener"><span class="tv-stage">{t.stage}</span><strong>{t.title}</strong><span class="tv-kind">Open ↗</span></a>
+        </li>
+      );
+    })}
+  </ol>
+  <div class="tv-pane">
+    <div class="tv-bar">
+      <strong data-name>{list[0].title}</strong>
+      <span class="tv-acts">
+        <a data-open href={`/templates/${list[0].slug}`} target="_blank" rel="noopener">Open in new tab ↗</a>
+        <a data-ex href={`/downloads/${list[0].slug}-oakfield-example.${list[0].kind === 'sheet' ? 'xlsx' : 'docx'}`} download>Oakfield example</a>
+        <a data-dl href={`/downloads/${list[0].slug}.${list[0].kind === 'sheet' ? 'xlsx' : 'docx'}`} download>Download <span data-app>{list[0].kind === 'sheet' ? 'Excel' : 'Word'}</span></a>
+      </span>
+    </div>
+    <iframe data-frame src={`/templates/${list[0].slug}#embed`} title={`${list[0].title} template`} loading="lazy"></iframe>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    var tv = document.querySelector('[data-tv]'); if (!tv) return;
+    var frame = tv.querySelector('[data-frame]'), open = tv.querySelector('[data-open]'), dl = tv.querySelector('[data-dl]'), exl = tv.querySelector('[data-ex]');
+    // Links were made relative at build time, so work out the folder from the current links.
+    var base = open.getAttribute('href').replace(/[^/]+\.html$/, ''), dbase = dl.getAttribute('href').replace(/[^/]+$/, '');
+    tv.querySelectorAll('[data-slug]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tv.querySelectorAll('[data-slug]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        var s = b.dataset.slug;
+        frame.src = base + s + '.html#embed';
+        frame.title = b.dataset.title + ' template';
+        open.href = base + s + '.html';
+        dl.href = dbase + s + '.' + b.dataset.ext;
+        exl.href = dbase + s + '-oakfield-example.' + b.dataset.ext;
+        tv.querySelector('[data-app]').textContent = b.dataset.app;
+        tv.querySelector('[data-name]').textContent = b.dataset.title;
+      });
+    });
+  })();
+</script>
+<style>
+  .tv { margin: 1.5rem 0; display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: 1rem; align-items: start; }
+  .tv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; position: sticky; top: 6rem; }
+  .tv-list button, .tv-mob { width: 100%; display: grid; gap: 0.05rem; text-align: left; padding: 0.65rem 0.8rem; border-radius: 12px; border: 1px solid var(--line); border-left: 6px solid var(--c); background: var(--surface); color: var(--fg); font: inherit; cursor: pointer; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .tv-list button:hover { transform: translateX(3px); }
+  .tv-list button[aria-pressed='true'] { background: var(--c); color: #fff; border-color: var(--c); box-shadow: 0 10px 24px rgba(3, 44, 71, 0.18); }
+  .tv-stage { font: 700 0.68rem var(--font-body); text-transform: uppercase; letter-spacing: 0.07em; opacity: 0.8; }
+  .tv-list strong { font: 800 1rem var(--font-display); }
+  .tv-kind { font-size: 0.8rem; opacity: 0.8; }
+  .tv-mob { display: none; }
+  .tv-pane { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: #e9eff3; box-shadow: 0 18px 40px rgba(3, 44, 71, 0.12); }
+  .tv-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1rem; padding: 0.6rem 0.9rem; background: var(--navy); color: #fff; }
+  .tv-bar strong { font-family: var(--font-display); }
+  .tv-acts { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tv-acts a { color: #fff; font-weight: 700; font-size: 0.88rem; padding: 0.3rem 0.7rem; border-radius: 8px; background: rgba(255, 255, 255, 0.12); text-decoration: none; }
+  .tv-acts a[data-dl] { background: #92d050; color: #032c47; }
+  .tv-pane iframe { display: block; width: 100%; height: 78vh; min-height: 560px; border: 0; background: #fff; }
+  @media (max-width: 860px) {
+    .tv { grid-template-columns: minmax(0, 1fr); }
+    .tv-list { position: static; }
+    .tv-list button { display: none; }
+    .tv-mob { display: grid; }
+    .tv-pane { display: none; }
+  }
+</style>

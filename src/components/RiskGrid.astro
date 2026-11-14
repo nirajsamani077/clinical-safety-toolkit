@@ -1,0 +1,127 @@
+---
+// Interactive 5x5 risk grid (likelihood x severity), as used in NHS clinical safety templates.
+const L = [
+  { n: 'Very high', d: 'certain or almost certain' },
+  { n: 'High', d: 'expected in most cases' },
+  { n: 'Medium', d: 'possible' },
+  { n: 'Low', d: 'could happen, but usually won’t' },
+  { n: 'Very low', d: 'negligible chance' },
+];
+const S = [
+  { n: 'Minor', a: 'Minor', d: 'inconvenience or a short delay, no lasting effect' },
+  { n: 'Significant', a: 'Signif.', d: 'minor injury or upset, recovery expected' },
+  { n: 'Considerable', a: 'Consid.', d: 'a more serious injury or harm needing treatment' },
+  { n: 'Major', a: 'Major', d: 'death or permanent harm to one patient, or serious harm to several' },
+  { n: 'Catastrophic', a: 'Catast.', d: 'death or permanent harm to several patients' },
+];
+const grid = [[3, 4, 4, 5, 5], [2, 3, 3, 4, 5], [2, 2, 3, 3, 4], [1, 2, 2, 3, 4], [1, 1, 2, 2, 3]];
+const tone = (v) => (v >= 4 ? 'crit' : v === 3 ? 'warn' : 'good');
+---
+<figure class="rg panel" data-rg>
+  <div class="grid" role="group" aria-label="Risk grid. Choose a square to see what the rating means.">
+    <span class="axis-y">Likelihood</span>
+    {grid.map((row, r) => (
+      <>
+        <span class="lab">{L[r].n}</span>
+        {row.map((v, c) => (
+          <button type="button" class={`cell ${tone(v)}${v === 5 || v === 1 ? ' deep' : ''}`} data-r={r} data-c={c} data-v={v}
+            aria-label={`${L[r].n} likelihood, ${S[c].n} severity: rating ${v}`}>{v}</button>
+        ))}
+      </>
+    ))}
+    <span></span>
+    {S.map((s) => <span class="lab bottom"><span class="full">{s.n}</span><span class="short" aria-hidden="true">{s.a}</span></span>)}
+    <span></span><span class="axis-x">Severity</span>
+  </div>
+  <div class="out" aria-live="polite" data-out>
+    <p class="big"><span data-val>3</span><span data-meaning>Reduce it if you reasonably can</span></p>
+    <p data-explain>Medium likelihood (possible) and Considerable severity (a more serious injury or harm needing treatment).</p>
+    <div class="h1 no-print">
+      <p class="h1-k">Try it with Oakfield's hazard H1</p>
+      <p class="h1-t">A patient with red-flag symptoms is not directed to an urgent assessment in time.</p>
+      <div class="h1-tog" role="group" aria-label="Hazard H1 score">
+        <button type="button" data-h1="b" aria-pressed="false">Before controls</button>
+        <button type="button" data-h1="a" aria-pressed="false">After controls</button>
+      </div>
+      <p class="demo-note" data-demo-note hidden></p>
+    </div>
+  </div>
+  <div class="key">
+    <span><i class="good"></i>1 to 2: acceptable</span>
+    <span><i class="warn"></i>3: reduce if you can</span>
+    <span><i class="crit"></i>4 to 5: must reduce before go-live</span>
+  </div>
+</figure>
+<script is:inline define:vars={{ L, S }}>
+  (function () {
+    var meaning = {
+      1: 'Acceptable. No further action needed',
+      2: 'Acceptable if reducing it further isn’t practical',
+      3: 'Reduce it if you reasonably can',
+      4: 'Must be reduced before go-live',
+      5: 'Unacceptable. Do not go live',
+    };
+    document.querySelectorAll('[data-rg]').forEach(function (fig) {
+      var cells = fig.querySelectorAll('.cell');
+      function pick(r, c) {
+        var cell = fig.querySelector('.cell[data-r="' + r + '"][data-c="' + c + '"]');
+        cells.forEach(function (x) { x.classList.toggle('on', x === cell); x.setAttribute('aria-pressed', x === cell ? 'true' : 'false'); });
+        var v = cell.getAttribute('data-v');
+        fig.querySelector('[data-val]').textContent = v;
+        fig.querySelector('[data-val]').className = 'v' + (v >= 4 ? ' crit' : v == 3 ? ' warn' : ' good');
+        fig.querySelector('[data-meaning]').textContent = meaning[v];
+        fig.querySelector('[data-explain]').textContent = L[r].n + ' likelihood (' + L[r].d + ') and ' + S[c].n + ' severity (' + S[c].d + ').';
+      }
+      cells.forEach(function (x) { x.addEventListener('click', function () { pick(+x.getAttribute('data-r'), +x.getAttribute('data-c')); }); });
+      var note = fig.querySelector('[data-demo-note]'), tog = fig.querySelectorAll('[data-h1]');
+      var H1 = {
+        b: [2, 3, 'The form doesn’t flag red-flag answers, so an urgent request can sit in the routine queue. Medium likelihood, Major severity: rating 3. Reduce it before go-live if you reasonably can.'],
+        a: [4, 3, 'Red-flag answers stop the form and send the patient to 999 or 111, and a clinician reviews every symptom request within two hours. Likelihood falls to Very low; severity stays Major, because the harm would be just as bad if it happened. Rating 2: acceptable.'],
+      };
+      function setH1(k) {
+        tog.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.h1 === k ? 'true' : 'false'); });
+        if (!k) { note.hidden = true; return; }
+        pick(H1[k][0], H1[k][1]); note.hidden = false; note.textContent = H1[k][2];
+      }
+      tog.forEach(function (t) { t.addEventListener('click', function () { setH1(t.dataset.h1); }); });
+      cells.forEach(function (x) { x.addEventListener('click', function () { setH1(null); }); });
+      pick(2, 2);
+    });
+  })();
+</script>
+<style>
+  .rg { margin: 1.5rem 0; display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; max-width: 640px; }
+  @media (max-width: 760px) { .rg { grid-template-columns: minmax(0, 1fr); } }
+  .grid { display: grid; grid-template-columns: auto repeat(5, minmax(0, 1fr)); gap: 5px; align-items: center; }
+  .axis-y { grid-column: 1 / -1; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+  .axis-x { grid-column: 2 / -1; text-align: center; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+  .lab { font-size: 0.85rem; padding-right: 0.4rem; line-height: 1.2; }
+  .lab.bottom { text-align: center; padding: 0.2rem 0 0; font-size: 0.78rem; }
+  .short { display: none; }
+  @media (max-width: 460px) { .full { display: none; } .short { display: inline; } .lab { font-size: 0.75rem; } }
+  .cell {
+    aspect-ratio: 1.25; min-height: 40px; border-radius: 8px; border: 2px solid transparent; cursor: pointer;
+    font: 800 1.15rem var(--font-display); color: var(--fg); transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .good { background: color-mix(in srgb, var(--good) 24%, var(--surface)); border-color: color-mix(in srgb, var(--good) 55%, transparent); }
+  .warn { background: color-mix(in srgb, var(--warn) 28%, var(--surface)); border-color: color-mix(in srgb, var(--warn) 60%, transparent); }
+  .crit { background: color-mix(in srgb, var(--crit) 24%, var(--surface)); border-color: color-mix(in srgb, var(--crit) 55%, transparent); }
+  .good.deep { background: color-mix(in srgb, var(--good) 45%, var(--surface)); }
+  .crit.deep { background: color-mix(in srgb, var(--crit) 45%, var(--surface)); }
+  .cell:hover { transform: scale(1.04); }
+  .cell.on { box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--fg); transform: scale(1.06); position: relative; z-index: 1; }
+  .out { background: var(--bg); border-radius: 12px; padding: 1rem 1.1rem; }
+  .big { display: flex; gap: 0.8rem; align-items: center; margin: 0 0 0.5rem; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.2; }
+  .big [data-val] { flex: none; width: 56px; height: 56px; border-radius: 12px; display: grid; place-items: center; font-size: 1.8rem; font-weight: 800; border-width: 2px; border-style: solid; }
+  .out p { margin: 0 0 0.75rem; }
+  .h1 { border-top: 1px dashed var(--line); padding-top: 0.8rem; }
+  .out .h1-k { margin: 0 0 0.15rem; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .out .h1-t { margin: 0 0 0.6rem; font-weight: 700; }
+  .h1-tog { display: inline-flex; border: 2px solid var(--accent); border-radius: 99px; overflow: hidden; }
+  .h1-tog button { font: 700 0.9rem var(--font-body); border: 0; background: var(--surface); color: var(--accent); padding: 0.45rem 1rem; cursor: pointer; }
+  .h1-tog button[aria-pressed='true'] { background: var(--accent); color: #fff; }
+  .demo-note { margin-top: 0.75rem !important; font-size: 0.95rem; padding: 0.7rem 0.9rem; background: var(--soft-teal); border-radius: 10px; }
+  .key { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.88rem; }
+  .key span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .key i { width: 16px; height: 16px; border-radius: 4px; border: 2px solid; display: inline-block; }
+</style>

@@ -1,0 +1,74 @@
+---
+layout: ../../layouts/Page.astro
+title: The process
+lede: The clinical safety steps within the five stages of adopting a tool. A small change to an existing system can take minutes; a big new tool, a few weeks.
+checked: 3 November 2026
+---
+import YouAreHere from '../../components/YouAreHere.astro';
+import FiveStages from '../../components/FiveStages.astro';
+import HazardAnatomy from '../../components/HazardAnatomy.astro';
+import Icon from '../../components/Icon.astro';
+import Refs from '../../components/Refs.astro';
+
+<YouAreHere what="The clinical safety detail" on={[0, 1, 2, 3, 4]} />
+
+<FiveStages track="cs" link="/clinical-safety/process" />
+
+## Stage 1: Prepare
+
+**Add it to your [technology register](/templates/technology-register)**, your list of every digital tool you use.<sup><a href="#ref-1">1</a></sup>
+
+**Agree who your CSO is.** See [help](/clinical-safety/help).
+
+**Ask the supplier:**<sup><a href="#ref-2">2</a></sup>
+
+<ul class="askq">
+  <li>Can you send your clinical safety case report and hazard log?</li>
+  <li>How do you inform us about changes to the product?</li>
+  <li>Is it a <a href="/explainers/medical-devices">medical device</a>? What class?</li>
+  <li>How do we report a clinical safety problem to you?</li>
+</ul>
+
+If your ICB or PCN already has a DCB0160 hazard log for the same tool, start from it, but remember your documents need to be specific to how you use the tool locally.
+
+## Stage 2: Assess
+
+**Hold a [hazard workshop](/templates/hazard-workshop-pack).** A meeting with the people who'll use the tool, reception included. Walk through the workflow and ask at each step what could go wrong.
+
+A simple way to do this is the **Structured What-If Technique** (SWIFT), which NHS England teaches on its clinical safety course. At each step of the workflow, ask "what if...?": what if the wrong information is entered, the system is down, someone leaves without saving, or two records are open at once? Write each answer down as cause, effect, hazard and harm.
+
+**Write the [hazard log](/templates/hazard-log).** Start from the supplier's, then add hazards from your own set-up. Each row reads left to right:
+
+<HazardAnatomy />
+
+## Stage 3: Approve
+
+**Write the [clinical safety case report](/templates/safety-case-report).** Two to six pages is plenty; it doesn't have to be a long essay:
+
+<ol class="outline" data-title="Clinical safety case report">
+  <li>What the tool is and how you'll use it</li>
+  <li>How you assessed it</li>
+  <li>The main hazards and controls</li>
+  <li>The risk that remains, and why it's acceptable</li>
+  <li>When you'll review it</li>
+</ol>
+
+The CSO signs it, and the partners review the residual risk before agreeing to go live with the tool.
+
+## Stage 4: Go live
+
+<div class="tiles tight">
+  <div class="tile c-lime"><span class="ib"><Icon name="users" /></span><strong>Train everyone</strong><span>And keep a record.</span></div>
+  <div class="tile c-teal"><span class="ib"><Icon name="chat" /></span><strong>Tell patients</strong><span>For example, for AI scribes, tell patients and respect a no.</span></div>
+  <div class="tile c-navy"><span class="ib"><Icon name="eye" /></span><strong>Start small</strong><span>One team first, outcomes checked closely.</span></div>
+  <div class="tile c-mag"><span class="ib"><Icon name="book" /></span><strong>Add it to induction</strong><span>So new staff and locums know which tools are approved.</span></div>
+</div>
+
+## Stage 5: Monitor and review
+
+Keep an incident log and review the hazard log when anything changes. It isn't a one-off: it carries on as the product and your practice's ways of working change. See [after go-live](/clinical-safety/after-go-live).
+
+<Refs items={[
+  ['DCB0160: Clinical risk management in the deployment and use of health IT systems', 'https://data.standards.nhs.uk/current-standards/clinical-risk-management-its-application-in-the-deployment-and-use-of-health-it-systems', 'NHS England standards directory'],
+  ['DCB0129: Clinical risk management in the manufacture of health IT systems', 'https://data.standards.nhs.uk/current-standards/nhsd-clinical-risk-management-its-application-in-the-manufacture-of-health-it-systems', 'NHS England standards directory'],
+]} />

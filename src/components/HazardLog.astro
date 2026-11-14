@@ -1,0 +1,214 @@
+---
+// Oakfield Surgery's hazard log for online consultations.
+// Each hazard has its own Before / After switch, so the reader never has to scroll back.
+const rows = [
+ {
+  "id": "H1",
+  "cause": "The patient chooses an admin or \"ask a question\" route but includes red-flag symptoms. The form’s questions don’t pick up the red flag. The patient goes back and changes answers after a red-flag warning.",
+  "eff": "A request describing red-flag symptoms is triaged as routine",
+  "h": "A patient with red-flag symptoms is not directed to an urgent assessment in time",
+  "harm": "Delayed treatment of a serious condition, such as sepsis, a heart attack or a suicidal crisis; at worst, death",
+  "b": [
+   "Medium",
+   "Major",
+   3
+  ],
+  "ctl": [
+   "A banner at the start of the form tells patients to call 999 or 111 for red-flag symptoms",
+   "Red-flag answers stop the form from going further and direct the patient to 999 or 111",
+   "The supplier confirms in writing that changing answers after a red-flag warning is logged and flagged",
+   "Requests sent as “ask the GP a question” go straight to the duty GP, so any symptoms in them are seen quickly"
+  ],
+  "mit": [
+   "Every request that mentions symptoms is reviewed by the duty doctor within two hours in core hours",
+   "A safety-netting message about red-flag symptoms is shown when the form is sent"
+  ],
+  "a": [
+   "Very low",
+   "Major",
+   2
+  ],
+  "owner": "CSO"
+ },
+ {
+  "id": "H2",
+  "cause": "The tool books some requests straight into a routine slot, or sends the patient a booking link, using the patient’s answers to set questions. Nobody reads the free text before the appointment.",
+  "eff": "Important detail written in the free text, such as weight loss or a new lump, sits unread until the routine appointment",
+  "h": "A patient whose problem needs an earlier or different assessment waits for a routine appointment",
+  "harm": "Delayed diagnosis, for example of cancer, and delayed treatment",
+  "b": [
+   "Medium",
+   "Major",
+   3
+  ],
+  "ctl": [
+   "Only admin and clearly routine request types are set to auto-book; anything with symptoms goes to a person first",
+   "Free text containing set words (for example lump, bleeding, weight loss) is sent to the duty doctor instead of being auto-booked"
+  ],
+  "mit": [
+   "A care navigator reads the free text of every auto-booked request the same working day and escalates anything worrying"
+  ],
+  "a": [
+   "Very low",
+   "Major",
+   2
+  ],
+  "owner": "CSO"
+ },
+ {
+  "id": "H3",
+  "cause": "The form stays open in the evening and at weekends with nobody watching it. On busy days or during leave, nobody owns the queue. A request is assigned to a clinician who has gone home.",
+  "eff": "A request sits unread for hours or days",
+  "h": "A patient’s request is not actioned when it needs to be, while they believe the practice is dealing with it",
+  "harm": "Delayed assessment and treatment; the problem may get worse",
+  "b": [
+   "High",
+   "Considerable",
+   3
+  ],
+  "ctl": [
+   "Symptom requests can only be sent in core hours; outside them, the form directs patients to 111 or 999",
+   "A named owner for the queue every session, on the rota"
+  ],
+  "mit": [
+   "An end-of-day check that the queue is empty or handed over",
+   "The first job on a Monday is any request that arrived at the weekend"
+  ],
+  "a": [
+   "Low",
+   "Considerable",
+   2
+  ],
+  "owner": "Practice manager"
+ },
+ {
+  "id": "H4",
+  "cause": "A parent or carer submits for someone else using their own details, or the patient’s details don’t match the record",
+  "eff": "The request is attached to the wrong patient’s record",
+  "h": "The right patient isn’t assessed, and decisions are made using the wrong patient’s record",
+  "harm": "Missed or delayed care for the patient who needed it; the wrong treatment or advice for the other",
+  "b": [
+   "Medium",
+   "Considerable",
+   3
+  ],
+  "ctl": [
+   "The form asks who the request is for and collects the patient’s own details",
+   "Staff check name, date of birth and NHS number before filing"
+  ],
+  "mit": [
+   "Requests made on someone else’s behalf are flagged for a second check before a clinician acts on them"
+  ],
+  "a": [
+   "Low",
+   "Considerable",
+   2
+  ],
+  "owner": "Practice manager"
+ },
+ {
+  "id": "H5",
+  "cause": "As more same-day appointments are released through the online form, fewer are left for patients who phone or walk in",
+  "eff": "Patients who can’t use the form find no appointments left",
+  "h": "A patient who can’t use the form, because of age, disability, language or no internet, is assessed later than they need to be",
+  "harm": "Delayed care for patients already more likely to come to harm",
+  "b": [
+   "Medium",
+   "Considerable",
+   3
+  ],
+  "ctl": [
+   "A fixed share of same-day appointments is kept for phone and walk-in requests",
+   "Reception can fill in the form on a patient’s behalf"
+  ],
+  "mit": [
+   "Access data and complaints by route reviewed at the quarterly clinical governance meeting"
+  ],
+  "a": [
+   "Low",
+   "Considerable",
+   2
+  ],
+  "owner": "Practice manager"
+ }
+];
+const tone = (v) => (v >= 4 ? 'crit' : v === 3 ? 'warn' : 'good');
+const meaning = { 1: 'Acceptable', 2: 'Acceptable', 3: 'Reduce if you can', 4: 'Must reduce', 5: 'Unacceptable' };
+---
+<div class="hl-key">
+  <p><strong>How to read this.</strong> Each card is one hazard: the situation where a patient could come to harm. Underneath are its cause, its effect and the harm it could lead to. Each hazard is scored twice on the <a href="/clinical-safety/understand#scoring-a-risk">risk grid</a>: before anything is done about it, and after the controls or mitigations are in place. Use the switch on each card to toggle.</p>
+  <p class="hl-legend"><span><b class="pill good">1–2</b> acceptable</span><span><b class="pill warn">3</b> reduce if you can</span><span><b class="pill crit">4–5</b> must reduce before go-live</span></p>
+</div>
+<ol class="hl">
+  {rows.map((r) => (
+    <li class="hl-card" data-hl data-mode="before">
+      <div class="hl-head">
+        <span class="hl-id">{r.id}</span>
+        <h4>{r.h}</h4>
+      </div>
+      <dl class="hl-facts">
+        <div><dt>Cause</dt><dd>{r.cause}</dd></div>
+        <div><dt>Effect</dt><dd>{r.eff}</dd></div>
+        <div><dt>Harm</dt><dd>{r.harm}</dd></div>
+      </dl>
+      <div class="hl-switch no-print" role="group" aria-label={`Show ${r.id} before or after controls`}>
+        <button type="button" data-m="before" aria-pressed="true">Before controls</button>
+        <button type="button" data-m="after" aria-pressed="false">After controls</button>
+      </div>
+      <div class="hl-panel p-before">
+        <b class={`pill big ${tone(r.b[2])}`}>{r.b[2]}</b>
+        <p><strong>{meaning[r.b[2]]}.</strong> {r.b[0]} likelihood × {r.b[1]} severity.</p>
+      </div>
+      <div class="hl-panel p-after">
+        <b class={`pill big ${tone(r.a[2])}`}>{r.a[2]}</b>
+        <div>
+          <p><strong>{meaning[r.a[2]]}.</strong> {r.a[0]} likelihood × {r.a[1]} severity.</p>
+          <p class="hl-sub">Controls that prevent it</p>
+          <ul>{r.ctl.map((c) => <li>{c}</li>)}</ul>
+          <p class="hl-sub">Mitigations that limit harm</p>
+          <ul>{r.mit.map((c) => <li>{c}</li>)}</ul>
+          <p class="hl-owner">Owner: {r.owner}</p>
+        </div>
+      </div>
+    </li>
+  ))}
+</ol>
+<script is:inline>
+  document.querySelectorAll('[data-hl]').forEach(function (card) {
+    card.querySelectorAll('[data-m]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        card.setAttribute('data-mode', b.getAttribute('data-m'));
+        card.querySelectorAll('[data-m]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      });
+    });
+  });
+</script>
+<style>
+  .hl-key { background: var(--soft-teal); border-radius: 14px; padding: 1rem 1.1rem; display: grid; gap: 0.6rem; }
+  .hl-key p { margin: 0; }
+  .hl-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.9rem; }
+  .hl-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .hl { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.9rem; }
+  .hl-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1rem 1.15rem; display: grid; gap: 0.75rem; }
+  .hl-head { display: flex; gap: 0.7rem; align-items: center; }
+  .hl-id { flex: none; background: var(--navy); color: #fff; font: 800 0.85rem var(--font-display); padding: 0.25rem 0.55rem; border-radius: 8px; }
+  .hl-head h4 { font-size: 1.12rem; }
+  .hl-facts { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 0.6rem 1.2rem; font-size: 0.95rem; }
+  .hl-facts dt { font-size: 0.75rem; font-weight: 700; color: var(--muted); }
+  .hl-facts dd { margin: 0; }
+  .hl-switch { display: inline-flex; justify-self: start; background: var(--bg); border: 1px solid var(--line); border-radius: 99px; padding: 3px; }
+  .hl-switch button { border: 0; background: none; color: var(--muted); font: 700 0.88rem var(--font-body); padding: 0.4rem 0.9rem; border-radius: 99px; cursor: pointer; }
+  .hl-switch button[aria-pressed='true'] { background: var(--navy); color: #fff; }
+  .hl-panel { display: flex; gap: 0.9rem; align-items: flex-start; border-radius: 12px; padding: 0.8rem 0.9rem; background: var(--bg); }
+  .hl-panel p { margin: 0; }
+  .hl-panel ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+  .hl-owner { margin-top: 0.4rem !important; font-size: 0.88rem; color: var(--muted); }
+  [data-mode='before'] .p-after, [data-mode='after'] .p-before { display: none; }
+  .pill { flex: none; display: inline-grid; place-items: center; min-width: 2.2rem; height: 2rem; padding: 0 0.3rem; border-radius: 8px; font: 800 0.95rem var(--font-display); border: 2px solid; }
+  .pill.big { min-width: 3rem; height: 3rem; font-size: 1.5rem; border-radius: 12px; }
+  .pill.good { background: color-mix(in srgb, var(--good) 22%, var(--surface)); border-color: var(--good); }
+  .pill.warn { background: color-mix(in srgb, var(--warn) 26%, var(--surface)); border-color: var(--warn); }
+  .pill.crit { background: color-mix(in srgb, var(--crit) 22%, var(--surface)); border-color: var(--crit); }
+  @media print { .p-before, .p-after { display: flex !important; } }
+  .hl-sub { margin: 0.5rem 0 0.1rem !important; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+</style>

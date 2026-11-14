@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import { aiPages } from '../../data/site.js';
+const colours = ['#3b7a14', '#0b4a6e', '#032c47'];
+---
+<Base title="AI policy" zone="ai">
+  <div class="wrap page-head">
+    <div class="crumb"><a href="/">Home</a> / AI policy</div>
+    <h1>AI policy</h1>
+    <p class="lede">What staff can use, how a tool gets approved, and how to show CQC it's under control. Brings together the more detailed work done in <a href="/clinical-safety">clinical safety</a> and <a href="/information-governance">information governance</a>.</p>
+  </div>
+  <div class="wrap ai-home">
+    <ol class="trio">
+      {aiPages.map((p, i) => (
+        <li style={`--c:${colours[i]}; --i:${i}`}>
+          <a href={p.href}>
+            <span class="n">{i + 1}</span>
+            <span class="t"><strong>{p.title}</strong><span>{p.blurb}</span></span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>
+<style>
+  .ai-home { padding-bottom: 4rem; }
+  .trio { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; max-width: 860px; }
+  .trio li { animation: slide 0.5s ease both; animation-delay: calc(var(--i) * 0.1s); }
+  .trio a { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.25rem; align-items: center; padding: 1.25rem 1.5rem; border-radius: 20px; background: var(--c); color: #fff; text-decoration: none; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .trio li:nth-child(2) a { margin-left: clamp(0px, 4vw, 3rem); }
+  .trio li:nth-child(3) a { margin-left: clamp(0px, 8vw, 6rem); }
+  .trio a:hover { transform: translateX(6px); box-shadow: 0 14px 30px rgba(3, 44, 71, 0.2); }
+  .n { font: 800 3rem/1 var(--font-display); color: #92d050; }
+  .t { display: grid; gap: 0.2rem; }
+  .t strong { font: 800 1.5rem var(--font-display); }
+  .t span { color: #fff; }
+  .go { font-size: 1.8rem; }
+  @keyframes slide { from { transform: translateX(-14px); } to { transform: none; } }
+</style>

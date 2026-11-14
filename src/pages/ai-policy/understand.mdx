@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/Page.astro
+title: Understand
+zone: ai
+lede: An AI policy is a short document that tells everyone in the practice which AI tools they can use, what for, and how a new one gets approved.
+checked: 6 November 2026
+---
+import AiSpectrum from '../../components/AiSpectrum.astro';
+import Iceberg from '../../components/Iceberg.astro';
+import PolicyStack from '../../components/PolicyStack.astro';
+import Refs from '../../components/Refs.astro';
+
+## Why have one
+
+AI tools are arriving faster than practices can assess them, some through software updates and others on a locum's or new staff member's phone. A policy means everyone works to the same rules, and it's one of the first things CQC inspectors may ask to see.<sup><a href="#ref-1">1</a></sup>
+
+A good policy answers three questions.
+
+<div class="ask3">
+  <p>Which AI tools are we allowed to use, and for what?</p>
+  <p>What must never go into an AI tool?</p>
+  <p>How does a new tool get approved?</p>
+</div>
+
+## What counts as AI
+
+AI is built into everyday software as well as scribes and chatbots. Your policy should cover the whole range.
+
+<AiSpectrum />
+
+## The AI you can't see
+
+The biggest risk is often the tool nobody told you about: a free chatbot, or a feature that switched itself on.
+
+<Iceberg />
+
+<div class="split-note">
+<strong>At Oakfield Surgery:</strong> a locum used their own AI scribe app in clinic. Nobody knew where the recordings went. The policy now says only registered tools may be used, on page one of the locum pack.
+</div>
+
+## How it fits with the rest
+
+The policy sets the rules, the register lists what's approved or live and what's being assessed, and each tool has its own [clinical safety](/clinical-safety) and [data protection](/information-governance) assessment underneath. NHS England expects a DPIA before AI is used with patient information.<sup><a href="#ref-2">2</a></sup>
+
+<PolicyStack />
+
+<Refs items={[
+  ['GP mythbuster 109: Artificial intelligence in GP services', 'https://www.cqc.org.uk/guidance-providers/gps/gp-mythbusters/gp-mythbuster-109-artificial-intelligence-gp-services', 'Care Quality Commission'],
+  ['Information governance guidance: Artificial intelligence', 'https://transform.england.nhs.uk/information-governance/guidance/artificial-intelligence/', 'NHS England'],
+]} />

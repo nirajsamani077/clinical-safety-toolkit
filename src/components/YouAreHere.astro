@@ -1,0 +1,20 @@
+---
+// A small "you are here" strip linking a detail page back to the master checklist on Adopting a tool.
+const { on = [], what } = Astro.props;
+const stages = [['Prepare', '#057092'], ['Assess', '#0b4a6e'], ['Approve', '#920570'], ['Go live', '#3b7a14'], ['Monitor', '#032c47']];
+---
+<nav class="yah" aria-label="Where this page fits">
+  <p><strong>{what}</strong> for these stages of the <a href="/adopting-a-tool#the-five-stages">master checklist</a>:</p>
+  <ol>
+    {stages.map(([t, c], i) => <li class={on.includes(i) ? 'on' : ''} style={`--c:${c}`} aria-current={on.includes(i) ? 'step' : undefined}><span>{i + 1}</span>{t}</li>)}
+  </ol>
+</nav>
+<style>
+  .yah { margin: 0 0 1.75rem; padding: 0.75rem 1rem; border-radius: 14px; background: var(--surface); border: 1px dashed var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+  .yah p { margin: 0; font-size: 0.92rem; }
+  .yah ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .yah li { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2rem 0.6rem 0.2rem 0.25rem; border-radius: 99px; font: 700 0.8rem var(--font-body); color: var(--muted); background: var(--bg); }
+  .yah li span { width: 1.3rem; height: 1.3rem; border-radius: 50%; display: grid; place-items: center; background: var(--line); color: var(--fg); font-size: 0.72rem; }
+  .yah li.on { background: var(--c); color: #fff; }
+  .yah li.on span { background: #fff; color: var(--c); }
+</style>

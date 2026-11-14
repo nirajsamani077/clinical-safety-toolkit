@@ -1,0 +1,68 @@
+---
+// "Look up a term": type a word you've come across and get a one-line meaning plus where to go.
+// Every result is a real link in the page; typing just shows or hides them.
+import { keyterms, popular } from '../data/keyterms.js';
+const { compact = false } = Astro.props;
+---
+<div class={`ts${compact ? ' compact' : ''}`} data-ts>
+  <label class="ts-label" for="ts-q">Look up a term</label>
+  <div class="ts-box">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+    <input id="ts-q" type="search" placeholder="e.g. DPIA, hazard log, Copilot" autocomplete="off" data-ts-q aria-describedby="ts-msg" />
+  </div>
+  <p class="ts-pop" data-ts-pop>
+    <span>Common:</span>
+    {popular.map((p) => <button type="button" data-ts-pick={p}>{p.replace(/ \(.*\)/, '')}</button>)}
+  </p>
+  <p class="ts-msg" id="ts-msg" data-ts-msg aria-live="polite"></p>
+  <ul class="ts-res" data-ts-res>
+    {keyterms.map((k) => (
+      <li hidden data-ts-k={`${k.t} ${k.aka}`.toLowerCase()} data-ts-t={k.t.toLowerCase()}>
+        <strong>{k.t}</strong>
+        <span>{k.d}</span>
+        <span class="ts-go">{k.go.map(([l, h]) => <a href={h}>{l} →</a>)}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-ts]').forEach(function (ts) {
+      var q = ts.querySelector('[data-ts-q]'), items = ts.querySelectorAll('[data-ts-k]'), msg = ts.querySelector('[data-ts-msg]'), pop = ts.querySelector('[data-ts-pop]');
+      function run() {
+        var v = q.value.trim().toLowerCase(), words = v.split(/\s+/).filter(Boolean), shown = [];
+        items.forEach(function (li) {
+          var hay = li.dataset.tsK, ok = v.length >= 2 && words.every(function (w) { return hay.indexOf(w) >= 0; });
+          li.hidden = true;
+          if (ok) shown.push({ li: li, s: li.dataset.tsT.indexOf(v) === 0 ? 0 : li.dataset.tsT.indexOf(v) >= 0 ? 1 : 2 });
+        });
+        shown.sort(function (a, b) { return a.s - b.s; }).slice(0, 5).forEach(function (x) { x.li.hidden = false; x.li.parentNode.appendChild(x.li); });
+        pop.hidden = v.length >= 2;
+        msg.textContent = v.length < 2 ? '' : shown.length ? '' : 'No key term matches that. Try another word, or browse the glossary.';
+      }
+      q.addEventListener('input', run);
+      ts.querySelectorAll('[data-ts-pick]').forEach(function (b) { b.addEventListener('click', function () { q.value = b.dataset.tsPick; run(); q.focus(); }); });
+    });
+  })();
+</script>
+<style>
+  .ts { margin: 1.5rem 0; padding: 1.25rem; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(3, 44, 71, 0.08); max-width: 760px; }
+  .ts-label { display: block; font: 800 1.25rem var(--font-display); margin-bottom: 0.6rem; }
+  .ts-box { display: flex; align-items: center; gap: 0.6rem; border: 2px solid var(--teal); border-radius: 14px; padding: 0.55rem 0.9rem; background: var(--bg); color: var(--teal); }
+  .ts-box:focus-within { box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 20%, transparent); }
+  .ts-box svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; flex: none; }
+  .ts-box input { flex: 1; min-width: 0; border: 0; background: none; font: 400 1.05rem var(--font-body); color: var(--fg); outline: none; }
+  .ts-pop { margin: 0.7rem 0 0; display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; font-size: 0.85rem; color: var(--muted); }
+  .ts-pop button { font: 700 0.82rem var(--font-body); border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 99px; padding: 0.25rem 0.7rem; cursor: pointer; }
+  .ts-pop button:hover { border-color: var(--teal); color: var(--teal); }
+  .ts-msg { margin: 0.6rem 0 0; font-size: 0.9rem; color: var(--muted); }
+  .ts-msg:empty { display: none; }
+  .ts-res { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+  .ts-res li { display: grid; gap: 0.2rem; padding: 0.75rem 0.9rem; border-radius: 12px; border-left: 5px solid var(--teal); background: var(--soft-teal); animation: ts-in 0.25s ease; }
+  .ts-res strong { font: 800 1.05rem var(--font-display); }
+  .ts-res span { font-size: 0.93rem; }
+  .ts-go { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin-top: 0.15rem; }
+  .ts-go a { font-weight: 700; }
+  .ts.compact { margin-top: 0; }
+  @keyframes ts-in { from { transform: translateY(4px); } to { transform: none; } }
+</style>

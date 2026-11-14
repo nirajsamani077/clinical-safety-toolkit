@@ -1,0 +1,65 @@
+---
+// The AI you can see, and the AI you can't. The water moves gently; everything is readable at rest.
+// On narrow screens the labels move out of the picture into a list, so they stay readable.
+const above = ['Your approved AI scribe', 'Your online triage tool'];
+const below = [
+  ['Free chatbot on a personal phone', 212],
+  ['A locum’s own AI scribe', 252],
+  ['AI added in a software update', 296],
+  ['Browser AI add-ons', 336],
+];
+---
+<figure class="ice">
+  <svg viewBox="0 0 800 380" role="img" aria-label="An iceberg: two approved AI tools above the water, and four unapproved or unnoticed uses of AI below it">
+    <defs>
+      <linearGradient id="ice-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#057092" stop-opacity="0.35" /><stop offset="1" stop-color="#032c47" stop-opacity="0.85" /></linearGradient>
+    </defs>
+    <rect class="ice-sky" x="0" y="0" width="800" height="150" />
+    <rect x="0" y="140" width="800" height="240" fill="url(#ice-sea)" />
+    <g transform="translate(80 0)">
+      <polygon class="ice-top" points="250,150 300,62 336,92 362,48 410,150" />
+      <polygon class="ice-under" points="250,150 410,150 470,230 450,330 330,372 210,320 180,220" />
+    </g>
+    <g class="ice-wave"><path d="M-40 150 q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 v8 H-40z" /></g>
+    <g class="ice-lbl">
+      <line class="ice-lead" x1="372" y1="92" x2="300" y2="56" /><text class="ice-a" x="292" y="60" text-anchor="end">{above[0]}</text>
+      <line class="ice-lead" x1="478" y1="110" x2="540" y2="74" /><text class="ice-a" x="548" y="78">{above[1]}</text>
+      <text class="ice-tag" x="24" y="132">What you can see</text>
+      <text class="ice-tag b" x="24" y="176">What you may not know about</text>
+      {below.map(([t, y], i) => (
+        <g class="ice-b" style={`--i:${i}`}><circle cx={i % 2 ? 532 : 268} cy={y - 5} r="5" /><text x={i % 2 ? 546 : 254} y={y} text-anchor={i % 2 ? 'start' : 'end'}>{t}</text></g>
+      ))}
+    </g>
+  </svg>
+  <div class="ice-list" aria-hidden="true">
+    <p><b>Above the water</b>{above.join(' · ')}</p>
+    <p><b>Below the water</b>{below.map(([t]) => t).join(' · ')}</p>
+  </div>
+  <figcaption>An AI policy brings what's under the water into view. It says which tools are approved, and makes it clear that nothing else is used for practice work.</figcaption>
+</figure>
+<style>
+  .ice { margin: 1.5rem 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(0.75rem, 2vw, 1.25rem); }
+  .ice svg { display: block; width: 100%; height: auto; border-radius: 14px; }
+  .ice-sky { fill: color-mix(in srgb, #92d050 14%, var(--surface)); }
+  .ice-top { fill: #fff; stroke: #9db4c3; stroke-width: 2; }
+  .ice-under { fill: #cfe6ef; opacity: 0.55; }
+  .ice-wave path { fill: #057092; opacity: 0.55; animation: wave 6s ease-in-out infinite alternate; }
+  @keyframes wave { from { transform: translateX(0); } to { transform: translateX(-40px); } }
+  .ice-lead { stroke: #3b7a14; stroke-width: 2; }
+  .ice-a { font: 700 16px var(--font-display); fill: #032c47; }
+  .ice-tag { font: 700 13px var(--font-body); fill: #3b7a14; text-transform: uppercase; letter-spacing: 0.06em; }
+  .ice-tag.b { fill: #e6f3f8; }
+  .ice-b circle { fill: #f0b93a; }
+  .ice-b text { font: 700 15px var(--font-body); fill: #fff; }
+  .ice-b { animation: rise 0.6s ease both; animation-delay: calc(var(--i) * 0.15s + 0.3s); }
+  @keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
+  .ice-list { display: none; }
+  .ice figcaption { margin-top: 0.75rem; color: var(--muted); font-size: 0.93rem; }
+  @media (max-width: 640px) {
+    .ice-lbl { display: none; }
+    .ice-list { display: grid; gap: 0.5rem; margin-top: 0.75rem; }
+    .ice-list p { margin: 0; padding-left: 0.75rem; border-left: 4px solid #3b7a14; }
+    .ice-list p + p { border-color: #f0b93a; }
+    .ice-list b { display: block; font-family: var(--font-display); }
+  }
+</style>
