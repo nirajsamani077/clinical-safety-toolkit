@@ -49,8 +49,8 @@ const stageCol = { Prepare: '#057092', Assess: '#920570', Approve: '#0b4a6e', Mo
         open.href = base + s + '.html';
         dl.href = dbase + s + '.' + b.dataset.ext;
         exl.href = dbase + s + '-oakfield-example.' + b.dataset.ext;
-        tv.querySelector('[data-app]').textContent = b.dataset.app;
-        tv.querySelector('[data-name]').textContent = b.dataset.title;
+        dl.querySelector('[data-app]').textContent = b.dataset.app;
+        tv.querySelector('.tv-bar [data-name]').textContent = b.dataset.title;
       });
     });
   })();

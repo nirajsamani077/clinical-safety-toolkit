@@ -261,7 +261,7 @@
     },
     {
       "slug": "clinical-risk-management-system",
-      "title": "Clinical risk management system",
+      "title": "Clinical risk management system (CRMS)",
       "formal": "Clinical Risk Management System (DCB0160)",
       "kind": "doc",
       "stage": "Prepare",
@@ -1183,7 +1183,7 @@
     },
     {
       "slug": "safety-case-report",
-      "title": "Safety case report",
+      "title": "Clinical safety case report (CSCR)",
       "formal": "Clinical Safety Case Report (DCB0160)",
       "kind": "doc",
       "stage": "Approve",
